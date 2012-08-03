@@ -25,7 +25,6 @@ gem 'rails-backbone', '~> 0.7.2'
 
 group :test do
   gem 'capybara-webkit', '~> 0.12.1'
-  gem 'database_cleaner', '~> 0.8.0'
   gem 'factory_girl_rails', '~> 3.6.0'
   gem 'guard-jasmine-headless-webkit', '~> 0.3.2'
   gem 'guard-rspec', '~> 1.2.1'
