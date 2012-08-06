@@ -16,4 +16,10 @@ describe Task do
     specify { task.should_not be_valid }
     specify { task.valid?; task.errors.full_messages.should == ['Content can\'t be blank'] }
   end
+
+  it 'persists a user' do
+    user = create :user
+    task = create :task, user: user
+    task.reload.user.should == user
+  end
 end
