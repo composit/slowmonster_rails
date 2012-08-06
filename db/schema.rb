@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120804230622) do
+ActiveRecord::Schema.define(:version => 20120806181822) do
+
+  create_table "task_joiners", :force => true do |t|
+    t.integer  "parent_task_id"
+    t.integer  "child_task_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "task_joiners", ["child_task_id"], :name => "index_task_joiners_on_child_task_id"
+  add_index "task_joiners", ["parent_task_id"], :name => "index_task_joiners_on_parent_task_id"
 
   create_table "tasks", :force => true do |t|
     t.string   "content"
