@@ -21,6 +21,12 @@ describe Task do
     task.reload.user.should == user
   end
 
+  it 'requires a user' do
+    task = build :task, user: nil
+    task.should_not be_valid
+    task.errors.full_messages.should == ['User can\'t be blank']
+  end
+
   it 'persists many child tasks' do
     task = create :task
     3.times { task.child_tasks << build( :task ) }
