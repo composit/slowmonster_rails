@@ -6,6 +6,12 @@ FactoryGirl.define do
     content 'something'
   end
 
+  factory :task_amount do
+    task
+    amount 123
+    incurred_at Time.zone.now
+  end
+
   factory :task_joiner do
     association :parent_task, factory: :task
     association :child_task, factory: :task
