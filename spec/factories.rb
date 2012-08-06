@@ -7,5 +7,6 @@ FactoryGirl.define do
 
   factory :user do
     username
+    password 'testpass'
   end
 end

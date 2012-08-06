@@ -26,10 +26,29 @@ describe User do
   end
 
   context 'password' do
-    it 'requires a password on create'
-    it 'requires a password confirmation to match the password'
-    it 'authenticates by a password'
-    it 'does not authenticate given an incorrect password'
+    it 'requires a password' do
+      user = build :user, password: nil
+      user.should_not be_valid
+      user.errors.full_messages.should == ['Password can\'t be blank']
+    end
+
+    it 'does not override the password if a blank password is passed' do
+      user = create :user, password: 'testpass'
+      user.update_attributes! password: ''
+      user.authenticate( 'testpass' ).should be_true
+    end
+
+    it 'requires a password confirmation to match the password' do
+      user = build :user, password: 'testpass', password_confirmation: 'otherpass'
+      user.should_not be_valid
+      user.errors.full_messages.should == ['Password doesn\'t match confirmation']
+    end
+
+    context 'authentication' do
+      let( :user ) { build :user, password: 'testpass' }
+      specify { user.authenticate( 'testpass' ).should be_true }
+      specify { user.authenticate( 'otherpass' ).should be_false }
+    end
   end
 
   it 'persists many tasks' do
