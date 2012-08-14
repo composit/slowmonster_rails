@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.7'
+gem 'rails', '3.2.8'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -25,7 +25,7 @@ gem 'rails-backbone', '~> 0.7.2'
 
 group :test do
   gem 'capybara-webkit', '~> 0.12.1'
-  gem 'factory_girl_rails', '~> 3.6.0'
+  gem 'factory_girl_rails', '~> 4.0.0'
   gem 'guard-jasmine-headless-webkit', '~> 0.3.2'
   gem 'guard-rspec', '~> 1.2.1'
   gem 'guard-spork', '~> 1.1.0'
@@ -34,7 +34,7 @@ group :test do
 end
 
 group :development, :test do
-  gem 'pry-rails', '~> 0.1.6'
+  gem 'pry-rails', '~> 0.2.1'
 end
 
 # To use ActiveModel has_secure_password
