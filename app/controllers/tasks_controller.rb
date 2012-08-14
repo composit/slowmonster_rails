@@ -1,7 +1,4 @@
 class TasksController < ApplicationController
+  load_and_authorize_resource
   respond_to :json
-
-  def index
-    @tasks = current_user.tasks
-  end
 end
