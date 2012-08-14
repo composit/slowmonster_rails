@@ -2,7 +2,15 @@ require 'spec_helper'
 
 describe TasksController do
   context 'not logged in' do
-    it 'displays an alert'
+    it 'redirects to the new user session url' do
+      get :index
+      response.should redirect_to new_user_session_url
+    end
+
+    it 'displays an alert' do
+      get :index
+      flash[:alert].should == 'Please sign in'
+    end
   end
 
   context 'logged in' do
