@@ -1,4 +1,6 @@
 Slowmonster::Application.routes.draw do
+  resources :tasks, only: :index
+  root to: 'tasks#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
