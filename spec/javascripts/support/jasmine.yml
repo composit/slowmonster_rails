@@ -60,7 +60,6 @@ spec_files:
 # 
 src_dir:
   - app/assets/javascripts
-  - app/assets/templates
 # spec_dir 
 # 
 # Spec directory path. Your spec_files must be returned relative to this path. 
@@ -86,5 +85,5 @@ spec_dir: spec/javascripts
 #   - spec/javascripts 
 asset_pipeline_paths: 
   - app/assets
-#  - spec/javascripts 
+  - spec/javascripts 
 runner_output: "runner.html"
