@@ -2,6 +2,7 @@ class Slowmonster.Routers.UserSessionsRouter extends Backbone.Router
   initialize: (options) ->
 
   routes:
+    "" : "newUserSession"
     "login" : "newUserSession"
 
   newUserSession: ->

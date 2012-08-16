@@ -5,3 +5,4 @@ class Slowmonster.Models.UserSession extends Backbone.Model
   defaults:
     username: null
     password: null
+    errors: []

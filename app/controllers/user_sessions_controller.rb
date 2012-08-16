@@ -11,7 +11,7 @@ class UserSessionsController < ApplicationController
       session[:user_id] = @user.id
       respond_with @user, location: root_url
     else
-      respond_with User.new, status: :unprocessable_entity, location: root_url
+      respond_with ["invalid username or password"], status: :unprocessable_entity, location: root_url
     end
   end
 

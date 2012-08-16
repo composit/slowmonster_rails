@@ -47,7 +47,16 @@ describe 'user session new view', ->
         expect( window.location.hash ).toEqual '#/tasks'
 
     describe 'error', ->
-      xit 'displays the error', ->
+      it 'sets the error', ->
+        setSpy = sinon.spy @view.model, 'set'
         @server.respondWith "POST", "/user_sessions", [406, { "Content-Type": "application/json" }, '{"errors":{"username":["can\'t be blank"]}}']
         @$el.find( 'form' ).submit()
         @server.respond()
+        expect( setSpy ).toHaveBeenCalledWith( errors: {'errors':{'username':['can\'t be blank']}} )
+
+      it 're-renders the view', ->
+        renderSpy = sinon.spy @view, 'render'
+        @server.respondWith "POST", "/user_sessions", [406, { "Content-Type": "application/json" }, '{"errors":{"username":["can\'t be blank"]}}']
+        @$el.find( 'form' ).submit()
+        @server.respond()
+        expect( renderSpy ).toHaveBeenCalled()

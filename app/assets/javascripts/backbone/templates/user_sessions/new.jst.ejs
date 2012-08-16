@@ -1,5 +1,9 @@
 <h1>Log in</h1>
 
+<% if( typeof( errors ) != undefined) { %>
+  <%= errors %>
+<% } %>
+
 <form id='new-user-session' name='user-session'>
   <div class='field'>
     </label for='username'> username:</label>
@@ -8,7 +12,7 @@
 
   <div class='field'>
     </label for='password'> password:</label>
-    <input type='text' name='password' id='password' value='<%= password %>' >
+    <input type='password' name='password' id='password' value='<%= password %>' >
   </div>
 
   <div class='actions'>

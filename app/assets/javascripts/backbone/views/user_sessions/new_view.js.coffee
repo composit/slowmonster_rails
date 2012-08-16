@@ -10,18 +10,21 @@ class Slowmonster.Views.UserSessions.NewView extends Backbone.View
     super(options)
     @model = new Slowmonster.Models.UserSession()
 
+    @model.bind 'change:errors', =>
+      @render()
+
   save: (e) ->
     e.preventDefault()
     e.stopPropagation()
 
-    @model.unset( 'errors' )
+    @model.set( 'errors', [] )
 
     @model.save @model.toJSON(),
       success: ( userSession ) =>
-        window.location.hash = "/tasks"
+        window.location = "/"
 
       error: ( userSession, jqXHR ) =>
-        console.log jqXHR
+        @model.set({errors: $.parseJSON(jqXHR.responseText)})
 
   render: ->
     $( @el ).html( @template( @model.toJSON() ) )
