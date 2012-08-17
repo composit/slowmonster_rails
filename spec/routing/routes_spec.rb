@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Routes' do
   specify { { get: 'tasks' }.should route_to controller: 'tasks', action: 'index' }
   specify { { get: 'tasks/1' }.should_not be_routable }
-  specify { { post: 'tasks' }.should_not be_routable }
+  specify { { post: 'tasks' }.should route_to controller: 'tasks', action: 'create' }
   specify { { put: 'tasks/1' }.should_not be_routable }
   specify { { delete: 'tasks/1' }.should_not be_routable }
 

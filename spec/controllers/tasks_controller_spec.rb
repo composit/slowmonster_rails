@@ -14,7 +14,7 @@ describe TasksController do
   end
 
   context 'logged in' do
-    let( :current_user ) { double }
+    let( :current_user ) { mock_model User }
     let( :current_ability ) { double }
 
     before :each do
@@ -30,6 +30,19 @@ describe TasksController do
         Task.stub( :accessible_by ).with( current_ability, :index ) { tasks_stub }
         get :index
         assigns[:tasks].should == tasks_stub
+      end
+    end
+
+    context 'POST create' do
+      it 'sets the user' do
+        post :create, 'task' => { 'content' => 'test content' }
+        assigns[:task].reload.user_id.should == current_user.id
+      end
+      
+      it 'creates a new task' do
+        -> {
+          post :create, 'task' => { 'content' => 'test content' }
+        }.should change( Task, 'count' ).from( 0 ).to 1
       end
     end
   end

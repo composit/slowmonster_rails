@@ -3,7 +3,7 @@ require 'task_association_validator'
 class Task < ActiveRecord::Base
   attr_accessible :content
   validates :content, presence: true
-  validates :user, presence: true
+  validates :user_id, presence: true
   validates_with TaskAssociationValidator
   
   belongs_to :user
