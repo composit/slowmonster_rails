@@ -21,10 +21,10 @@ class Slowmonster.Views.UserSessions.NewView extends Backbone.View
 
     @model.save @model.toJSON(),
       success: ( userSession ) =>
-        window.location = "/"
+        window.location.href = "/"
 
       error: ( userSession, jqXHR ) =>
-        @model.set({errors: $.parseJSON(jqXHR.responseText)})
+        @model.set errors: $.parseJSON jqXHR.responseText
 
   render: ->
     $( @el ).html( @template( @model.toJSON() ) )

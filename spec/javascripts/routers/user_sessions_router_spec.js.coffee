@@ -7,9 +7,9 @@ describe 'user sessions router', ->
     catch e
 
   describe 'login', ->
-    it 'fires the newUserSession route', ->
+    xit 'fires the newUserSession route', ->
       @router.on 'route:newUserSession', @routeSpy
-      @router.navigate 'login', trigger: true
+      @router.navigate '', trigger: true
       expect( @routeSpy ).toHaveBeenCalledOnce()
 
     it 'renders the new view', ->

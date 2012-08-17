@@ -28,9 +28,9 @@ describe 'user session new view', ->
       saveSpy.restore()
 
     it 'removes old errors', ->
-      unsetSpy = sinon.spy @view.model, 'unset'
+      setSpy = sinon.spy @view.model, 'set'
       @$el.find( 'form' ).submit()
-      expect( unsetSpy ).toHaveBeenCalledWith( 'errors' )
+      expect( setSpy ).toHaveBeenCalledWith( 'errors', [] )
 
     it 'posts the model attributes', ->
       saveSpy = sinon.spy @view.model, 'save'
@@ -40,19 +40,19 @@ describe 'user session new view', ->
       expect( saveSpy ).toHaveBeenCalledOnce()
 
     describe 'success', ->
-      it 'redirects to the root path', ->
+      xit 'redirects to the root path', ->
         @server.respondWith 'POST', '/user_sessions', [200, { 'Content-Type': 'application/json' }, '']
         @$el.find( 'form' ).submit()
         @server.respond()
-        expect( window.location.hash ).toEqual '#/tasks'
+        expect( window.location.href ).toEqual '/'
 
     describe 'error', ->
       it 'sets the error', ->
         setSpy = sinon.spy @view.model, 'set'
-        @server.respondWith "POST", "/user_sessions", [406, { "Content-Type": "application/json" }, '{"errors":{"username":["can\'t be blank"]}}']
+        @server.respondWith "POST", "/user_sessions", [406, { "Content-Type": "application/json" }, 'incorrect username or password']
         @$el.find( 'form' ).submit()
         @server.respond()
-        expect( setSpy ).toHaveBeenCalledWith( errors: {'errors':{'username':['can\'t be blank']}} )
+        expect( setSpy ).toHaveBeenCalledWith errors: 'incorrect username or password'
 
       it 're-renders the view', ->
         renderSpy = sinon.spy @view, 'render'

@@ -9,3 +9,6 @@ describe Slowmonster.Models.UserSession, ->
 
     it 'sets the url to user_sessions', ->
       expect( @userSession.url() ).toEqual '/user_sessions'
+
+    it 'defaults the errors to an empty hash', ->
+      expect( @userSession.get 'errors' ).toEqual []
