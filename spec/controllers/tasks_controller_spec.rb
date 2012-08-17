@@ -44,6 +44,27 @@ describe TasksController do
           post :create, 'task' => { 'content' => 'test content' }
         }.should change( Task, 'count' ).from( 0 ).to 1
       end
+
+      it 'sets the attributes of the new task' do
+        post :create, 'task' => { 'content' => 'test content' }
+        assigns[:task].reload.content.should == 'test content'
+      end
+    end
+
+    context 'PUT update' do
+      it 'updates the task' do
+        task = create :task
+        put :update, id: task.id, 'task' => { 'content' => 'new content' }
+        task.reload.content.should == 'new content'
+      end
+    end
+
+    context 'DELETE destroy' do
+      it 'deletes the task' do
+        task = create :task
+        delete :destroy, id: task.id
+        Task.find_by_id( task.id ).should be_nil
+      end
     end
   end
 end

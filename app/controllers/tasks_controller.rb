@@ -4,8 +4,18 @@ class TasksController < ApplicationController
   respond_to :json
 
   def create
-    @task.user_id = current_user.id
+    @task.user = current_user
     @task.save
     respond_with @task
+  end
+
+  def update
+    @task.update_attributes params[:task]
+    respond_with @task
+  end
+
+  def destroy
+    @task.destroy
+    respond_with :success
   end
 end
