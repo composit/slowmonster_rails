@@ -1,5 +1,12 @@
 Slowmonster::Application.routes.draw do
-  resources :tasks, only: [:index, :create, :show, :update, :destroy]
+  resources :tasks, only: [:index, :create, :show, :update, :destroy] do
+    collection do
+      put 'reprioritize'
+    end
+    member do
+      put 'start'
+    end
+  end
   resources :user_sessions, only: [:new, :create, :destroy]
   root to: 'tasks#index'
   # The priority is based upon order of creation:

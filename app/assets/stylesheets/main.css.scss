@@ -1,0 +1,55 @@
+body {
+  font-family: $helvetica;
+  font-size: 20px;
+  background-color: #ddd;
+}
+
+#tasks {
+}
+
+.task {
+  padding: 20px;
+  margin: 10px;
+  @include clearfix;
+  width: 900px;
+  @include border-radius( 5px );
+  @include box-shadow(2px 2px 2px hsla(0, 0%, 0%, 0.45));
+  @include radial-gradient(#fff, #ddd);
+  border: 1px solid #fff;
+
+  div {
+  }
+
+  .content {
+    float: left;
+    width: 840px;
+    text-align: justify;
+    text-shadow: 0px 1px 1px #fff;
+  }
+
+  .actions {
+    float: right;
+    height: 100%;
+
+    img {
+      width: 20px;
+    }
+  }
+}
+
+#new-task {
+  a, input[type=submit] {
+    @include button;
+  }
+
+  input[type=text] {
+    width: 98%;
+    height: 2em;
+    font-size: 20px;
+    margin: 10px 0;
+    padding: 0 5px;
+    color: #eb7f26;
+    @include border-radius( 5px );
+    @include linear-gradient(#eee, #fff);
+  }
+}

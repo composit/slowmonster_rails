@@ -51,6 +51,18 @@ describe Task do
     task.reload.task_amounts.length.should == 3
   end
 
+  it 'persists a priority' do
+    task = create :task, priority: 123
+    task.reload.priority.should == 123
+  end
+
+  it 'sorts by priority' do
+    task_2 = create :task, priority: 2
+    task_1 = create :task, priority: 1
+    task_3 = create :task, priority: 3
+    Task.prioritized.should == [task_1, task_2, task_3]
+  end
+
   context 'with ancestors' do
     let( :task ) { create :task, parent_tasks: [parent_task] }
     let( :parent_task ) { create :task, parent_tasks: [grandparent_task] }

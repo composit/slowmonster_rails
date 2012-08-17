@@ -25,11 +25,20 @@ describe TasksController do
     end
 
     context 'GET index' do
-      it 'returns all tasks accessible by the current user' do
-        tasks_stub = double
+      let( :tasks_stub ) { double.as_null_object }
+
+      before :each do
         Task.stub( :accessible_by ).with( current_ability, :index ) { tasks_stub }
+      end
+
+      it 'returns all tasks accessible by the current user' do
         get :index
         assigns[:tasks].should == tasks_stub
+      end
+
+      it 'prioritizes the tasks' do
+        tasks_stub.should_receive( :prioritized )
+        get :index
       end
     end
 
@@ -64,6 +73,41 @@ describe TasksController do
         task = create :task
         delete :destroy, id: task.id
         Task.find_by_id( task.id ).should be_nil
+      end
+    end
+
+    context 'PUT reprioritize' do
+      it 'updates the task priorities' do
+        task_1 = create :task, id: 1
+        task_2 = create :task, id: 2
+        task_3 = create :task, id: 3
+        put :reprioritize, 'tasks' => ['2','3','1']
+        [task_1, task_2, task_3].collect { |task| task.reload.priority }.should == [2,0,1]
+      end
+
+      it 'does not prioritize tasks that the current user does not have access to' do
+        task = create :task, id: 1
+        current_ability.cannot :manage, task
+        -> {
+          put :reprioritize, 'tasks' => ['1']
+        }.should raise_error CanCan::AccessDenied
+      end
+    end
+
+    context 'start' do
+      it 'starts the task' do
+        task_stub = mock_model Task
+        Task.stub( :find ).with( task_stub.id.to_s ) { task_stub }
+        task_stub.should_receive( :start )
+        put :start, id: task_stub.id
+      end
+
+      it 'does not allow a user to start a task they do not have access to' do
+        task = create :task
+        current_ability.cannot :manage, task
+        -> {
+          put :start, id: task.id
+        }.should raise_error CanCan::AccessDenied
       end
     end
   end

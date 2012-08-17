@@ -8,13 +8,22 @@ class Slowmonster.Views.Tasks.IndexView extends Backbone.View
 
   addAll: () =>
     @options.tasks.each(@addOne)
+    @$( '#tasks' ).sortable
+      axis: 'y'
+      update: =>
+        @reprioritize()
 
   addOne: (task) =>
     view = new Slowmonster.Views.Tasks.TaskView({model : task})
-    @$("tbody").append(view.render().el)
+    @$("#tasks").append(view.render().el)
 
   render: =>
     $(@el).html(@template(tasks: @options.tasks.toJSON() ))
     @addAll()
-
     return this
+
+  reprioritize: ->
+    $.ajax
+      url: '/tasks/reprioritize'
+      data: @$( '#tasks' ).sortable 'serialize'
+      type: 'PUT'

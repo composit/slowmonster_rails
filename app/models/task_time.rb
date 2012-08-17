@@ -4,4 +4,6 @@ class TaskTime < ActiveRecord::Base
 
   validates :task, presence: true
   validates :started_at, presence: true
+
+  scope :current, where( ended_at: nil )
 end

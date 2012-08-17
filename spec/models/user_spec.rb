@@ -56,4 +56,13 @@ describe User do
     3.times { user.tasks << build( :task ) }
     user.reload.tasks.length.should == 3
   end
+
+  it 'returns the current task time' do
+    user = create :user
+    task = create :task, user: user
+    time_1 = create :task_time, task: task, started_at: 1.day.ago, ended_at: 12.hours.ago
+    time_2 = create :task_time, task: task, started_at: 1.day.ago, ended_at: nil
+    time_3 = create :task_time, task: task, started_at: 2.days.ago, ended_at: 1.day.ago
+    user.reload.current_task_time.should == time_2
+  end
 end

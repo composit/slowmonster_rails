@@ -6,6 +6,8 @@ describe 'Routes' do
   specify { { post: 'tasks' }.should route_to controller: 'tasks', action: 'create' }
   specify { { put: 'tasks/1' }.should route_to controller: 'tasks', action: 'update', id: '1' }
   specify { { delete: 'tasks/1' }.should route_to controller: 'tasks', action: 'destroy', id: '1' }
+  specify { { put: 'tasks/reprioritize' }.should route_to controller: 'tasks', action: 'reprioritize' }
+  specify { { put: 'tasks/1/start' }.should route_to controller: 'tasks', action: 'start', id: '1' }
 
   specify { { get: 'user_sessions' }.should_not be_routable }
   specify { { get: 'user_sessions/1' }.should_not be_routable }

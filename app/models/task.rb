@@ -14,6 +14,8 @@ class Task < ActiveRecord::Base
   has_many :task_times
   has_many :task_amounts
 
+  scope :prioritized, order: :priority
+
   def ancestor_task_ids
     parent_tasks.inject( parent_task_ids ) do |ids, parent_task|
       ids += parent_task.ancestor_task_ids

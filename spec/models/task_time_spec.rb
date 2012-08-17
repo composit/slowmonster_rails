@@ -14,4 +14,12 @@ describe TaskTime do
     task_time.should_not be_valid
     task_time.errors.full_messages.should == ['Started at can\'t be blank']
   end
+
+  it 'returns current task times' do
+    time_1 = create :task_time, ended_at: 1.day.ago
+    time_2 = create :task_time, ended_at: nil
+    time_3 = create :task_time, ended_at: 2.days.ago
+    time_4 = create :task_time, ended_at: nil
+    TaskTime.current.should == [time_2, time_4]
+  end
 end

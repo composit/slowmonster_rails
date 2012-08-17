@@ -1,5 +1,6 @@
-<td><%= content %></td>
+<div class='content'><%= content %></div>
 
-<td><a href="#/<%= id %>">Show</td>
-<td><a href="#/<%= id %>/edit">Edit</td>
-<td><a href="#/<%= id %>/destroy" class="destroy">Destroy</a></td>
+<div class='actions'>
+  <img class='starter' src='/assets/time.png' title='start this task' />
+  <a href="#/<%= id %>/destroy" class="destroy"><img src='/assets/delete.png' title='delete this task' /></a>
+</div>

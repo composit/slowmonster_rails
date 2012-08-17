@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120806231201) do
+ActiveRecord::Schema.define(:version => 20120817195641) do
 
   create_table "task_amounts", :force => true do |t|
     t.decimal  "amount"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20120806231201) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "user_id"
+    t.integer  "priority"
   end
 
   add_index "tasks", ["user_id"], :name => "index_tasks_on_user_id"
