@@ -49,10 +49,10 @@ describe 'user session new view', ->
     describe 'error', ->
       it 'sets the error', ->
         setSpy = sinon.spy @view.model, 'set'
-        @server.respondWith "POST", "/user_sessions", [406, { "Content-Type": "application/json" }, 'incorrect username or password']
+        @server.respondWith "POST", "/user_sessions", [406, { "Content-Type": "application/json" }, '["invalid username or password"]']
         @$el.find( 'form' ).submit()
         @server.respond()
-        expect( setSpy ).toHaveBeenCalledWith errors: 'incorrect username or password'
+        expect( setSpy ).toHaveBeenCalledWith errors: ['invalid username or password']
 
       it 're-renders the view', ->
         renderSpy = sinon.spy @view, 'render'
