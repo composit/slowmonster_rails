@@ -8,7 +8,7 @@ class Slowmonster.Routers.TasksRouter extends Backbone.Router
     "index"    : "index"
     ":id/edit" : "edit"
     ":id"      : "show"
-    ".*"        : "index"
+    ".*"       : "index"
 
   newTask: ->
     @view = new Slowmonster.Views.Tasks.NewView(collection: @tasks)

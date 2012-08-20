@@ -8,6 +8,11 @@ Slowmonster::Application.routes.draw do
     end
   end
   resources :user_sessions, only: [:new, :create, :destroy]
+  resources :users, only: [:show] do
+    collection do
+      get 'current_task'
+    end
+  end
   root to: 'tasks#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.

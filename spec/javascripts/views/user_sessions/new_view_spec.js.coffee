@@ -2,8 +2,6 @@ describe 'user session new view', ->
   beforeEach ->
     @view = new Slowmonster.Views.UserSessions.NewView
 
-  afterEach ->
-
   describe 'instantiation', ->
     it 'builds a new user session object', ->
       expect( @view.model ).toBeDefined()
@@ -31,13 +29,15 @@ describe 'user session new view', ->
       setSpy = sinon.spy @view.model, 'set'
       @$el.find( 'form' ).submit()
       expect( setSpy ).toHaveBeenCalledWith( 'errors', [] )
+      setSpy.restore()
 
     it 'posts the model attributes', ->
       saveSpy = sinon.spy @view.model, 'save'
-      @server.respondWith 'POST', '/user_sessions', [200, { 'Content-Type': 'application/json' }, '']
+      @server.respondWith 'POST', 'user_sessions', [200, { 'Content-Type': 'application/json' }, '']
       @$el.find( 'form' ).submit()
       @server.respond()
       expect( saveSpy ).toHaveBeenCalledOnce()
+      saveSpy.restore()
 
     describe 'success', ->
       xit 'redirects to the root path', ->
@@ -53,6 +53,7 @@ describe 'user session new view', ->
         @$el.find( 'form' ).submit()
         @server.respond()
         expect( setSpy ).toHaveBeenCalledWith errors: ['invalid username or password']
+        setSpy.restore()
 
       it 're-renders the view', ->
         renderSpy = sinon.spy @view, 'render'
@@ -60,3 +61,4 @@ describe 'user session new view', ->
         @$el.find( 'form' ).submit()
         @server.respond()
         expect( renderSpy ).toHaveBeenCalled()
+        renderSpy.restore()

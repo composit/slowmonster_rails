@@ -11,12 +11,12 @@ class TasksController < ApplicationController
 
   def create
     @task.user = current_user
-    @task.save
+    @task.save!
     respond_with @task
   end
 
   def update
-    @task.update_attributes params[:task]
+    @task.update_attributes! params[:task]
     respond_with @task
   end
 

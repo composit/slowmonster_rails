@@ -14,4 +14,11 @@ describe 'Routes' do
   specify { { post: 'user_sessions' }.should route_to controller: 'user_sessions', action: 'create' }
   specify { { put: 'user_sessions/1' }.should_not be_routable }
   specify { { delete: 'user_sessions/1' }.should route_to controller: 'user_sessions', action: 'destroy', id: '1' }
+
+  specify { { get: 'users' }.should_not be_routable }
+  specify { { get: 'users/1' }.should route_to controller: 'users', action: 'show', id: '1' }
+  specify { { post: 'users' }.should_not be_routable }
+  specify { { put: 'users/1' }.should_not be_routable }
+  specify { { delete: 'users/1' }.should_not be_routable }
+  specify { { get: 'users/current_task' }.should route_to controller: 'users', action: 'current_task' }
 end

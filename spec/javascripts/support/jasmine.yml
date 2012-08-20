@@ -24,7 +24,7 @@ src_files:
 #   - stylesheets/*.css 
 # 
 stylesheets: 
-  - stylesheets/**/*.css 
+  - ../stylesheets/**/*.css 
 # helpers 
 # 
 # Return an array of filepaths relative to spec_dir to include before jasmine specs. 

@@ -16,6 +16,7 @@ describe 'tasks router', ->
       @router.on 'route:newTask', @routeSpy
       @router.navigate 'new', trigger: true
       expect( @routeSpy ).toHaveBeenCalled()
+
     it 'renders the new view with the collection', ->
       newTaskViewStub = sinon.stub( Slowmonster.Views.Tasks, 'NewView' ).returns new Backbone.View()
       @router.newTask()
@@ -56,3 +57,4 @@ describe 'tasks router', ->
       editTaskViewStub = sinon.stub( Slowmonster.Views.Tasks, 'EditView' ).returns new Backbone.View()
       @router.edit '123'
       expect( editTaskViewStub ).toHaveBeenCalledWith model: @task
+      editTaskViewStub.restore()
