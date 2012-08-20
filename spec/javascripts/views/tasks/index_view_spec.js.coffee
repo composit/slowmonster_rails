@@ -10,6 +10,13 @@ describe 'task index view', ->
     @tasks.trigger 'reset'
     expect( addAllSpy ).toHaveBeenCalled()
     addAllSpy.restore()
+
+  it 'calls updateCurrent when the current ticket time changes', ->
+    updateSpy = sinon.spy Slowmonster.Views.Tasks.IndexView.prototype, 'updateCurrent'
+    view = new Slowmonster.Views.Tasks.IndexView tasks: @tasks
+    @tasks.trigger 'currentTicketTime:change'
+    expect( updateSpy ).toHaveBeenCalled()
+    updateSpy.restore()
   
   describe 'addAll', ->
     it 'calls addOne for each task', ->
@@ -58,7 +65,7 @@ describe 'task index view', ->
   describe 'updateCurrent', ->
     beforeEach ->
       @server = sinon.fakeServer.create()
-      @server.respondWith 'GET', '/users/current_task', [200, { 'Content-Type': 'application/json' }, '{"task_name": "Test Task"}']
+      @server.respondWith 'GET', '/users/current_task_time', [200, { 'Content-Type': 'application/json' }, '{"task_name": "Test Task"}']
       @taskTimeStub = sinon.stub( Slowmonster.Models, 'TaskTime' ).returns new Backbone.Model()
 
     afterEach ->

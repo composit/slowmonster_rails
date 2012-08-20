@@ -6,4 +6,12 @@ class TaskTime < ActiveRecord::Base
   validates :started_at, presence: true
 
   scope :current, where( ended_at: nil )
+
+  def as_json( options={} )
+    super options.merge( methods: :task_content )
+  end
+
+  def task_content
+    task.try :content
+  end
 end

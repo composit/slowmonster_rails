@@ -10,7 +10,7 @@ Slowmonster::Application.routes.draw do
   resources :user_sessions, only: [:new, :create, :destroy]
   resources :users, only: [:show] do
     collection do
-      get 'current_task'
+      get 'current_task_time'
     end
   end
   root to: 'tasks#index'

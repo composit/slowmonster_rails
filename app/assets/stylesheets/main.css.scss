@@ -54,3 +54,13 @@ body {
     @include linear-gradient(#eee, #fff);
   }
 }
+
+#current-task-time {
+  @include radial-gradient(#dfd, #bdb);
+  border: 1px solid #dfd;
+
+  .content {
+    color: #383;
+    font-weight: bold;
+  }
+}

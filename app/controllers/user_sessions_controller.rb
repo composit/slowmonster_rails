@@ -6,6 +6,7 @@ class UserSessionsController < ApplicationController
   end
 
   def create
+    #TODO location should not be needed in the response
     @user = User.where( username: params[:user_session][:username] ).first
     if @user && @user.authenticate( params[:user_session][:password] )
       session[:user_id] = @user.id

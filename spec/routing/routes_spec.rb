@@ -20,5 +20,5 @@ describe 'Routes' do
   specify { { post: 'users' }.should_not be_routable }
   specify { { put: 'users/1' }.should_not be_routable }
   specify { { delete: 'users/1' }.should_not be_routable }
-  specify { { get: 'users/current_task' }.should route_to controller: 'users', action: 'current_task' }
+  specify { { get: 'users/current_task_time' }.should route_to controller: 'users', action: 'current_task_time' }
 end

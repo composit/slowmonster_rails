@@ -9,8 +9,9 @@ class Slowmonster.Views.Tasks.TaskView extends Backbone.View
     'click .starter' : 'start'
 
   destroy: () ->
-    @model.destroy()
-    this.remove()
+    if confirm 'are you sure you want to delete this task?'
+      @model.destroy()
+      this.remove()
 
     return false
 
@@ -23,3 +24,5 @@ class Slowmonster.Views.Tasks.TaskView extends Backbone.View
     $.ajax
       url: "/tasks/#{@model.id}/start"
       type: 'PUT'
+    .done =>
+      @model.collection.trigger 'currentTicketTime:change'

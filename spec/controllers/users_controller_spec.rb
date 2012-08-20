@@ -3,12 +3,12 @@ require 'spec_helper'
 describe UsersController do
   context 'not logged in' do
     it 'redirects to the new user session url' do
-      get :current_task
+      get :current_task_time
       response.should redirect_to new_user_session_url
     end
 
     it 'displays an alert' do
-      get :current_task
+      get :current_task_time
       flash[:alert].should == 'Please sign in'
     end
   end
@@ -26,10 +26,10 @@ describe UsersController do
 
     context 'GET current_task' do
       it 'returns the current_task' do
-        current_task = double
-        current_user.stub( :current_task_time ) { double( task: current_task ) }
-        get :current_task
-        assigns[:current_task].should == current_task
+        current_task_time = double
+        current_user.stub( :current_task_time ) { current_task_time }
+        get :current_task_time
+        assigns[:current_task_time].should == current_task_time
       end
     end
   end
