@@ -5,7 +5,6 @@ gem 'rails', '3.2.8'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3', '~> 1.3.6'
 gem 'pg', '~> 0.14.0'
 
 # Gems used only for assets and not required
@@ -38,6 +37,7 @@ group :test do
 end
 
 group :development, :test do
+  gem 'sqlite3', '~> 1.3.6'
   gem 'pry-rails', '~> 0.2.1'
 end
 
