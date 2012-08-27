@@ -87,10 +87,10 @@ GEM
       rainbow
       sprockets (~> 2)
     journey (1.0.4)
-    jquery-rails (2.0.3)
+    jquery-rails (2.1.1)
       railties (>= 3.1.0, < 5.0)
       thor (~> 0.14)
-    jquery-ui-rails (1.1.1)
+    jquery-ui-rails (2.0.0)
       jquery-rails
       railties (>= 3.1.0)
     json (1.7.5)
@@ -208,8 +208,8 @@ DEPENDENCIES
   guard-jasmine-headless-webkit (~> 0.3.2)
   guard-rspec (~> 1.2.1)
   guard-spork (~> 1.1.0)
-  jquery-rails (~> 2.0.2)
-  jquery-ui-rails (~> 1.1.1)
+  jquery-rails (~> 2.1.1)
+  jquery-ui-rails (~> 2.0.0)
   launchy (~> 2.1.1)
   pry-rails (~> 0.2.1)
   rails (= 3.2.8)
