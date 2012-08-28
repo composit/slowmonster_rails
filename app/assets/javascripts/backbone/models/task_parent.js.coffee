@@ -3,8 +3,12 @@ class Slowmonster.Models.TaskParent extends Backbone.Model
 
   initialize: ( options ) ->
     super options
-    if options && options.parent_task_id
-      @set 'parentTask', Slowmonster.tasks.get options.parent_task_id
+    Slowmonster.tasks.on 'reset', @loadParent
+    @loadParent()
+
+  loadParent: =>
+    if @get 'parent_task_id'
+      @set 'parentTask', Slowmonster.tasks.get @get 'parent_task_id'
 
 class Slowmonster.Collections.TaskParentsCollection extends Backbone.Collection
   model: Slowmonster.Models.TaskParent

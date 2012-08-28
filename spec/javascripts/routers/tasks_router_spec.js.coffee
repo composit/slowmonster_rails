@@ -11,9 +11,6 @@ describe 'tasks router', ->
     it 'initializes the global tasks collection', ->
       expect( Slowmonster.tasks.models ).toEqual [@task]
 
-    it 'initializes a task collection', ->
-      expect( @router.tasks.models ).toEqual [@task]
-
   describe 'new', ->
     it 'fires the newTask route', ->
       @router.on 'route:newTask', @routeSpy
@@ -23,7 +20,7 @@ describe 'tasks router', ->
     it 'renders the new view with the collection', ->
       newTaskViewStub = sinon.stub( Slowmonster.Views.Tasks, 'NewView' ).returns new Backbone.View()
       @router.newTask()
-      expect( newTaskViewStub ).toHaveBeenCalledWith collection: @router.tasks
+      expect( newTaskViewStub ).toHaveBeenCalledWith collection: Slowmonster.tasks
       newTaskViewStub.restore()
 
   describe 'index', ->
@@ -35,7 +32,7 @@ describe 'tasks router', ->
     it 'renders the index view with the collection', ->
       taskIndexViewStub = sinon.stub( Slowmonster.Views.Tasks, 'IndexView' ).returns new Backbone.View()
       @router.index()
-      expect( taskIndexViewStub ).toHaveBeenCalledWith tasks: @router.tasks
+      expect( taskIndexViewStub ).toHaveBeenCalledWith tasks: Slowmonster.tasks
       taskIndexViewStub.restore()
 
   describe 'show', ->

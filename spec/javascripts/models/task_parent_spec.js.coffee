@@ -1,17 +1,17 @@
 describe Slowmonster.Models.TaskParent, ->
   describe 'instantiation', ->
     beforeEach ->
-      @taskParent = new Slowmonster.Models.TaskParent
+      @parentTask = new Slowmonster.Models.Task id: 123
+      Slowmonster.tasks = new Slowmonster.Collections.TasksCollection [@parentTask]
+      @parentTask.collection = Slowmonster.tasks
+      @taskParent = new Slowmonster.Models.TaskParent parent_task_id: @parentTask.id
 
     it 'exhibits attributes', ->
       @taskParent.set multiplier: '123'
       expect( @taskParent.get 'multiplier' ).toEqual '123'
 
     it 'attaches the the parent task', ->
-      parentTask = new Slowmonster.Models.Task id: 123
-      Slowmonster.tasks = new Slowmonster.Collections.TasksCollection [parentTask]
-      taskParent = new Slowmonster.Models.TaskParent parent_task_id: parentTask.id
-      expect( taskParent.get( 'parentTask' ) ).toEqual parentTask
+      expect( @taskParent.get( 'parentTask' ) ).toEqual @parentTask
 
 describe Slowmonster.Collections.TaskParentsCollection, ->
   beforeEach ->
