@@ -13,6 +13,7 @@ describe 'task edit view', ->
       expect( $( @view.render().el ) ).toContain( 'form#edit-task' )
 
     it 'lists the parents', ->
+      Slowmonster.tasks = new Slowmonster.Collections.TasksCollection []
       taskParents = new Slowmonster.Collections.TaskParentsCollection [{ id: '123' }, { id: '456' }]
       @task.set 'taskParents', taskParents
       parentsViewStub = sinon.stub( Slowmonster.Views.TaskParents, 'IndexView' ).returns new Backbone.View()
