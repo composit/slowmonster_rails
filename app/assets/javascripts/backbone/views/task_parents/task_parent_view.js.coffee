@@ -5,4 +5,6 @@ class Slowmonster.Views.TaskParents.TaskParentView extends Backbone.View
 
   render: ->
     $( @el ).html @template @model.toJSON()
+    if @model.get 'parentTask'
+      $( @el ).find( '.content' ).html @model.get( 'parentTask' ).get 'content'
     return this
