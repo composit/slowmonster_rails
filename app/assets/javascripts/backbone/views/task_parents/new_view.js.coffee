@@ -1,17 +1,17 @@
-Slowmonster.Views.Tasks ||= {}
+Slowmonster.Views.TaskParents ||= {}
 
-class Slowmonster.Views.Tasks.NewView extends Backbone.View
-  template: JST["backbone/templates/tasks/new"]
+class Slowmonster.Views.TaskParents.NewView extends Backbone.View
+  template: JST['backbone/templates/task_parents/new']
 
   events:
-    "submit #new-task": "save"
+    'submit #new-task-parent': 'save'
 
   initialize: ( options ) ->
     super options
     @model = new @collection.model()
 
     @model.bind 'change:errors', =>
-      this.render()
+      @render()
 
   save: ( e ) ->
     e.preventDefault()
@@ -20,11 +20,11 @@ class Slowmonster.Views.Tasks.NewView extends Backbone.View
     @model.unset 'errors'
 
     @collection.create @model.toJSON(),
-      success: ( task ) =>
-        @model = task
-        window.location.hash = ''
+      success: ( taskParent ) =>
+        @model = taskParent
+        alert 'good job'
 
-      error: ( task, jqXHR ) =>
+      error: ( taskParent, jqXHR ) =>
         @model.set errors: $.parseJSON jqXHR.responseText
 
   render: ->

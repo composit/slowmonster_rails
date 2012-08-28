@@ -62,6 +62,10 @@ body {
   }
 }
 
+#new-parent-link {
+  @include button;
+}
+
 #current-task-time {
   @include radial-gradient(#dfd, #bdb);
   border: 1px solid #dfd;
