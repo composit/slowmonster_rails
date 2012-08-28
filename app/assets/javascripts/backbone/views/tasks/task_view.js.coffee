@@ -5,7 +5,7 @@ class Slowmonster.Views.Tasks.TaskView extends Backbone.View
   className: ['task']
 
   events:
-    "click .destroy" : "destroy"
+    'click .editor' : 'edit'
     'click .starter' : 'start'
 
   destroy: () ->
@@ -26,3 +26,6 @@ class Slowmonster.Views.Tasks.TaskView extends Backbone.View
       type: 'PUT'
     .done =>
       @model.collection.trigger 'currentTicketTime:change'
+
+  edit: ->
+    window.location.hash = "#{@model.id}/edit"

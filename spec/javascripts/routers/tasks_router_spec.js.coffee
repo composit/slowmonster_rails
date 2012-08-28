@@ -8,6 +8,9 @@ describe 'tasks router', ->
     catch e
 
   describe 'initialize', ->
+    it 'initializes the global tasks collection', ->
+      expect( Slowmonster.tasks.models ).toEqual [@task]
+
     it 'initializes a task collection', ->
       expect( @router.tasks.models ).toEqual [@task]
 

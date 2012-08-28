@@ -35,6 +35,6 @@ class Slowmonster.Views.Tasks.IndexView extends Backbone.View
       url: '/users/current_task_time'
       type: 'GET'
     .done ( data ) =>
-      currentTask = new Slowmonster.Models.TaskTime data
-      currentView = new Slowmonster.Views.Users.CurrentTaskView model: currentTask
+      currentTaskTime = new Slowmonster.Models.TaskTime data
+      currentView = new Slowmonster.Views.Users.CurrentTaskView model: currentTaskTime
       @$( "#current-task-time" ).html currentView.render().el

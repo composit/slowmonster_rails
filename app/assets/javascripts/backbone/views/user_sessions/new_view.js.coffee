@@ -6,7 +6,7 @@ class Slowmonster.Views.UserSessions.NewView extends Backbone.View
   events:
     'submit #new-user-session': 'save'
 
-  constructor: (options) ->
+  initialize: (options) ->
     super(options)
     @model = new Slowmonster.Models.UserSession()
 

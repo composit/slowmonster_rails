@@ -22,15 +22,4 @@ describe TaskTime do
     time_4 = create :task_time, ended_at: nil
     TaskTime.current.should == [time_2, time_4]
   end
-
-  context 'task content' do
-    let( :task_time ) { build :task_time, task: build( :task, content: 'test content' ) }
-    it 'includes the task in the json' do
-      MultiJson.load( task_time.to_json )['task_content'].should == 'test content'
-    end
-
-    it 'returns the task content' do
-      task_time.task_content.should == 'test content'
-    end
-  end
 end

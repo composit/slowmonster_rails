@@ -1,12 +1,12 @@
 Slowmonster.Views.Tasks ||= {}
 
 class Slowmonster.Views.Tasks.EditView extends Backbone.View
-  template : JST["backbone/templates/tasks/edit"]
+  template: JST["backbone/templates/tasks/edit"]
 
-  events :
+  events:
     "submit #edit-task" : "update"
 
-  update : (e) ->
+  update: (e) ->
     e.preventDefault()
     e.stopPropagation()
 
@@ -16,7 +16,12 @@ class Slowmonster.Views.Tasks.EditView extends Backbone.View
         window.location.hash = "/#{@model.id}"
     )
 
-  render : ->
+  render: ->
     $(@el).html(@template(@model.toJSON() ))
     this.$("form").backboneLink(@model)
+    @listParents()
     return this
+
+  listParents: ->
+    parentsView = new Slowmonster.Views.TaskParents.IndexView taskParents: @model.get( 'taskParents' )
+    $( @el ).find( '#parents' ).html parentsView.render().el

@@ -6,7 +6,7 @@ class Slowmonster.Views.Tasks.NewView extends Backbone.View
   events:
     "submit #new-task": "save"
 
-  constructor: (options) ->
+  initialize: (options) ->
     super(options)
     @model = new @collection.model()
 

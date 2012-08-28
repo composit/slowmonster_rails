@@ -12,6 +12,15 @@ describe 'task edit view', ->
     it 'creates a form', ->
       expect( $( @view.render().el ) ).toContain( 'form#edit-task' )
 
+    it 'lists the parents', ->
+      taskParents = new Slowmonster.Collections.TaskParentsCollection [{ id: '123' }, { id: '456' }]
+      @task.set 'taskParents', taskParents
+      parentsViewStub = sinon.stub( Slowmonster.Views.TaskParents, 'IndexView' ).returns new Backbone.View()
+      view = new Slowmonster.Views.Tasks.EditView model: @task
+      view.render()
+      expect( parentsViewStub ).toHaveBeenCalledWith taskParents: taskParents
+      parentsViewStub.restore()
+
   describe 'update', ->
     beforeEach ->
       @server = sinon.fakeServer.create()

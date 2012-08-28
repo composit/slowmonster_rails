@@ -56,6 +56,11 @@ describe Task do
     task.reload.priority.should == 123
   end
 
+  it 'includes parent task joiners in the json' do
+    task = create :task
+    expect( task.to_json ).to match /"parent_task_joiners":/ 
+  end
+
   it 'sorts by priority' do
     task_2 = create :task, priority: 2
     task_1 = create :task, priority: 1

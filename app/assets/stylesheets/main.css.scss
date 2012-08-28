@@ -38,13 +38,20 @@ body {
   }
 }
 
-#new-task {
-  a, input[type=submit] {
+#new-task-block {
+  a {
+    @include button;
+  }
+}
+
+#new-task, #edit-task {
+  input[type=submit] {
     @include button;
   }
 
-  input[type=text] {
+  textarea {
     width: 98%;
+    line-height: 2em;
     height: 2em;
     font-size: 20px;
     margin: 10px 0;

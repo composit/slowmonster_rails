@@ -1,15 +1,13 @@
-<h1>Edit task</h1>
+<div class='task' id=>
+  <form id="edit-task" name="task">
+    <div class="field">
+      <textarea name="content" id="content"><%= content %></textarea>
+    </div>
 
-<form id="edit-task" name="task">
-  <div class="field">
-    <label for="content"> content:</label>
-    <input type="text" name="content" id="content" value="<%= content %>" >
-  </div>
-
-  <div class="actions">
-    <input type="submit" value="Update Task" />
-  </div>
-
-</form>
-
-<a href="#/index">Back</a>
+    <div class="actions">
+      <input type="submit" value="Update Task" />
+    </div>
+  </form>
+  <div id='parents'></div>
+  <div id='new-parent'></div>
+</div>

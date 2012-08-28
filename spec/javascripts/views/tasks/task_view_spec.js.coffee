@@ -3,10 +3,23 @@ describe 'task view', ->
     xit 'renders the template'
     xit 'adds the model id to the div id'
 
-  describe 'destroy', ->
-    xit 'is fired when the user clicks the destroy link'
-    xit 'calls the server to destroy the model'
-    xit 'removes the model from the view'
+  describe 'edit', ->
+    beforeEach ->
+      @editSpy = sinon.spy Slowmonster.Views.Tasks.TaskView.prototype, 'edit'
+      @task = new Slowmonster.Models.Task id: 123
+      @view = new Slowmonster.Views.Tasks.TaskView model: @task
+
+    afterEach ->
+      @editSpy.restore()
+
+    it 'is fired when the user clicks the edit link', ->
+      $el = $( @view.render().el )
+      $el.find( '.editor' ).click()
+      expect( @editSpy ).toHaveBeenCalled()
+
+    it 'redirects to the edit page', ->
+      @view.edit()
+      expect( window.location.hash ).toEqual '#123/edit'
 
   describe 'start', ->
     it 'calls the server to start the task'
