@@ -77,7 +77,7 @@ describe Task do
     specify { task.ancestor_task_ids.should == [parent_task.id, grandparent_task.id, great_grandparent_task.id] }
 
     it 'does not allow a parent task (recursive) to be set as a child task' do
-      task.child_task_joiners.build child_task: grandparent_task
+      task.child_task_joiners.build child_task_id: grandparent_task.id
       task.should_not be_valid
       task.errors.full_messages.should == ['A task cannot be both an ancestor and descendant of the same task.']
     end
@@ -92,7 +92,7 @@ describe Task do
     specify { task.descendant_task_ids.should == [child_task.id, grandchild_task.id, great_grandchild_task.id] }
 
     it 'does not allow a child task (recursive) to be set as a parent task' do
-      task.parent_task_joiners.build parent_task: grandchild_task
+      task.parent_task_joiners.build parent_task_id: grandchild_task.id
       task.should_not be_valid
       task.errors.full_messages.should == ['A task cannot be both an ancestor and descendant of the same task.']
     end

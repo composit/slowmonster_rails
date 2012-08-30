@@ -19,7 +19,7 @@ describe 'task edit view', ->
       parentsViewStub = sinon.stub( Slowmonster.Views.TaskParents, 'IndexView' ).returns new Backbone.View()
       view = new Slowmonster.Views.Tasks.EditView model: @task
       view.render()
-      expect( parentsViewStub ).toHaveBeenCalledWith taskParents: taskParents
+      expect( parentsViewStub ).toHaveBeenCalledWith taskParents: taskParents, childTask: @view.model
       parentsViewStub.restore()
 
   describe 'update', ->

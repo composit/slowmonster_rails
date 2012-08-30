@@ -34,3 +34,23 @@ describe 'task view', ->
       view.start()
       server.respond()
       expect( changeSpy ).toHaveBeenCalledWith 'currentTicketTime:change'
+
+  describe 'close', ->
+    beforeEach ->
+      @task = new Slowmonster.Models.Task id: 123
+      @view = new Slowmonster.Views.Tasks.TaskView model: @task
+
+    it 'is triggered by a user clicking the close link', ->
+      closeSpy = sinon.spy Slowmonster.Views.Tasks.TaskView.prototype, 'close'
+      view = new Slowmonster.Views.Tasks.TaskView model: @task
+      $( view.render().el ).find( '.closer' ).click()
+      expect( closeSpy ).toHaveBeenCalled()#Once()
+      closeSpy.restore()
+
+    it 'calls the server', ->
+      callback = sinon.spy jQuery, 'ajax'
+      @view.close()
+      expect( callback ).toHaveBeenCalledWith url: '/tasks/123/close', type: 'PUT'
+      callback.restore()
+
+    xit 're-renders the index'

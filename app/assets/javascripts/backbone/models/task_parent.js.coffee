@@ -1,5 +1,5 @@
 class Slowmonster.Models.TaskParent extends Backbone.Model
-  paramRoot: 'taskParent'
+  paramRoot: 'task_joiner'
 
   defaults:
     multiplier: 1

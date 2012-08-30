@@ -8,7 +8,7 @@ class Slowmonster.Views.TaskParents.NewView extends Backbone.View
 
   initialize: ( options ) ->
     super options
-    @model = new @collection.model()
+    @model = new @collection.model( child_task_id: @options.childTask.id )
 
     @model.bind 'change:errors', =>
       @render()
@@ -22,7 +22,6 @@ class Slowmonster.Views.TaskParents.NewView extends Backbone.View
     @collection.create @model.toJSON(),
       success: ( taskParent ) =>
         @model = taskParent
-        alert 'good job'
 
       error: ( taskParent, jqXHR ) =>
         @model.set errors: $.parseJSON jqXHR.responseText

@@ -5,8 +5,9 @@ class Slowmonster.Views.Tasks.TaskView extends Backbone.View
   className: ['task']
 
   events:
-    'click .editor' : 'edit'
-    'click .starter' : 'start'
+    'click .editor': 'edit'
+    'click .starter': 'start'
+    'click .closer': 'close'
 
   destroy: () ->
     if confirm 'are you sure you want to delete this task?'
@@ -29,3 +30,9 @@ class Slowmonster.Views.Tasks.TaskView extends Backbone.View
 
   edit: ->
     window.location.hash = "#{@model.id}/edit"
+
+  close: ->
+    $.ajax
+      url: "/tasks/#{@model.id}/close"
+      type: 'PUT'
+    .done =>

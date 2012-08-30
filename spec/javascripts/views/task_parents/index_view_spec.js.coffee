@@ -1,9 +1,10 @@
 describe 'task parent index view', ->
   beforeEach ->
+    @childTask = new Slowmonster.Models.Task
     Slowmonster.tasks = new Slowmonster.Collections.TasksCollection []
     @taskParent = new Slowmonster.Models.TaskParent id: 123
     @taskParents = new Slowmonster.Collections.TaskParentsCollection [@taskParent]
-    @view = new Slowmonster.Views.TaskParents.IndexView taskParents: @taskParents
+    @view = new Slowmonster.Views.TaskParents.IndexView taskParents: @taskParents, childTask: @childTask
 
   it 'calls addAll when the taskParents are reset', ->
     addAllSpy = sinon.spy Slowmonster.Views.TaskParents.IndexView.prototype, 'addAll'
@@ -14,8 +15,9 @@ describe 'task parent index view', ->
 
   describe 'newParent', ->
     it 'fires newParent when the new parent button is pressed', ->
+      childTask = new Slowmonster.Models.Task
       newParentSpy = sinon.spy Slowmonster.Views.TaskParents.IndexView.prototype, 'newParent'
-      view = new Slowmonster.Views.TaskParents.IndexView taskParents: @taskParents
+      view = new Slowmonster.Views.TaskParents.IndexView taskParents: @taskParents, childTask: childTask
       $el = $( view.render().el )
       $el.find( '#new-parent-link' ).click()
       expect( newParentSpy ).toHaveBeenCalled()
@@ -24,7 +26,7 @@ describe 'task parent index view', ->
     it 'renders the new parent view', ->
       newParentViewStub = sinon.stub( Slowmonster.Views.TaskParents, 'NewView' ).returns new Backbone.View
       @view.newParent trigger: true
-      expect( newParentViewStub ).toHaveBeenCalledWith collection: @taskParents
+      expect( newParentViewStub ).toHaveBeenCalledWith collection: @taskParents, childTask: @childTask
 
   describe 'addAll', ->
     it 'calls addOne for each taskParent', ->

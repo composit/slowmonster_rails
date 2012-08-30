@@ -8,6 +8,7 @@ class Slowmonster.Views.TaskParents.IndexView extends Backbone.View
 
   initialize: ->
     @options.taskParents.bind 'reset', @addAll
+    @options.taskParents.bind 'change', @render
 
   addAll: =>
     @options.taskParents.each @addOne
@@ -22,5 +23,5 @@ class Slowmonster.Views.TaskParents.IndexView extends Backbone.View
     return this
 
   newParent: =>
-    newParentView = new Slowmonster.Views.TaskParents.NewView collection: @options.taskParents
+    newParentView = new Slowmonster.Views.TaskParents.NewView collection: @options.taskParents, childTask: @options.childTask
     $( @el ).find( '#new-task-parent-block' ).html newParentView.render().el

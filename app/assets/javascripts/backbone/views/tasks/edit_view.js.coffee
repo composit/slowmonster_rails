@@ -23,5 +23,5 @@ class Slowmonster.Views.Tasks.EditView extends Backbone.View
     return this
 
   listParents: ->
-    parentsView = new Slowmonster.Views.TaskParents.IndexView taskParents: @model.get( 'taskParents' )
+    parentsView = new Slowmonster.Views.TaskParents.IndexView taskParents: @model.get( 'taskParents' ), childTask: @model
     $( @el ).find( '#parents' ).html parentsView.render().el

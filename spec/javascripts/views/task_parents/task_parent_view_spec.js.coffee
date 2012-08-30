@@ -2,10 +2,14 @@ describe 'task parent view', ->
   beforeEach ->
     parentTask = new Slowmonster.Models.Task id: 123, content: 'test task'
     Slowmonster.tasks = new Slowmonster.Collections.TasksCollection [parentTask]
-    @taskParent = new Slowmonster.Models.TaskParent parent_task_id: 123, multiplier: 7
+    @taskParent = new Slowmonster.Models.TaskParent id: 456, parent_task_id: 123, multiplier: 7
     @taskParent.collection = new Slowmonster.Collections.TaskParentsCollection [@taskParent]
     @view = new Slowmonster.Views.TaskParents.TaskParentView model: @taskParent
     @$el = $( @view.render().el )
+    sinon.stub( window, 'confirm' ).returns true
+
+  afterEach ->
+    window.confirm.restore()
 
   it 'has a classname of task-parent', ->
     expect( @view.render().el ).toHaveClass 'task-parent'
@@ -18,7 +22,7 @@ describe 'task parent view', ->
   describe 'delete', ->
     beforeEach ->
       @server = sinon.fakeServer.create()
-      @server.respondWith 'DELETE', '/task_joiners/123', [200, { "Content-Type": "application/json" }, '']
+      @server.respondWith 'DELETE', '/task_joiners/456', [200, { "Content-Type": "application/json" }, '']
 
     afterEach ->
       @server.restore()
@@ -44,7 +48,7 @@ describe 'task parent view', ->
         expect( removeSpy ).toHaveBeenCalledWith @view.model
         removeSpy.restore()
 
-      it 'removens the view from the index', ->
+      it 'removes the view from the index', ->
         removeSpy = sinon.spy Slowmonster.Views.TaskParents.TaskParentView.prototype, 'remove'
         view = new Slowmonster.Views.TaskParents.TaskParentView model: @taskParent
         view.delete()

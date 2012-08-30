@@ -16,6 +16,8 @@ class Slowmonster.Views.TaskParents.TaskParentView extends Backbone.View
     return this
 
   delete: =>
-    @model.destroy
-      success: @remove()
+    if confirm 'Are you sure you want to delete this association?'
+      @model.destroy
+        success: =>
+          @remove()
     return false
