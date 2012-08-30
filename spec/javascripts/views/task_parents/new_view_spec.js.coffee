@@ -2,6 +2,7 @@ describe 'task parent new view', ->
   describe 'instantiation', ->
     xit 'builds a new task parent object in the collection'
     xit 're-renders when errors change'
+    xit 'sets the child task id on the new model'
 
   describe 'save', ->
     xit 'saves on submit'
@@ -16,3 +17,5 @@ describe 'task parent new view', ->
 
   describe 'render', ->
     xit 'links the form to the view'
+
+    xit 'sets up autocomplete on the task content'

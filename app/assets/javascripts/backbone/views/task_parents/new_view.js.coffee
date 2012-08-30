@@ -30,4 +30,11 @@ class Slowmonster.Views.TaskParents.NewView extends Backbone.View
   render: ->
     $( @el ).html @template @model.toJSON()
     @$( 'form' ).backboneLink @model
+    @$( 'input#task-content' ).autocomplete
+      source: Slowmonster.tasks.map ( task ) ->
+        { 'label': task.get( 'content' ), 'value': task.get 'id' }
+      select: ( event, ui ) =>
+        $( event.target ).val ui.item.label
+        @model.set 'parent_task_id', ui.item.value
+        return false
     return this

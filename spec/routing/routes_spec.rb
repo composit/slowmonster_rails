@@ -21,4 +21,10 @@ describe 'Routes' do
   specify { { put: 'users/1' }.should_not be_routable }
   specify { { delete: 'users/1' }.should_not be_routable }
   specify { { get: 'users/current_task_time' }.should route_to controller: 'users', action: 'current_task_time' }
+
+  specify { { get: 'task_joiners' }.should_not be_routable }
+  specify { { get: 'task_joiners/1' }.should_not be_routable }
+  specify { { post: 'task_joiners' }.should route_to controller: 'task_joiners', action: 'create' }
+  specify { { put: 'task_joiners/1' }.should_not be_routable }
+  specify { { delete: 'task_joiners/1' }.should route_to controller: 'task_joiners', action: 'destroy', id: '1' }
 end

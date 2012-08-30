@@ -1,6 +1,9 @@
 class Slowmonster.Models.TaskParent extends Backbone.Model
   paramRoot: 'taskParent'
 
+  defaults:
+    multiplier: 1
+
   initialize: ( options ) ->
     super options
     Slowmonster.tasks.on 'reset', @loadParent

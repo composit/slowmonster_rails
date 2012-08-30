@@ -66,6 +66,25 @@ body {
   @include button;
 }
 
+#task-parents {
+  .task-parent {
+    @include clearfix;
+
+    div {
+      float: left;
+    }
+
+    div.content {
+      width: auto;
+    }
+
+    img {
+      height: .6em; 
+      margin: 0 10px;
+    }
+  }
+}
+
 #current-task-time {
   @include radial-gradient(#dfd, #bdb);
   border: 1px solid #dfd;

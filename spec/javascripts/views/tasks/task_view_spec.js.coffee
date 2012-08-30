@@ -22,7 +22,7 @@ describe 'task view', ->
       expect( window.location.hash ).toEqual '#123/edit'
 
   describe 'start', ->
-    it 'calls the server to start the task'
+    xit 'calls the server to start the task'
 
     it 'triggers the reset event on its collection', ->
       server = sinon.fakeServer.create()
@@ -34,5 +34,3 @@ describe 'task view', ->
       view.start()
       server.respond()
       expect( changeSpy ).toHaveBeenCalledWith 'currentTicketTime:change'
-
-

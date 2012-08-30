@@ -43,4 +43,26 @@ describe Ability do
       specify { ability.should_not be_able_to :destroy, other_user }
     end
   end
+
+  context 'task_joiners' do
+    context 'belong to user' do
+      let( :parent_task ) { build :task, user: user }
+      let( :child_task ) { build :task, user: user }
+      let( :task_joiner ) { build :task_joiner, parent_task: parent_task, child_task: child_task }
+
+      specify { ability.should be_able_to :create, task_joiner }
+      specify { ability.should be_able_to :read, task_joiner }
+      specify { ability.should be_able_to :update, task_joiner }
+      specify { ability.should be_able_to :destroy, task_joiner }
+    end
+
+    context 'do not belong to the user' do
+      let( :task_joiner ) { build :task_joiner }
+
+      specify { ability.should_not be_able_to :create, task_joiner }
+      specify { ability.should_not be_able_to :read, task_joiner }
+      specify { ability.should_not be_able_to :update, task_joiner }
+      specify { ability.should_not be_able_to :destroy, task_joiner }
+    end
+  end
 end
