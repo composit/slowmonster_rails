@@ -36,6 +36,14 @@ body {
       width: 20px;
     }
   }
+
+  span.parent-tasks {
+    span {
+      font-size: .7em;
+      margin: 0 10px;
+      color: #ffc234;
+    }
+  }
 }
 
 #new-task-block {

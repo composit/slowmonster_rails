@@ -6,19 +6,18 @@ class Slowmonster.Views.Tasks.EditView extends Backbone.View
   events:
     "submit #edit-task" : "update"
 
-  update: (e) ->
+  update: ( e ) ->
     e.preventDefault()
     e.stopPropagation()
 
-    @model.save(null,
-      success : (task) =>
+    @model.save null,
+      success: ( task ) =>
         @model = task
         window.location.hash = "/#{@model.id}"
-    )
 
   render: ->
-    $(@el).html(@template(@model.toJSON() ))
-    this.$("form").backboneLink(@model)
+    $( @el ).html @template @model.toJSON()
+    this.$( 'form' ).backboneLink @model
     @listParents()
     return this
 

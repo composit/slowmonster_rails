@@ -17,8 +17,13 @@ class Slowmonster.Views.Tasks.TaskView extends Backbone.View
     return false
 
   render: ->
-    $(@el).html @template @model.toJSON()
+    $( @el ).html @template @model.toJSON()
     $( @el ).attr 'id', "tasks_#{@model.id}"
+    @model.get( 'taskParents' ).each ( taskParent ) =>
+      parentTask = @model.collection.get taskParent.get 'parent_task_id'
+      if parentTask
+        $( @el ).find( '.parent-tasks' ).append "<span>#{parentTask.get 'content'}</span>"
+
     return this
 
   start: ->
