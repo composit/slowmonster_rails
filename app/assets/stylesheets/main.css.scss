@@ -1,3 +1,6 @@
+$orange: #eb7f26;
+$green: #dfd;
+
 body {
   font-family: $helvetica;
   font-size: 20px;
@@ -13,8 +16,8 @@ body {
   @include clearfix;
   width: 900px;
   @include border-radius( 5px );
-  @include box-shadow(2px 2px 2px hsla(0, 0%, 0%, 0.45));
-  @include radial-gradient(#fff, #ddd);
+  @include box-shadow( 2px 2px 2px hsla( 0, 0%, 0%, 0.45 ) );
+  @include radial-gradient( #fff, shade( #fff, 15% ) );
   border: 1px solid #fff;
 
   div {
@@ -41,7 +44,7 @@ body {
     span {
       font-size: .7em;
       margin: 0 10px;
-      color: #ffc234;
+      color: tint( $orange, 30% );
     }
   }
 }
@@ -64,9 +67,9 @@ body {
     font-size: 20px;
     margin: 10px 0;
     padding: 0 5px;
-    color: #eb7f26;
+    color: $orange;
     @include border-radius( 5px );
-    @include linear-gradient(#eee, #fff);
+    @include linear-gradient( #eee, #fff );
   }
 }
 
@@ -94,11 +97,11 @@ body {
 }
 
 #current-task-time {
-  @include radial-gradient(#dfd, #bdb);
-  border: 1px solid #dfd;
+  @include radial-gradient( $green, shade( $green, 15% ) );
+  border: 1px solid $green;
 
   .content {
-    color: #383;
+    color: shade( $green, 60% );
     font-weight: bold;
   }
 }
