@@ -4,12 +4,12 @@ describe UsersController do
   context 'not logged in' do
     it 'redirects to the new user session url' do
       get :current_task_time
-      response.should redirect_to new_user_session_url
+      expect( response ).to redirect_to new_user_session_url
     end
 
     it 'displays an alert' do
       get :current_task_time
-      flash[:alert].should == 'Please sign in'
+      expect( flash[:alert] ).to eq 'Please sign in'
     end
   end
 
@@ -29,7 +29,7 @@ describe UsersController do
         current_task_time = double
         current_user.stub( :current_task_time ) { current_task_time }
         get :current_task_time
-        assigns[:current_task_time].should == current_task_time
+        expect( assigns[:current_task_time] ).to eq current_task_time
       end
     end
   end

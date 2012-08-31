@@ -6,6 +6,7 @@ Slowmonster::Application.routes.draw do
     end
     member do
       put 'start'
+      put 'close'
     end
   end
   resources :user_sessions, only: [:new, :create, :destroy]

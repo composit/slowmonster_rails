@@ -37,8 +37,12 @@ describe 'task view', ->
 
   describe 'close', ->
     beforeEach ->
+      sinon.stub( window, 'confirm' ).returns true
       @task = new Slowmonster.Models.Task id: 123
       @view = new Slowmonster.Views.Tasks.TaskView model: @task
+
+    afterEach ->
+      window.confirm.restore()
 
     it 'is triggered by a user clicking the close link', ->
       closeSpy = sinon.spy Slowmonster.Views.Tasks.TaskView.prototype, 'close'

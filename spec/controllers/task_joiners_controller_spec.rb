@@ -4,7 +4,7 @@ describe TaskJoinersController do
   context 'not logged in' do
     it 'redirects to the new user session url' do
       delete :destroy, id: 123
-      response.should redirect_to new_user_session_url
+      expect( response ).to redirect_to new_user_session_url
     end
 
     it 'displays an alert' do
@@ -30,14 +30,14 @@ describe TaskJoinersController do
       let( :attributes ) { { 'child_task_id' => child_task.id.to_s, 'parent_task_id' => parent_task.id.to_s, 'multiplier' => '123' } }
 
       it 'creates a new task_joiner' do
-        -> {
+        expect {
           post :create, 'task_joiner' => attributes
-        }.should change( TaskJoiner, 'count' ).from( 0 ).to 1
+        }.to change( TaskJoiner, 'count' ).from( 0 ).to 1
       end
 
       it 'sets the attributes of the new task' do
         post :create, 'task_joiner' => attributes
-        assigns[:task_joiner].reload.multiplier.should == 123
+        expect( assigns[:task_joiner].reload.multiplier ).to eq 123
       end
     end
 

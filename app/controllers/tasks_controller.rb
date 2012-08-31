@@ -39,4 +39,9 @@ class TasksController < ApplicationController
     @task.start
     respond_with :success
   end
+
+  def close
+    @task.close
+    respond_with :success
+  end
 end

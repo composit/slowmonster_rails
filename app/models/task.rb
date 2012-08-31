@@ -40,4 +40,9 @@ class Task < ActiveRecord::Base
   def add_amount( amount = 1 )
     task_amounts.create! amount: amount, incurred_at: Time.zone.now
   end
+  
+  def close
+    self.closed_at = Time.zone.now
+    save!
+  end
 end

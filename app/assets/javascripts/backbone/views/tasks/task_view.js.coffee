@@ -32,7 +32,7 @@ class Slowmonster.Views.Tasks.TaskView extends Backbone.View
     window.location.hash = "#{@model.id}/edit"
 
   close: ->
-    $.ajax
-      url: "/tasks/#{@model.id}/close"
-      type: 'PUT'
-    .done =>
+    if confirm 'are you sure you want to close this task?'
+      $.ajax
+        url: "/tasks/#{@model.id}/close"
+        type: 'PUT'

@@ -1,30 +1,31 @@
 require 'spec_helper'
 
 describe 'Routes' do
-  specify { { get: 'tasks' }.should route_to controller: 'tasks', action: 'index' }
-  specify { { get: 'tasks/1' }.should route_to controller: 'tasks', action: 'show', id: '1' }
-  specify { { post: 'tasks' }.should route_to controller: 'tasks', action: 'create' }
-  specify { { put: 'tasks/1' }.should route_to controller: 'tasks', action: 'update', id: '1' }
-  specify { { delete: 'tasks/1' }.should route_to controller: 'tasks', action: 'destroy', id: '1' }
-  specify { { put: 'tasks/reprioritize' }.should route_to controller: 'tasks', action: 'reprioritize' }
-  specify { { put: 'tasks/1/start' }.should route_to controller: 'tasks', action: 'start', id: '1' }
+  specify { expect( get: 'tasks' ).to route_to controller: 'tasks', action: 'index' }
+  specify { expect( get: 'tasks/1' ).to route_to controller: 'tasks', action: 'show', id: '1' }
+  specify { expect( post: 'tasks' ).to route_to controller: 'tasks', action: 'create' }
+  specify { expect( put: 'tasks/1' ).to route_to controller: 'tasks', action: 'update', id: '1' }
+  specify { expect( delete: 'tasks/1' ).to route_to controller: 'tasks', action: 'destroy', id: '1' }
+  specify { expect( put: 'tasks/reprioritize' ).to route_to controller: 'tasks', action: 'reprioritize' }
+  specify { expect( put: 'tasks/1/start' ).to route_to controller: 'tasks', action: 'start', id: '1' }
+  specify { expect( put: 'tasks/1/close' ).to route_to controller: 'tasks', action: 'close', id: '1' }
 
-  specify { { get: 'user_sessions' }.should_not be_routable }
-  specify { { get: 'user_sessions/1' }.should_not be_routable }
-  specify { { post: 'user_sessions' }.should route_to controller: 'user_sessions', action: 'create' }
-  specify { { put: 'user_sessions/1' }.should_not be_routable }
-  specify { { delete: 'user_sessions/1' }.should route_to controller: 'user_sessions', action: 'destroy', id: '1' }
+  specify { expect( get: 'user_sessions' ).to_not be_routable }
+  specify { expect( get: 'user_sessions/1' ).to_not be_routable }
+  specify { expect( post: 'user_sessions' ).to route_to controller: 'user_sessions', action: 'create' }
+  specify { expect( put: 'user_sessions/1' ).to_not be_routable }
+  specify { expect( delete: 'user_sessions/1' ).to route_to controller: 'user_sessions', action: 'destroy', id: '1' }
 
-  specify { { get: 'users' }.should_not be_routable }
-  specify { { get: 'users/1' }.should route_to controller: 'users', action: 'show', id: '1' }
-  specify { { post: 'users' }.should_not be_routable }
-  specify { { put: 'users/1' }.should_not be_routable }
-  specify { { delete: 'users/1' }.should_not be_routable }
-  specify { { get: 'users/current_task_time' }.should route_to controller: 'users', action: 'current_task_time' }
+  specify { expect( get: 'users' ).to_not be_routable }
+  specify { expect( get: 'users/1' ).to route_to controller: 'users', action: 'show', id: '1' }
+  specify { expect( post: 'users' ).to_not be_routable }
+  specify { expect( put: 'users/1' ).to_not be_routable }
+  specify { expect( delete: 'users/1' ).to_not be_routable }
+  specify { expect( get: 'users/current_task_time' ).to route_to controller: 'users', action: 'current_task_time' }
 
-  specify { { get: 'task_joiners' }.should_not be_routable }
-  specify { { get: 'task_joiners/1' }.should_not be_routable }
-  specify { { post: 'task_joiners' }.should route_to controller: 'task_joiners', action: 'create' }
-  specify { { put: 'task_joiners/1' }.should_not be_routable }
-  specify { { delete: 'task_joiners/1' }.should route_to controller: 'task_joiners', action: 'destroy', id: '1' }
+  specify { expect( get: 'task_joiners' ).to_not be_routable }
+  specify { expect( get: 'task_joiners/1' ).to_not be_routable }
+  specify { expect( post: 'task_joiners' ).to route_to controller: 'task_joiners', action: 'create' }
+  specify { expect( put: 'task_joiners/1' ).to_not be_routable }
+  specify { expect( delete: 'task_joiners/1' ).to route_to controller: 'task_joiners', action: 'destroy', id: '1' }
 end
