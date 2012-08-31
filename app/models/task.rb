@@ -5,6 +5,8 @@ class Task < ActiveRecord::Base
   validates :content, presence: true
   validates :user, presence: true
   validates_with TaskAssociationValidator
+
+  scope :open, where( closed_at: nil )
   
   belongs_to :user
   has_many :child_task_joiners, class_name: 'TaskJoiner', foreign_key: :parent_task_id, dependent: :destroy

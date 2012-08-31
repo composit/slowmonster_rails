@@ -11,6 +11,13 @@ describe 'task index view', ->
     expect( addAllSpy ).toHaveBeenCalled()
     addAllSpy.restore()
 
+  it 'calls render when a task is removed', ->
+    renderSpy = sinon.spy Slowmonster.Views.Tasks.IndexView.prototype, 'render'
+    view = new Slowmonster.Views.Tasks.IndexView tasks: @tasks
+    @tasks.remove @task
+    expect( renderSpy ).toHaveBeenCalled()
+    renderSpy.restore()
+
   it 'calls updateCurrent when the current ticket time changes', ->
     updateSpy = sinon.spy Slowmonster.Views.Tasks.IndexView.prototype, 'updateCurrent'
     view = new Slowmonster.Views.Tasks.IndexView tasks: @tasks

@@ -36,3 +36,5 @@ class Slowmonster.Views.Tasks.TaskView extends Backbone.View
       $.ajax
         url: "/tasks/#{@model.id}/close"
         type: 'PUT'
+      .done =>
+        @model.collection.remove @model

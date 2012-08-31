@@ -5,6 +5,7 @@ class Slowmonster.Views.Tasks.IndexView extends Backbone.View
 
   initialize: ->
     @options.tasks.bind 'reset', @addAll
+    @options.tasks.bind 'remove', @render
     @options.tasks.bind 'currentTicketTime:change', @updateCurrent
 
   addAll: =>

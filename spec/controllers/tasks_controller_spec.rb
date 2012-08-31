@@ -37,7 +37,12 @@ describe TasksController do
       end
 
       it 'prioritizes the tasks' do
-        tasks_stub.should_receive( :prioritized )
+        tasks_stub.should_receive :prioritized
+        get :index
+      end
+
+      it 'returns open tasks' do
+        tasks_stub.should_receive :open
         get :index
       end
     end

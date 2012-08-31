@@ -185,4 +185,10 @@ describe Task do
       end
     end
   end
+
+  it 'returns open tasks' do
+    create_list :task, 3, closed_at: nil
+    create_list :task, 2, closed_at: Time.zone.now
+    expect( Task.open.length ).to eq 3
+  end
 end

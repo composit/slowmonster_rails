@@ -37,12 +37,16 @@ describe 'task view', ->
 
   describe 'close', ->
     beforeEach ->
+      @server = sinon.fakeServer.create()
+      @server.respondWith 'PUT', '/tasks/123/close', [200, { 'Content-Type': 'application/json' }, '']
       sinon.stub( window, 'confirm' ).returns true
       @task = new Slowmonster.Models.Task id: 123
+      @task.collection = new Slowmonster.Collections.TasksCollection [@task]
       @view = new Slowmonster.Views.Tasks.TaskView model: @task
 
     afterEach ->
       window.confirm.restore()
+      @server.restore()
 
     it 'is triggered by a user clicking the close link', ->
       closeSpy = sinon.spy Slowmonster.Views.Tasks.TaskView.prototype, 'close'
@@ -57,4 +61,9 @@ describe 'task view', ->
       expect( callback ).toHaveBeenCalledWith url: '/tasks/123/close', type: 'PUT'
       callback.restore()
 
-    xit 're-renders the index'
+    it 'removes the model from the collection', ->
+      removeSpy = sinon.spy @task.collection, 'remove'
+      @view.close()
+      @server.respond()
+      expect( removeSpy ).toHaveBeenCalled()#With @task
+      removeSpy.restore()
