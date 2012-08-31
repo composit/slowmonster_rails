@@ -2,11 +2,12 @@ describe 'task view', ->
   describe 'render', ->
     xit 'renders the template'
     it 'displays the task parents', ->
-      Slowmonster.tasks = new Slowmonster.Collections.TasksCollection []
       parentTask = new Slowmonster.Models.Task id: 123, content: 'parent task'
-      task = new Slowmonster.Models.Task parent_task_joiners: [123]
+      Slowmonster.tasks = new Slowmonster.Collections.TasksCollection [parentTask]
+      task = new Slowmonster.Models.Task parent_task_joiners: [{ parent_task_id: 123 }]
+      task.collection = Slowmonster.tasks
       view = new Slowmonster.Views.Tasks.TaskView model: task
-      expect( $( view.render().el ) ).toContain 'span.parent-tasks:contains("parent-task")'
+      expect( $( view.render().el ) ).toContain 'span.parent-tasks:contains("parent task")'
 
     xit 'adds the model id to the div id'
 

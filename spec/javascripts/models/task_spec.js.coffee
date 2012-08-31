@@ -9,6 +9,7 @@ describe Slowmonster.Models.Task, ->
 
     it 'builds a collection of task parents', ->
       taskParentsSpy = sinon.spy Slowmonster.Collections, 'TaskParentsCollection'
+      Slowmonster.tasks = new Slowmonster.Collections.TasksCollection
       task = new Slowmonster.Models.Task parent_task_joiners: [{ id: '456'}, { id: '789' }]
       expect( taskParentsSpy ).toHaveBeenCalledWith [{ id: '456'}, { id: '789' }]
       taskParentsSpy.restore()
