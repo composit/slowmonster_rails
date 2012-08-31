@@ -22,6 +22,14 @@ describe 'task edit view', ->
       expect( parentsViewStub ).toHaveBeenCalledWith taskParents: taskParents, childTask: @view.model
       parentsViewStub.restore()
 
+    it 'lists the children', ->
+      Slowmonster.tasks = new Slowmonster.Collections.TasksCollection []
+      childrenViewStub = sinon.stub( Slowmonster.Views.Tasks, 'IndexView' ).returns new Backbone.View()
+      view = new Slowmonster.Views.Tasks.EditView model: @task
+      view.render()
+      expect( childrenViewStub ).toHaveBeenCalled()
+      childrenViewStub.restore()
+
   describe 'update', ->
     beforeEach ->
       @server = sinon.fakeServer.create()
