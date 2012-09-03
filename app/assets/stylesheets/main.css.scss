@@ -7,7 +7,8 @@ body {
   background-color: #ddd;
 }
 
-#tasks {
+#container {
+  margin-top: 83px;
 }
 
 .task {
@@ -60,7 +61,7 @@ body {
     @include button( $orange );
   }
 
-  textarea {
+  input[type=text] {
     width: 98%;
     line-height: 2em;
     height: 2em;
@@ -99,6 +100,9 @@ body {
 #current-task-time {
   @include radial-gradient( $green, shade( $green, 15% ) );
   border: 1px solid $green;
+  position: fixed;
+  top: 0;
+  left: 0;
 
   .content {
     color: shade( $green, 60% );

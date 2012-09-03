@@ -23,11 +23,12 @@ describe 'task edit view', ->
       parentsViewStub.restore()
 
     it 'lists the children', ->
+      @task.set 'child_task_joiners', [{ child_task_id: 123 }]
       Slowmonster.tasks = new Slowmonster.Collections.TasksCollection []
       childrenViewStub = sinon.stub( Slowmonster.Views.Tasks, 'IndexView' ).returns new Backbone.View()
       view = new Slowmonster.Views.Tasks.EditView model: @task
       view.render()
-      expect( childrenViewStub ).toHaveBeenCalled()
+      expect( childrenViewStub ).toHaveBeenCalled() #TODO called with the child tasks and a parent task
       childrenViewStub.restore()
 
   describe 'update', ->

@@ -16,16 +16,16 @@ class Slowmonster.Routers.TasksRouter extends Backbone.Router
 
   index: ->
     @view = new Slowmonster.Views.Tasks.IndexView tasks: Slowmonster.tasks
-    $("#tasks").html @view.render().el
+    $("#container").html @view.render().el
 
   show: (id) ->
     task = Slowmonster.tasks.get id
 
     @view = new Slowmonster.Views.Tasks.ShowView model: task
-    $("#tasks").html @view.render().el
+    $("#container").html @view.render().el
 
   edit: (id) ->
     task = Slowmonster.tasks.get id
 
     @view = new Slowmonster.Views.Tasks.EditView model: task
-    $("#tasks").html @view.render().el
+    $("#container").html @view.render().el
