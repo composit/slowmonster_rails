@@ -225,6 +225,22 @@ describe Task do
         task.task_times << create( :task_time, started_at: 3.hours.ago, ended_at: Time.zone.now )
         expect( task.total_value( 2.hours.ago, 1.hour.ago ) ).to eq 1
       end
+
+      context 'incomplete task times' do
+        let( :task ) { create :task }
+
+        before :each do
+          task.task_times << create( :task_time, started_at: 3.hours.ago, ended_at: nil )
+        end
+
+        it 'sets the end_time to the current time if none exists' do
+          expect( task.total_value ).to eq 3
+        end
+
+        it 'still honors thresholds' do
+          expect( task.total_value( 2.hours.ago, 1.hour.ago ) ).to eq 1
+        end
+      end
     end
 
     context 'child tasks' do
