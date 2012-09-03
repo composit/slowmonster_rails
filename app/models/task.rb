@@ -52,11 +52,20 @@ class Task < ActiveRecord::Base
     self_seconds( start_threshold, end_threshold ) + childs_total( start_threshold, end_threshold )
   end
 
+  def totals_over_time( start_threshold, end_threshold )
+    start_threshold.to_date.upto( end_threshold.to_date ).collect do |task_date|
+      {
+        date: task_date,
+        value: total_value( task_date, task_date + 1.day )
+      }
+    end
+  end
+
   private
     def self_seconds( start_threshold, end_threshold )
       times = task_times
       times = times.where( 'ended_at is null or ended_at > ?', start_threshold ) if start_threshold
-      times = times.where( 'started_at < ?', end_threshold ) if end_threshold
+      times = times.where( 'started_at <= ?', end_threshold ) if end_threshold
       self_seconds = times.inject( 0 ) do |sum_seconds, task_time|
         task_end_time = task_time.ended_at || Time.zone.now
         start_time = ( start_threshold && task_time.started_at < start_threshold ) ? start_threshold : task_time.started_at
