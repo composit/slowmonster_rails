@@ -5,4 +5,8 @@ class TaskJoiner < ActiveRecord::Base
 
   validates :parent_task, presence: true
   validates :child_task, presence: true
+
+  def total_child_value( start_threshold, end_threshold )
+    child_task.total_value( start_threshold, end_threshold ) * multiplier
+  end
 end

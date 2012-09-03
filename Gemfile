@@ -35,6 +35,7 @@ group :test do
   gem 'guard-spork', '~> 1.1.0'
   gem 'launchy', '~> 2.1.1'
   gem 'rspec-rails', '~> 2.11.0'
+  gem 'timecop', '~> 0.4.5'
 end
 
 group :development, :test do

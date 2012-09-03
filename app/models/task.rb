@@ -47,4 +47,28 @@ class Task < ActiveRecord::Base
     self.closed_at = Time.zone.now
     save!
   end
+
+  def total_value( start_threshold = nil, end_threshold = nil )
+    self_seconds( start_threshold, end_threshold ) + childs_total( start_threshold, end_threshold )
+  end
+
+  private
+    def self_seconds( start_threshold, end_threshold )
+      times = task_times
+      times = times.where( 'ended_at > ?', start_threshold ) if start_threshold
+      times = times.where( 'started_at < ?', end_threshold ) if end_threshold
+      self_seconds = times.inject( 0 ) do |sum_seconds, task_time|
+        start_time = ( start_threshold && task_time.started_at < start_threshold ) ? start_threshold : task_time.started_at
+        end_time = ( end_threshold && task_time.ended_at > end_threshold ) ? end_threshold : task_time.ended_at
+        sum_seconds += ( end_time - start_time )
+      end
+      ( ( self_seconds / 3600.0 ) * 100 ).round / 100.0
+    end
+
+    def childs_total( start_threshold, end_threshold )
+      childs_total = child_task_joiners.inject( 0.0 ) do |sum_total, child_task_joiner|
+        sum_total + child_task_joiner.total_child_value( start_threshold, end_threshold )
+      end
+      ( ( childs_total ) * 100 ).round / 100.0
+    end
 end

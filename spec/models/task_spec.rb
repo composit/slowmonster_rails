@@ -196,4 +196,45 @@ describe Task do
     create_list :task, 2, closed_at: Time.zone.now
     expect( Task.open.length ).to eq 3
   end
+
+  context 'totals' do
+    context 'directly associated task times' do
+      before :each do
+        Timecop.freeze( 0 )
+      end
+
+      after :each do
+        Timecop.return
+      end
+
+      it 'returns values with decimals' do
+        3.times { subject.task_times << mock_model( TaskTime, started_at: 4200.seconds.ago, ended_at: Time.zone.now ) }
+        expect( subject.total_value ).to eq 3.5
+      end
+
+      it 'returns values within a range' do
+        task = create :task
+        task.task_times << create( :task_time, started_at: 3.hours.ago, ended_at: 2.hours.ago )
+        task.task_times << create( :task_time, started_at: 2.hours.ago, ended_at: 1.hour.ago )
+        task.task_times << create( :task_time, started_at: 1.hour.ago, ended_at: Time.zone.now )
+        expect( task.total_value( 2.hours.ago, 1.hour.ago ) ).to eq 1
+      end
+
+      it 'splits task times that lie partially within the range' do
+        task = create :task
+        task.task_times << create( :task_time, started_at: 3.hours.ago, ended_at: Time.zone.now )
+        expect( task.total_value( 2.hours.ago, 1.hour.ago ) ).to eq 1
+      end
+    end
+
+    context 'child tasks' do
+      it 'returns the child task values' do
+        yesterday, today = double( :yesterday ), double( :today )
+        task_joiner = mock_model TaskJoiner
+        task_joiner.stub( :total_child_value ).with( yesterday, today ) { 123.4 }
+        subject.child_task_joiners << task_joiner
+        expect( subject.total_value( yesterday, today ) ).to eq 123.4
+      end
+    end
+  end
 end
