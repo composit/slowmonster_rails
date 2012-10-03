@@ -56,7 +56,7 @@ class Task < ActiveRecord::Base
     start_threshold.to_date.upto( end_threshold.to_date ).collect do |task_date|
       {
         date: task_date,
-        value: total_value( task_date, task_date + 1.day )
+        value: total_value( task_date.to_time, ( task_date + 1.day ).to_time )
       }
     end
   end
