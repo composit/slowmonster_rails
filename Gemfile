@@ -6,7 +6,7 @@ gem 'rails', '3.2.8'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg', '~> 0.14.0'
-gem 'thin', '~> 1.4.1'
+gem 'thin', '~> 1.5.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -25,13 +25,13 @@ gem 'bourbon', '~> 2.1.1'
 gem 'cancan', '~> 1.6.8'
 gem 'jquery-rails',  '~> 2.1.1'
 gem 'jquery-ui-rails', '~> 2.0.0'
-gem 'rails-backbone', '~> 0.7.2'
+gem 'rails-backbone', '~> 0.8.0'
 
 group :test do
   gem 'capybara-webkit', '~> 0.12.1'
   gem 'factory_girl_rails', '~> 4.1.0'
   gem 'guard-jasmine-headless-webkit', '~> 0.3.2'
-  gem 'guard-rspec', '~> 1.2.1'
+  gem 'guard-rspec', '~> 2.1.0'
   gem 'guard-spork', '~> 1.2.0'
   gem 'launchy', '~> 2.1.1'
   gem 'rspec-rails', '~> 2.11.0'
