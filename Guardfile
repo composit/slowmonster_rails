@@ -1,7 +1,7 @@
 # A sample Guardfile
 # More info at https://github.com/guard/guard#readme
 
-guard 'spork', :rspec_env => { 'RAILS_ENV' => 'test' }, :notification => false do
+guard 'spork', rspec_env: { 'RAILS_ENV' => 'test' }, notification: false do
   watch('config/application.rb')
   watch('config/environment.rb')
   watch('config/environments/test.rb')
@@ -21,12 +21,12 @@ spec_location = "spec/javascripts/%s_spec"
 # uncomment if you use NerdCapsSpec.js
 # spec_location = "spec/javascripts/%sSpec"
 
-guard 'jasmine-headless-webkit', :cli => '--no-full-run', :all_on_start => false, :notification => false do
+guard 'jasmine-headless-webkit', cli: '--no-full-run', all_on_start: false, notification: false do
   watch(%r{^app/assets/javascripts/backbone/(.*)\.js.coffee$}) { |m| newest_js_file(spec_location % m[1]) }
   watch(%r{^spec/javascripts/(.*)_spec\..*}) { |m| newest_js_file(spec_location % m[1]) }
 end
 
-guard 'rspec', :version => 2, :cli => '--drb', :all_on_start => false, :all_after_pass => false, :notification => false do
+guard 'rspec', cli: '--drb', all_on_start: false, all_after_pass: false, notification: false do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
   watch('spec/spec_helper.rb')  { "spec" }
