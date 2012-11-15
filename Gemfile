@@ -23,6 +23,7 @@ end
 gem 'bcrypt-ruby', '~> 3.0.1'
 gem 'bourbon', '~> 2.1.1'
 gem 'cancan', '~> 1.6.8'
+gem 'capistrano', '~> 2.13.5'
 gem 'jquery-rails',  '~> 2.1.1'
 gem 'jquery-ui-rails', '~> 2.0.0'
 gem 'rails-backbone', '~> 0.8.0'
