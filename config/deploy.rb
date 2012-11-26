@@ -4,7 +4,7 @@ ssh_options[:forward_agent] = true
 set :deploy_via, :remote_cache
 
 require 'capistrano/ext/multistage'
-set :stages, %w( staging )
+set :stages, %w( staging murder )
 set :default_stage, 'staging'
 
 require 'rvm/capistrano'
