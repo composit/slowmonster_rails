@@ -7,8 +7,8 @@ require 'capistrano/ext/multistage'
 set :stages, %w( staging )
 set :default_stage, 'staging'
 
-#require 'rvm/capistrano'
-#set :rvm_ruby_string, '1.9.3-p286'
+require 'rvm/capistrano'
+set :rvm_ruby_string, '1.9.3-p327'
 
 require 'bundler/capistrano'
 
