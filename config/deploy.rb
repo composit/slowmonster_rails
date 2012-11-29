@@ -3,6 +3,7 @@ set :repository,  "git@github.com:composit/slowmonster.git"
 ssh_options[:forward_agent] = true
 set :deploy_via, :remote_cache
 set :use_sudo, false
+set :user, 'app'
 
 require 'capistrano/ext/multistage'
 set :stages, %w( staging murder )
