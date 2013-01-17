@@ -62,7 +62,7 @@ class Task < ActiveRecord::Base
   end
 
   #TODO make an invoicing app
-  def previous_two_month_invoice_amounts
+  def previous_two_month_invoice_amounts( rate )
     (1..2).each do |offset|
       start_time = Time.zone.now.beginning_of_month - offset.month
       end_time = Time.zone.now.beginning_of_month - ( offset - 1 ).month
@@ -70,11 +70,11 @@ class Task < ActiveRecord::Base
       worked_on_children = child_tasks.map { |task| task if task.total_value( start_time, end_time ) > 0 }.compact
       worked_on_children.each do |task|
         time_worked = task.total_value start_time, end_time
-        multiplier = 75.0
-        output << "#{task.content}: #{time_worked} x #{multiplier} = #{time_worked * multiplier}"
+        output << "#{task.content}: #{time_worked} x #{rate} = #{time_worked * rate}"
       end
       output.each { |str| puts str }
     end
+    nil
   end
 
   private
