@@ -61,6 +61,19 @@ class Task < ActiveRecord::Base
     end
   end
 
+  #TODO make an invoicing app
+  def previous_month
+    start_time = Time.zone.now.beginning_of_month - 1.month
+    end_time = Time.zone.now.beginning_of_month
+    puts "time from #{start_time} to #{end_time}:"
+    worked_on_children = child_tasks.map { |task| task if task.total_value( start_time, end_time ) > 0 }.compact
+    worked_on_children.each do |task|
+      time_worked = task.total_value start_time, end_time
+      multiplier = 75.0
+      puts "#{task.content}: #{time_worked} x #{multiplier} = #{time_worked * multiplier}"
+    end
+  end
+
   private
     def self_seconds( start_threshold, end_threshold )
       times = task_times
