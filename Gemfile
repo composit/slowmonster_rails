@@ -7,7 +7,7 @@ gem 'rails', '3.2.8'
 
 gem 'pg', '~> 0.14.0'
 gem 'thin', '~> 1.5.0'
-gem 'unicorn'
+gem 'unicorn', '~> 4.4.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
