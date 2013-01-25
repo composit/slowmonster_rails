@@ -250,4 +250,4 @@ DEPENDENCIES
   thin (~> 1.5.0)
   timecop (~> 0.5.2)
   uglifier (>= 1.2.7)
-  unicorn
+  unicorn (~> 4.4.0)
