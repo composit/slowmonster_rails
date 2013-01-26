@@ -16,3 +16,4 @@
 .jhw-cache/
 runner.html
 runner.filter.html
+config/application.yml

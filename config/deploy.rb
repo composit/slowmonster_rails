@@ -24,6 +24,10 @@ after 'deploy:update_code' do
   run "ln -nfs #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
 end
 
+before 'deploy:assets:precompile' do
+  run "ln -nfs #{deploy_to}/shared/config/application.yml #{release_path}/config/application.yml"
+end
+
 #namespace :db do
 #  task :create do
 #    #run("cd #{deploy_to}/current && /usr/bin/env rake db:create RAILS_ENV=production")
