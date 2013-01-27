@@ -1,6 +1,7 @@
 set :application, "slowmonster"
 set :repository,  "git@github.com:composit/slowmonster.git"
 ssh_options[:forward_agent] = true
+default_run_options[:pty] = true
 set :deploy_via, :remote_cache
 set :use_sudo, false
 
