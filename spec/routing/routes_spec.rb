@@ -28,4 +28,6 @@ describe 'Routes' do
   specify { expect( post: 'task_joiners' ).to route_to controller: 'task_joiners', action: 'create' }
   specify { expect( put: 'task_joiners/1' ).to_not be_routable }
   specify { expect( delete: 'task_joiners/1' ).to route_to controller: 'task_joiners', action: 'destroy', id: '1' }
+
+  specify { expect( get: 'report' ).to route_to controller: 'reports', action: 'show' }
 end
