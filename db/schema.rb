@@ -11,7 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120831160254) do
+ActiveRecord::Schema.define(:version => 20130201203107) do
+
+  create_table "report_tasks", :force => true do |t|
+    t.integer  "task_id"
+    t.decimal  "multiplier", :precision => 10, :scale => 2
+    t.integer  "report_id"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+  end
+
+  add_index "report_tasks", ["report_id"], :name => "index_report_tasks_on_report_id"
+  add_index "report_tasks", ["task_id"], :name => "index_report_tasks_on_task_id"
+
+  create_table "reports", :force => true do |t|
+    t.datetime "started_at"
+    t.string   "unit"
+    t.integer  "duration"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "task_amounts", :force => true do |t|
     t.decimal  "amount"

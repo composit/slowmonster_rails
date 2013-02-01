@@ -1,6 +1,17 @@
 FactoryGirl.define do
   sequence( :username ) { |n| "user#{n}" }
 
+  factory :report do
+    started_at Time.zone.now
+    unit 'day'
+    duration 1
+  end
+
+  factory :report_task do
+    report
+    task
+  end
+
   factory :task do
     user
     content 'something'
