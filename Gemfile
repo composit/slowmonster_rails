@@ -37,6 +37,7 @@ group :test do
   gem 'guard-rspec', '~> 2.1.0'
   gem 'guard-spork', '~> 1.2.0'
   gem 'launchy', '~> 2.1.1'
+  gem 'rb-inotify', '~> 0.8.8'
   gem 'rspec-rails', '~> 2.11.0'
   gem 'timecop', '~> 0.5.2'
 end
