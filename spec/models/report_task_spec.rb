@@ -20,7 +20,7 @@ describe ReportTask do
   it 'has a multiplier' do
     subject.multiplier = 1.23
     subject.save!
-    exect( subject.reload.multiplier ).to eq 1.23
+    expect( subject.reload.multiplier ).to eq 1.23
   end
 
   it 'requires a task' do

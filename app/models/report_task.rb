@@ -5,8 +5,11 @@ class ReportTask < ActiveRecord::Base
 
   validates :task, presence: true
   validates :report, presence: true
+  
+  after_initialize :set_multiplier
 
-  def multiplier
-    @multiplier ||= 1.0
-  end
+  private
+    def set_multiplier
+      self.multiplier = 1.0 if multiplier.nil?
+    end
 end

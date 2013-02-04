@@ -1,18 +1,22 @@
 require 'spec_helper'
 
 describe TaskJoiner do
-  specify { expect( build :task_joiner ).to be_valid }
+  subject { build( :task_joiner ) }
 
-  it 'requires a parent task' do
-    task_joiner = build :task_joiner, parent_task: nil
-    expect( task_joiner ).to_not be_valid
-    expect( task_joiner.errors.full_messages ).to eq ['Parent task can\'t be blank']
+  specify { expect( subject ).to be_valid }
+
+  it 'persists a parent task' do
+    parent_task = create :task
+    subject.parent_task = parent_task
+    subject.save!
+    expect( subject.reload.parent_task ).to eq parent_task
   end
 
-  it 'requires a child task' do
-    task_joiner = build :task_joiner, child_task: nil
-    expect( task_joiner ).to_not be_valid
-    expect( task_joiner.errors.full_messages ).to eq ['Child task can\'t be blank']
+  it 'persists a child task' do
+    child_task = create :task
+    subject.child_task = child_task
+    subject.save!
+    expect( subject.reload.child_task ).to eq child_task
   end
 
   it 'returns a total child value, multiplied' do

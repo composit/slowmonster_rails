@@ -74,9 +74,9 @@ describe Task do
   end
 
   context 'with ancestors' do
-    let( :task ) { create :task, parent_tasks: [parent_task] }
-    let( :parent_task ) { create :task, parent_tasks: [grandparent_task] }
-    let( :grandparent_task ) { create :task, parent_tasks: [great_grandparent_task] }
+    let( :task ) { build :task, parent_tasks: [parent_task] }
+    let( :parent_task ) { build :task, parent_tasks: [grandparent_task] }
+    let( :grandparent_task ) { build :task, parent_tasks: [great_grandparent_task] }
     let( :great_grandparent_task ) { create :task }
 
     specify { expect( task.ancestor_task_ids ).to eq [parent_task.id, grandparent_task.id, great_grandparent_task.id] }
