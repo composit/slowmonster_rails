@@ -30,10 +30,19 @@ describe Report do
     expect( subject.reload.duration ).to eq 3
   end
 
-  it 'requires a started_at datetime' do
-    subject.started_at = nil
-    expect( subject.valid? ).to be_false
-    expect( subject.errors.to_a ).to eq ['Started at can\'t be blank']
+  describe "calculated_started_at" do
+    it 'returns the started_at datetime if one exists' do
+      sometime = 3.days.ago
+      subject.started_at = sometime
+      expect( subject.calculated_started_at ).to eq sometime
+    end
+
+    it 'figures out a started at datetime based on the units and duration if one is not specified' do
+      subject.started_at = nil
+      subject.unit = 'day'
+      subject.duration = '3'
+      expect( subject.calculated_started_at ).to be_within( 1.second ).of( 3.days.ago )
+    end
   end
 
   it 'requires a unit' do
@@ -56,6 +65,13 @@ describe Report do
     subject.duration = nil
     expect( subject.valid? ).to be_false
     expect( subject.errors.to_a ).to eq ['Duration can\'t be blank']
+  end
+
+  describe 'dates' do
+    it 'returns daily dates'
+    it 'returns weekly dates'
+    it 'returns monthly dates'
+    it 'returns yearly dates'
   end
 
   describe 'values' do

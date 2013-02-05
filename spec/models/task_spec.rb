@@ -254,15 +254,25 @@ describe Task do
     end
 
     context 'totals over time' do
-      it 'returns daily results' do
-        task = create :task
+      let( :task ) { create :task }
+
+      it 'returns results' do
+        report = double( dates: [
+                        Date.parse( '2012-09-01' ),
+                        Date.parse( '2012-09-02' ),
+                        Date.parse( '2012-09-03' ),
+                        Date.parse( '2012-09-04' ),
+        ])
         task.task_times << create( :task_time, started_at: Time.zone.parse( '2012-09-01 01:00' ), ended_at: Time.zone.parse( '2012-09-01 03:00' ) )
         task.task_times << create( :task_time, started_at: Time.zone.parse( '2012-09-01 05:00' ), ended_at: Time.zone.parse( '2012-09-01 07:00' ) )
         task.task_times << create( :task_time, started_at: Time.zone.parse( '2012-09-02 01:00' ), ended_at: Time.zone.parse( '2012-09-02 03:00' ) )
         task.task_times << create( :task_time, started_at: Time.zone.parse( '2012-09-04 01:00' ), ended_at: Time.zone.parse( '2012-09-04 03:00' ) )
-        expect( task.totals_over_time( Time.zone.parse( '2012-09-01' ), Time.zone.parse( '2012-09-04' ) ) ).to eq [{ date: Date.parse( '2012-09-01' ), value: 4.0 }, { date: Date.parse( '2012-09-02' ), value: 2.0 }, { date: Date.parse( '2012-09-03' ), value: 0.0 }, { date: Date.parse( '2012-09-04' ), value: 2.0 }]
-
+        expect( task.totals_over_time( report ) ).to eq [4.0, 2.0, 0.0, 2.0]
       end
+
+      it 'returns weekly results'
+      it 'returns monthly results'
+      it 'returns yearly results'
     end
   end
 end
