@@ -65,4 +65,8 @@ describe Ability do
       specify { expect( ability ).to_not be_able_to :destroy, task_joiner }
     end
   end
+
+  it 'cannot access reports with tasks of other users' do
+    raise 'not implemented'
+  end
 end

@@ -252,27 +252,5 @@ describe Task do
         expect( subject.total_value( yesterday, today ) ).to eq 123.4
       end
     end
-
-    context 'totals over time' do
-      let( :task ) { create :task }
-
-      it 'returns results' do
-        report = double( dates: [
-                        Date.parse( '2012-09-01' ),
-                        Date.parse( '2012-09-02' ),
-                        Date.parse( '2012-09-03' ),
-                        Date.parse( '2012-09-04' ),
-        ])
-        task.task_times << create( :task_time, started_at: Time.zone.parse( '2012-09-01 01:00' ), ended_at: Time.zone.parse( '2012-09-01 03:00' ) )
-        task.task_times << create( :task_time, started_at: Time.zone.parse( '2012-09-01 05:00' ), ended_at: Time.zone.parse( '2012-09-01 07:00' ) )
-        task.task_times << create( :task_time, started_at: Time.zone.parse( '2012-09-02 01:00' ), ended_at: Time.zone.parse( '2012-09-02 03:00' ) )
-        task.task_times << create( :task_time, started_at: Time.zone.parse( '2012-09-04 01:00' ), ended_at: Time.zone.parse( '2012-09-04 03:00' ) )
-        expect( task.totals_over_time( report ) ).to eq [4.0, 2.0, 0.0, 2.0]
-      end
-
-      it 'returns weekly results'
-      it 'returns monthly results'
-      it 'returns yearly results'
-    end
   end
 end

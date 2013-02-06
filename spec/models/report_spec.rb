@@ -41,7 +41,7 @@ describe Report do
       subject.started_at = nil
       subject.unit = 'day'
       subject.duration = '3'
-      expect( subject.calculated_started_at ).to be_within( 1.second ).of( 3.days.ago )
+      expect( subject.calculated_started_at ).to be_within( 1.second ).of( 4.days.ago )
     end
   end
 
@@ -87,9 +87,9 @@ describe Report do
       report_task_two.stub( task_content: 'two' )
       report_task_three.stub( task_content: 'three' )
 
-      report_task_one.stub( :totals_over_time ).with( subject ) { [1,2,3] }
-      report_task_two.stub( :totals_over_time ).with( subject ) { [4,5,6] }
-      report_task_three.stub( :totals_over_time ).with( subject ) { [7,8,9] }
+      report_task_one.stub( :totals_over_time ) { [1,2,3] }
+      report_task_two.stub( :totals_over_time ) { [4,5,6] }
+      report_task_three.stub( :totals_over_time ) { [7,8,9] }
       subject.report_tasks = [report_task_one, report_task_two, report_task_three]
     end
 

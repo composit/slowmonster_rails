@@ -52,12 +52,6 @@ class Task < ActiveRecord::Base
     self_seconds( start_threshold, end_threshold ) + childs_total( start_threshold, end_threshold )
   end
 
-  def totals_over_time( start_threshold, end_threshold )
-    start_threshold.to_date.upto( end_threshold.to_date ).map do |task_date|
-      total_value( task_date.to_time, ( task_date + 1.day ).to_time )
-    end
-  end
-
   #TODO make an invoicing app
   def previous_two_month_invoice_amounts( rate )
     (1..2).each do |offset|

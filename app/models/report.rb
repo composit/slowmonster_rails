@@ -11,7 +11,7 @@ class Report < ActiveRecord::Base
   end
 
   def calculated_started_at
-    started_at || eval( "#{duration}.#{unit}.ago" )
+    started_at || eval( "#{duration + 1}.#{unit}.ago" )
   end
 
   def dates
@@ -27,6 +27,6 @@ class Report < ActiveRecord::Base
     end
 
     def task_values
-      report_tasks.map { |report_task| report_task.totals_over_time( self ) }
+      report_tasks.map { |report_task| report_task.totals_over_time }
     end
 end

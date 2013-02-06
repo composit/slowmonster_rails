@@ -1,16 +1,37 @@
 require 'spec_helper'
 
 describe ReportsController do
-  context 'GET show' do
-    it 'returns totals over time for a specific task' do
-      pending
-      task = double
-      Task.stub( :find ).with( '123' ) { task }
-      task.stub( :totals_over_time ) { [1,5,7,9] }
-      get :show, task_ids: '123'
-      expect( response.body ).to eq "[1,5,7,9]"
+  context 'not logged in' do
+    it 'redirects to the new user session url' do
+      get :show, id: '123'
+      expect( response ).to redirect_to new_user_session_url
     end
 
-    it 'wraps the response in the callback'
+    it 'displays an alert' do
+      get :show, id: '123'
+      expect( flash[:alert] ).to eq 'Please sign in'
+    end
+  end
+
+  context 'logged in' do
+    let( :current_user ) { mock_model User }
+    let( :current_ability ) { double }
+
+    before do
+      controller.stub( :current_user ) { current_user }
+      current_ability.extend CanCan::Ability
+      controller.stub( :current_ability ) { current_ability }
+      current_ability.can :manage, Report
+    end
+
+    context 'GET show' do
+      it 'renders the report totals as json' do
+        report = mock_model( Report, unit: 'day' )
+        report.stub( values: 'abc' )
+        Report.stub( :find ).with( '222' ) { report }
+        get 'show', id: 222, format: :json
+        expect( response.body ).to eq "abc"
+      end
+    end
   end
 end
