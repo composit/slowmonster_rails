@@ -1,12 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~>3.2.8'
+gem 'rails', '~>3.2.11'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg', '~> 0.14.0'
-gem 'thin', '~> 1.5.0'
 gem 'unicorn', '~> 4.4.0'
 
 # Gems used only for assets and not required
@@ -45,6 +44,11 @@ end
 group :development, :test do
   gem 'sqlite3', '~> 1.3.6'
   gem 'pry-rails', '~> 0.2.1'
+  gem 'pry-doc', '~> 0.4.4'
+  gem 'better_errors', '~> 0.5.0'
+  gem 'binding_of_caller', '~> 0.6.8'
+  gem 'meta_request', '~> 0.2.1'
+  gem 'foreman', '~> 0.60.2'
 end
 
 # To use ActiveModel has_secure_password
