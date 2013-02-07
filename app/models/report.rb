@@ -33,15 +33,6 @@ class Report < ActiveRecord::Base
       hours_required_per_unit = personal_spending / worker_rate / duration
       personal_spending_per_unit = personal_spending / duration
       content_strings << "You need to work #{hours_required_per_unit} hours per #{unit} to cover your spending of $#{personal_spending} per #{unit}."
-
-      start_threshold = 4.weeks.ago
-      last_4_weeks = []
-      0.upto(3) do |n|
-        end_threshold = start_threshold + 1.week
-        last_4_weeks << Task.where( content: 'worker' ).first.total_value( start_threshold, end_threshold )
-        start_threshold = end_threshold
-      end
-      content_strings << "You worked the last four weeks: #{last_4_weeks.join( ", " )}"
     end
     content_strings
   end
