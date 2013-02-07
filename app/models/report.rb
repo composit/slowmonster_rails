@@ -14,13 +14,6 @@ class Report < ActiveRecord::Base
     started_at || eval( "#{duration}.#{unit}.ago" )
   end
 
-  def dates
-    0.upto( duration - 1 ).map do |offset|
-      date = calculated_started_at + eval( "#{offset}.#{unit}" )
-      date.strftime( "%B %d, %Y" )
-    end
-  end
-
   def content
     #TODO temporary hardcoding of report content
     content_strings = []
@@ -60,5 +53,12 @@ class Report < ActiveRecord::Base
 
     def task_values
       report_tasks.map { |report_task| report_task.totals_over_time }
+    end
+
+    def dates
+      1.upto( duration ).map do |offset|
+        date = calculated_started_at + eval( "#{offset}.#{unit}" )
+        date.strftime( "%B %d, %Y" )
+      end
     end
 end

@@ -67,13 +67,6 @@ describe Report do
     expect( subject.errors.to_a ).to eq ['Duration can\'t be blank']
   end
 
-  describe 'dates' do
-    it 'returns daily dates'
-    it 'returns weekly dates'
-    it 'returns monthly dates'
-    it 'returns yearly dates'
-  end
-
   describe 'chart_values' do
     let( :report_task_one ) { build :report_task }
     let( :report_task_two ) { build :report_task }
@@ -99,9 +92,9 @@ describe Report do
 
     it 'returns the task chart_values' do
       expect( subject.chart_values[1..3] ).to eq [
-        ['January 02, 2003', 1, 4, 7],
-        ['January 03, 2003', 2, 5, 8],
-        ['January 04, 2003', 3, 6, 9],
+        ['January 03, 2003', 1, 4, 7],
+        ['January 04, 2003', 2, 5, 8],
+        ['January 05, 2003', 3, 6, 9],
       ]
     end
   end
