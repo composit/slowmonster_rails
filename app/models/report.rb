@@ -26,8 +26,8 @@ class Report < ActiveRecord::Base
     content_strings = []
 
     unless Task.where( content: 'worker dollars' ).empty?
-      start_threshold = started_at
-      end_threshold = started_at + eval( "#{duration}.#{unit}" )
+      start_threshold = calculated_started_at
+      end_threshold = start_threshold + eval( "#{duration}.#{unit}" )
 
       worker_dollars = Task.where( content: 'worker dollars' ).first.total_value( start_threshold, end_threshold )
       after_tax_percent = 2.0/3.0
