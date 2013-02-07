@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--Load the AJAX API-->
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+  <script type="text/javascript" src="http://underscorejs.org/underscore-min.js"></script>
+  <script type="text/javascript">
+  
+    // Load the Visualization API and the piechart package.
+    google.load('visualization', '1.0', {'packages':['corechart']});
+    
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.setOnLoadCallback(getData);
+
+    function getData() {
+      $.ajax({
+        dataType: 'json',
+        url: '/reports/1',
+        success: function( data ) {
+          drawChart( data.report.chart_values );
+          displayAverages( data.report.chart_values );
+        },
+        error: function( xhr, options, error ) {
+          console.log( error );
+        }
+      });
+    }
+
+    // Callback that creates and populates a data table, 
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+    function drawChart( taskData ) {
+
+      // Create the data table.
+      var data = new google.visualization.arrayToDataTable( taskData );
+
+
+      // Set chart options
+      var options = {'title':'Task times',
+                     'width':900,
+                     'height':400};
+
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    }
+    function displayAverages(taskData) {
+      var headings = taskData.shift();
+      headings.shift();
+      var value_totals = [];
+      $.each( taskData, function(index, value) {
+          value.shift();
+          $.each( value, function(index1, value1) {
+            if( isNaN( value_totals[index1] ) ) value_totals[index1] = 0;
+            value_totals[index1] += value1;
+            });
+          });
+      for ( var i = 0; i < headings.length; i++ ) {
+        var writeIt = "<span>" + headings[i] + " = " + (value_totals[i]/taskData.length) + "</span>" ;
+          $( '#averages' ).append( writeIt );
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id='chart_div' style='width: 900px; height: 400px'>
+  </div>
+  <div id='averages'>
+    <h2>Averages:</h2>
+
+  </div>
+</body>
+</html>
+

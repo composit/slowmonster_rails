@@ -27,6 +27,7 @@ gem 'capistrano', '~> 2.13.5'
 gem 'jquery-rails',  '~> 2.1.1'
 gem 'jquery-ui-rails', '~> 2.0.0'
 gem 'rails-backbone', '~> 0.8.0'
+gem 'rabl'
 gem 'rvm-capistrano', '~> 1.2.7'
 
 group :test do

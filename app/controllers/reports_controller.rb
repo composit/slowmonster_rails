@@ -4,6 +4,5 @@ class ReportsController < ApplicationController
   respond_to :json
 
   def show
-    render json: @report.values
   end
 end

@@ -6,7 +6,7 @@ class Report < ActiveRecord::Base
   validates :unit, presence: true, inclusion: { in: %w(day week month year), allow_blank: true }
   validates :duration, presence: true
 
-  def values
+  def chart_values
     [headers] + ( [dates] + task_values ).transpose
   end
 
@@ -19,6 +19,37 @@ class Report < ActiveRecord::Base
       date = calculated_started_at + eval( "#{offset}.#{unit}" )
       date.strftime( "%B %d, %Y" )
     end
+  end
+
+  def content
+    #TODO temporary hardcoding of report content
+    content_strings = []
+
+    unless Task.where( content: 'worker dollars' ).empty?
+      start_threshold = started_at
+      end_threshold = started_at + eval( "#{duration}.#{unit}" )
+
+      worker_dollars = Task.where( content: 'worker dollars' ).first.total_value( start_threshold, end_threshold )
+      after_tax_percent = 2.0/3.0
+      business_spending = Task.where( content: 'business spending' ).first.total_value( start_threshold, end_threshold )
+      worker = Task.where( content: 'worker' ).first.total_value( start_threshold, end_threshold )
+      personal_spending = Task.where( content: 'personal spending' ).first.total_value( start_threshold, end_threshold )
+
+      net_income_dollars = ( worker_dollars * after_tax_percent ) - business_spending
+      worker_rate = net_income_dollars / worker
+      hours_required = personal_spending / worker_rate
+      content_strings << "You need to work #{hours_required} hours to cover your spending of $#{personal_spending}."
+
+      start_threshold = 4.weeks.ago
+      last_4_weeks = []
+      0.upto(3).times do |n|
+        end_threshold = start_threshold + 1.week
+        last_4_weeks << Task.where( content: 'worker' ).first.total_value( start_threshold, end_threshold )
+        start_threshold = end_threshold
+      end
+      content_strings << "You worked the last four weeks: #{last_4_weeks.join( ", " )}"
+    end
+    content_strings
   end
 
   private
