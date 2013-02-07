@@ -41,7 +41,7 @@ describe Report do
       subject.started_at = nil
       subject.unit = 'day'
       subject.duration = '3'
-      expect( subject.calculated_started_at ).to be_within( 1.second ).of( 4.days.ago )
+      expect( subject.calculated_started_at ).to be_within( 1.second ).of( 3.days.ago )
     end
   end
 

@@ -11,7 +11,7 @@ class Report < ActiveRecord::Base
   end
 
   def calculated_started_at
-    started_at || eval( "#{duration + 1}.#{unit}.ago" )
+    started_at || eval( "#{duration}.#{unit}.ago" )
   end
 
   def dates
@@ -37,12 +37,13 @@ class Report < ActiveRecord::Base
 
       net_income_dollars = ( worker_dollars * after_tax_percent ) - business_spending
       worker_rate = net_income_dollars / worker
-      hours_required = personal_spending / worker_rate
-      content_strings << "You need to work #{hours_required} hours to cover your spending of $#{personal_spending}."
+      hours_required_per_unit = personal_spending / worker_rate / duration
+      personal_spending_per_unit = personal_spending / duration
+      content_strings << "You need to work #{hours_required_per_unit} hours per #{unit} to cover your spending of $#{personal_spending} per #{unit}."
 
       start_threshold = 4.weeks.ago
       last_4_weeks = []
-      0.upto(3).times do |n|
+      0.upto(3) do |n|
         end_threshold = start_threshold + 1.week
         last_4_weeks << Task.where( content: 'worker' ).first.total_value( start_threshold, end_threshold )
         start_threshold = end_threshold
