@@ -2,10 +2,10 @@
 <html>
 <head>
   <!--Load the AJAX API-->
-  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
-  <script type="text/javascript" src="http://underscorejs.org/underscore-min.js"></script>
-  <script type="text/javascript">
+  <script src="https://www.google.com/jsapi"></script>
+  <script src="/tmp_assets/jquery-1.9.0.min.js"></script>
+  <script src="/tmp_assets/underscore-min.js"></script>
+  <script>
   
     // Load the Visualization API and the piechart package.
     google.load('visualization', '1.0', {'packages':['corechart']});
@@ -17,12 +17,12 @@
       $.ajax({
         dataType: 'json',
         url: '/reports/1',
-        success: function( data ) {
-          drawChart( data.report.chart_values );
-          displayAverages( data.report.chart_values );
+        success: function(data) {
+          drawChart(data.report.chart_values);
+          displayAverages(data.report.chart_values);
         },
-        error: function( xhr, options, error ) {
-          console.log( error );
+        error: function(xhr, options, error) {
+          console.log(error);
         }
       });
     }
@@ -30,10 +30,10 @@
     // Callback that creates and populates a data table, 
     // instantiates the pie chart, passes in the data and
     // draws it.
-    function drawChart( taskData ) {
+    function drawChart(taskData) {
 
       // Create the data table.
-      var data = new google.visualization.arrayToDataTable( taskData );
+      var data = new google.visualization.arrayToDataTable(taskData);
 
 
       // Set chart options
@@ -49,17 +49,24 @@
       var headings = taskData.shift();
       headings.shift();
       var value_totals = [];
-      $.each( taskData, function(index, value) {
+      $.each(taskData, function(index, value) {
           value.shift();
-          $.each( value, function(index1, value1) {
-            if( isNaN( value_totals[index1] ) ) value_totals[index1] = 0;
+          $.each(value, function(index1, value1) {
+            if(isNaN(value_totals[index1])) value_totals[index1] = 0;
             value_totals[index1] += value1;
             });
           });
-      for ( var i = 0; i < headings.length; i++ ) {
+      for (var i = 0; i < headings.length; i++) {
         var writeIt = "<span>" + headings[i] + " = " + (value_totals[i]/taskData.length) + "</span>" ;
-          $( '#averages' ).append( writeIt );
+          $('#averages').append(writeIt);
       }
+    }
+    function displayContent(reportContent) {
+      $.each(reportContent, function(index, value) {
+        $('#content').append(value);
+      });
+    }
+
     }
   </script>
 </head>
@@ -68,7 +75,9 @@
   </div>
   <div id='averages'>
     <h2>Averages:</h2>
-
+  </div>
+  <div id='content'>
+    <h2>Messages:</h2>
   </div>
 </body>
 </html>
