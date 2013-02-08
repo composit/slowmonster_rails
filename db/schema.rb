@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130201203107) do
+ActiveRecord::Schema.define(:version => 20130208212925) do
 
   create_table "report_tasks", :force => true do |t|
     t.integer  "task_id"
@@ -45,9 +45,9 @@ ActiveRecord::Schema.define(:version => 20130201203107) do
   create_table "task_joiners", :force => true do |t|
     t.integer  "parent_task_id"
     t.integer  "child_task_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-    t.integer  "multiplier"
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
+    t.decimal  "multiplier",     :precision => 10, :scale => 10
   end
 
   add_index "task_joiners", ["child_task_id"], :name => "index_task_joiners_on_child_task_id"
