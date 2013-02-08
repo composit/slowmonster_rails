@@ -32,7 +32,7 @@ class Report < ActiveRecord::Base
       worker_rate = net_income_dollars / worker
       hours_required_per_unit = personal_spending / worker_rate / duration
       personal_spending_per_unit = personal_spending / duration
-      content_strings << "You need to work #{hours_required_per_unit} hours per #{unit} to cover your spending of $#{personal_spending} per #{unit}."
+      content_strings << "You need to work #{hours_required_per_unit.round} hours per #{unit} to cover your spending of $#{personal_spending.round} per #{unit}."
     end
     content_strings
   end
