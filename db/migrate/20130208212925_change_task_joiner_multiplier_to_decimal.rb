@@ -1,6 +1,6 @@
 class ChangeTaskJoinerMultiplierToDecimal < ActiveRecord::Migration
   def up
-    change_column :task_joiners, :multiplier, :decimal, precision: 10, scale: 9
+    change_column :task_joiners, :multiplier, :decimal, precision: 18, scale: 10
   end
 
   def down
