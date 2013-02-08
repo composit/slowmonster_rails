@@ -89,7 +89,7 @@ class Task < ActiveRecord::Base
       amounts = amounts.where( 'incurred_at >= ?', start_threshold ) if start_threshold
       amounts = amounts.where( 'incurred_at < ?', end_threshold ) if end_threshold
       self_amount = amounts.inject( 0.0 ) do |sum_amount, task_amount|
-        sum_amount += task_amount
+        sum_amount += task_amount.amount
       end
     end
 
