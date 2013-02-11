@@ -5,7 +5,7 @@ class Report < ActiveRecord::Base
 
   validates :unit, presence: true, inclusion: { in: %w(day week month year), allow_blank: true }
   validates :duration, presence: true
-  validates :view_type, presence: true, inclusion: { in: ['line graph', 'invoice'], allow_blank: true }
+  validates :view_type, presence: true, inclusion: { in: ['line graph', 'table'], allow_blank: true }
 
   def chart_values
     [headers] + ( [dates] + task_values ).transpose

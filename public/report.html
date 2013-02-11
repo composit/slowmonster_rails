@@ -24,9 +24,13 @@
         dataType: 'json',
         url: '/reports/' + reportId,
         success: function(data) {
-          drawChart(data.report.chart_values);
-          displayAverages(data.report.chart_values);
-          displayContent(data.report.content);
+          if(data.report.view_type == 'line graph') {
+            drawChart(data.report.chart_values);
+            displayAverages(data.report.chart_values);
+            displayContent(data.report.content);
+          } else if(data.report.view_type == 'table') {
+            drawTable(data.report.chart_values);
+          }
         }
       });
     }
@@ -50,6 +54,11 @@
       var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
       chart.draw(data, options);
     }
+
+    function drawTable(taskData) {
+      alert('tabler');
+    }
+
     function displayAverages(taskData) {
       var headings = taskData.shift();
       headings.shift();
