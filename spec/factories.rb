@@ -5,6 +5,7 @@ FactoryGirl.define do
     started_at Time.zone.now
     unit 'day'
     duration 1
+    view_type 'line graph'
   end
 
   factory :report_task do

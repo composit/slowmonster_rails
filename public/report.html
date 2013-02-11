@@ -6,17 +6,23 @@
   <script src="/tmp_assets/jquery-1.9.0.min.js"></script>
   <script src="/tmp_assets/underscore-min.js"></script>
   <script>
-  
+
     // Load the Visualization API and the piechart package.
     google.load('visualization', '1.0', {'packages':['corechart']});
     
+    $(document).ready(function() {
+      $('#report-retriever').submit(function() {
+        getData($('#report-id').val());
+        return false;
+      });
+    });
     // Set a callback to run when the Google Visualization API is loaded.
-    google.setOnLoadCallback(getData);
+    //google.setOnLoadCallback(getData);
 
-    function getData() {
+    function getData(reportId) {
       $.ajax({
         dataType: 'json',
-        url: '/reports/1',
+        url: '/reports/' + reportId,
         success: function(data) {
           drawChart(data.report.chart_values);
           displayAverages(data.report.chart_values);
@@ -29,6 +35,7 @@
     // instantiates the pie chart, passes in the data and
     // draws it.
     function drawChart(taskData) {
+      $('#main').append('<div id="chart_div" style="width: 900px; height: 400px"></div>')
 
       // Create the data table.
       var data = new google.visualization.arrayToDataTable(taskData);
@@ -54,6 +61,7 @@
             value_totals[index1] += value1;
             });
           });
+      $('#main').append('<div id="averages"><h2>Averages:</h2></div>');
       for (var i = 0; i < headings.length; i++) {
         var writeIt = "<span>" + headings[i] + " = " + (value_totals[i]/taskData.length) + "</span>" ;
           $('#averages').append(writeIt);
@@ -67,13 +75,10 @@
   </script>
 </head>
 <body>
-  <div id='chart_div' style='width: 900px; height: 400px'>
-  </div>
-  <div id='averages'>
-    <h2>Averages:</h2>
-  </div>
-  <div id='content'>
-    <h2>Messages:</h2>
+  <div id='main'>
+    <form id='report-retriever'>
+      Report Id: <input type='number' id='report-id'><input type='submit' value='draw report'>
+    </form>
   </div>
 </body>
 </html>

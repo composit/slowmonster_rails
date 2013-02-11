@@ -32,7 +32,7 @@ describe ReportsController do
         report.stub( chart_values: 'abc' )
         Report.stub( :find ).with( '222' ) { report }
         get 'show', id: 222, format: :json
-        expect( response.body ).to eq "{\"report\":{\"chart_values\":\"abc\"}}"
+        expect( response.body ).to eq "{\"report\":{\"chart_values\":\"abc\",\"view_type\":null}}"
       end
     end
   end
