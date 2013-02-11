@@ -1,3 +1,3 @@
 object @report
 
-attributes :chart_values, :content
+attributes :chart_values

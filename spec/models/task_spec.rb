@@ -207,38 +207,50 @@ describe Task do
         Timecop.return
       end
 
-      it 'returns values with decimals' do
-        3.times { subject.task_times << mock_model( TaskTime, started_at: 4200.seconds.ago, ended_at: Time.zone.now ) }
-        expect( subject.total_value ).to eq 3.5
-      end
-
-      it 'returns values within a range' do
-        task = create :task
-        task.task_times << create( :task_time, started_at: 3.hours.ago, ended_at: 2.hours.ago )
-        task.task_times << create( :task_time, started_at: 2.hours.ago, ended_at: 1.hour.ago )
-        task.task_times << create( :task_time, started_at: 1.hour.ago, ended_at: Time.zone.now )
-        expect( task.total_value( 2.hours.ago, 1.hour.ago ) ).to eq 1
-      end
-
-      it 'splits task times that lie partially within the range' do
-        task = create :task
-        task.task_times << create( :task_time, started_at: 3.hours.ago, ended_at: Time.zone.now )
-        expect( task.total_value( 2.hours.ago, 1.hour.ago ) ).to eq 1
-      end
-
-      context 'incomplete task times' do
-        let( :task ) { create :task }
-
-        before :each do
-          task.task_times << create( :task_time, started_at: 3.hours.ago, ended_at: nil )
-        end
-
-        it 'sets the end_time to the current time if none exists' do
-          expect( task.total_value ).to eq 3
-        end
-
-        it 'still honors thresholds' do
+      context 'amount values' do
+        it 'returns amount values within a range' do
+          task = create :task
+          task.task_amounts << create( :task_amount, incurred_at: 3.hours.ago, amount: 1 )
+          task.task_amounts << create( :task_amount, incurred_at: 2.hours.ago, amount: 1 )
+          task.task_amounts << create( :task_amount, incurred_at: 1.hours.ago, amount: 1 )
           expect( task.total_value( 2.hours.ago, 1.hour.ago ) ).to eq 1
+        end
+      end
+
+      context 'time values' do
+        it 'returns time values with decimals' do
+          3.times { subject.task_times << mock_model( TaskTime, started_at: 4200.seconds.ago, ended_at: Time.zone.now ) }
+          expect( subject.total_value ).to eq 3.5
+        end
+
+        it 'returns time values within a range' do
+          task = create :task
+          task.task_times << create( :task_time, started_at: 3.hours.ago, ended_at: 2.hours.ago )
+          task.task_times << create( :task_time, started_at: 2.hours.ago, ended_at: 1.hour.ago )
+          task.task_times << create( :task_time, started_at: 1.hour.ago, ended_at: Time.zone.now )
+          expect( task.total_value( 2.hours.ago, 1.hour.ago ) ).to eq 1
+        end
+
+        it 'splits task times that lie partially within the range' do
+          task = create :task
+          task.task_times << create( :task_time, started_at: 3.hours.ago, ended_at: Time.zone.now )
+          expect( task.total_value( 2.hours.ago, 1.hour.ago ) ).to eq 1
+        end
+
+        context 'incomplete task times' do
+          let( :task ) { create :task }
+
+          before :each do
+            task.task_times << create( :task_time, started_at: 3.hours.ago, ended_at: nil )
+          end
+
+          it 'sets the end_time to the current time if none exists' do
+            expect( task.total_value ).to eq 3
+          end
+
+          it 'still honors thresholds' do
+            expect( task.total_value( 2.hours.ago, 1.hour.ago ) ).to eq 1
+          end
         end
       end
     end

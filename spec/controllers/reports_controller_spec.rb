@@ -25,12 +25,14 @@ describe ReportsController do
     end
 
     context 'GET show' do
+      render_views
+
       it 'renders the report totals as json' do
         report = mock_model( Report, unit: 'day' )
-        report.stub( values: 'abc' )
+        report.stub( chart_values: 'abc' )
         Report.stub( :find ).with( '222' ) { report }
         get 'show', id: 222, format: :json
-        expect( response.body ).to eq "abc"
+        expect( response.body ).to eq "{\"report\":{\"chart_values\":\"abc\"}}"
       end
     end
   end
