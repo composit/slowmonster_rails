@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130208212925) do
+ActiveRecord::Schema.define(:version => 20130211175618) do
 
   create_table "report_tasks", :force => true do |t|
     t.integer  "task_id"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20130208212925) do
     t.integer  "duration"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "view_type"
   end
 
   create_table "task_amounts", :force => true do |t|

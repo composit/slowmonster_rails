@@ -30,6 +30,24 @@ describe Report do
     expect( subject.reload.duration ).to eq 3
   end
 
+  it 'has a view_type' do
+    subject.view_type = 'line graph'
+    subject.save!
+    expect( subject.reload.view_type ).to eq 'line graph'
+  end
+
+  it 'requires a view type' do
+    subject.view_type = nil
+    expect( subject ).to_not be_valid
+    expect( subject.errors.to_a ).to eq ['View type can\'t be blank']
+  end
+
+  it 'limits the view type options' do
+    subject.view_type = 'abc'
+    expect( subject ).to_not be_valid
+    expect( subject.errors.to_a ).to eq ['View type is not included in the list']
+  end
+
   describe "calculated_started_at" do
     it 'returns the started_at datetime if one exists' do
       sometime = 3.days.ago
