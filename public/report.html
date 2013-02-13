@@ -27,7 +27,6 @@
           if(data.report.view_type == 'line graph') {
             drawChart(data.report.chart_values);
             displayAverages(data.report.chart_values);
-            displayContent(data.report.content);
           } else if(data.report.view_type == 'table') {
             drawTable(data.report.chart_values);
           }
@@ -56,8 +55,20 @@
     }
 
     function drawTable(taskData) {
-      alert('tabler');
+
+      var rowsAndCols, tableInner = "";
+      for (var i = 0; i < taskData[0].length; i++) {
+        var headers = "";
+        for (var b = 0; b < taskData.length; b++) {
+          headers +=  "<td>" + taskData[b][i] + "</td>"; 
+        }
+        tableInner += "<tr>" + headers + "</tr>";
+      }
+      var tableTogether = "<table>" + tableInner + "</table>";
+      console.log(tableTogether);
+      $('#main').append(tableTogether);
     }
+
 
     function displayAverages(taskData) {
       var headings = taskData.shift();
@@ -75,11 +86,6 @@
         var writeIt = "<span>" + headings[i] + " = " + (value_totals[i]/taskData.length) + "</span>" ;
           $('#averages').append(writeIt);
       }
-    }
-    function displayContent(reportContent) {
-      $.each(reportContent, function(index, value) {
-        $('#content').append(value);
-      });
     }
   </script>
 </head>
