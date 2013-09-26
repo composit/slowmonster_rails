@@ -33,7 +33,6 @@ gem 'rvm-capistrano', '~> 1.5.0'
 group :test do
   gem 'capybara-webkit', '~> 1.0.0'
   gem 'factory_girl_rails', '~> 4.2.1'
-  gem 'guard-jasmine-headless-webkit', '~> 0.3.2'
   gem 'guard-rspec', '~> 3.1.0'
   gem 'guard-spork', '~> 1.5.1'
   gem 'launchy', '~> 2.3.0'
@@ -50,6 +49,7 @@ group :development, :test do
   gem 'binding_of_caller', '~> 0.7.2'
   gem 'meta_request', '~> 0.2.8'
   gem 'foreman', '~> 0.63.0'
+  gem 'jasmine-rails', '~> 0.4.6'
 end
 
 # To use ActiveModel has_secure_password
