@@ -21,7 +21,7 @@ group :assets do
 end
 
 gem 'bcrypt-ruby', '~> 3.0.1'
-gem 'bourbon', '~> 3.1.8'
+gem 'bourbon', '~> 2.1.1'
 gem 'cancan', '~> 1.6.10'
 gem 'capistrano', '~> 2.15.5'
 gem 'jquery-rails',  '~> 2.1.4'
