@@ -1,6 +1,12 @@
 $orange: #eb7f26;
 $green: #dfd;
 
+table#temporary {
+  td {
+    padding: 5px;
+  }
+}
+
 body {
   font-family: $helvetica;
   font-size: 20px;

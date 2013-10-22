@@ -1,0 +1,16 @@
+<table id='temporary'>
+  <% @tasks.each do |task, expected_weekly_hours| %>
+    <% date_string = '2013-10-23' %>
+    <% amount_done = task.total_value(date_string) / (Time.zone.now.to_date - Date.parse(date_string) + 1) %>
+    <% high_amount_expected = expected_weekly_hours/7.0 %>
+    <% low_amount_expected = high_amount_expected * 0.9 %>
+    <% @color = 'green' %>
+    <% @color = 'yellow' if amount_done > low_amount_expected %>
+    <% @color = 'red' if amount_done > high_amount_expected %>
+    <tr>
+      <td style="color: <%= @color %>"><%= task.content %></td>
+      <td><%= number_with_precision(amount_done) %></td>
+      <td><%= "#{number_with_precision(low_amount_expected, precision: 2)} - #{number_with_precision(high_amount_expected, precision: 2)}" %></td>
+    </tr>
+  <% end %>
+</table>

@@ -15,7 +15,9 @@ Slowmonster::Application.routes.draw do
       get 'current_task_time'
     end
   end
-  resources :reports, only: :show
+  resources :reports, only: :show do
+    get :custom, on: :collection
+  end
   root to: 'tasks#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
