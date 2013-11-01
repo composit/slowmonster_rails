@@ -11,13 +11,13 @@
     <% high_amount_expected = expected_weekly_hours/7.0 %>
     <% low_amount_expected = high_amount_expected * 0.9 %>
     <% @color = 'green' %>
-    <% @color = 'yellow' if amount_done_since(task, 4.weeks.ago) > low_amount_expected %>
-    <% @color = 'red' if amount_done_since(task, 4.weeks.ago) > high_amount_expected %>
+    <% @color = 'yellow' if amount_done_since(task, 1.week.ago) > low_amount_expected %>
+    <% @color = 'red' if amount_done_since(task, 1.week.ago) > high_amount_expected %>
     <tr>
       <td style="color: <%= @color %>"><%= task.content %></td>
-      <td><%= number_with_precision amount_done_since(task, 1.day.ago) %></td>
-      <td><%= number_with_precision amount_done_since(task, 1.week.ago) %></td>
-      <td><%= number_with_precision amount_done_since(task, 4.weeks.ago) %></td>
+      <td><%= number_with_precision amount_done_since(task, 1.day.ago) %>(<%= number_with_precision(task.total_value(1.day.ago)) %>)</td>
+      <td><%= number_with_precision amount_done_since(task, 1.week.ago) %>(<%= number_with_precision(task.total_value(1.week.ago)) %>)</td>
+      <td><%= number_with_precision amount_done_since(task, 4.weeks.ago) %>(<%= number_with_precision(task.total_value(4.weeks.ago)) %>)</td>
       <td><%= number_with_precision(low_amount_expected, precision: 2) %></td>
       <td><%= number_with_precision(high_amount_expected, precision: 2) %></td>
     </tr>
