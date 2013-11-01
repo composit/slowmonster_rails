@@ -4,6 +4,7 @@ module ReportsHelper
     color = 'green'
     color = 'yellow' if amount_done_since(task, since_time) > low_amount_expected
     color = 'red' if amount_done_since(task, since_time) > high_amount_expected
+    color
   end
 
   def amount_done_since(task, time)
