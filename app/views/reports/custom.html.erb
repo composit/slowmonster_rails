@@ -24,12 +24,12 @@
         google.load('visualization', '1.0', {'packages':['corechart']});
 	$(document).ready(function() {
           var data = google.visualization.arrayToDataTable(
-	    <%=raw ([["times", "lowz", "upper"]] + [1.day.ago, 1.week.ago, 4.weeks.ago].map { |time| [amount_done_since(task, time), low_amount_expected, high_amount_expected] }).to_json %>
+	    <%=raw ([["since", "times", "lowz", "upper"]] + [4.weeks.ago, 3.weeks.ago, 2.weeks.ago, 1.week.ago, 1.day.ago].map { |time| [time.to_s, amount_done_since(task, time), low_amount_expected, high_amount_expected] }).to_json %>
 	  );
 	  var options = {chartArea: {width: '100%', height: '100%'},
 	                 vAxis: {gridlines: {color: 'transparent'}},
 	                 hAxis: {gridlines: {color: 'transparent'}},
-	                 colors: ['red', 'blue', 'green'],
+	                 colors: ['blue', 'green', 'red'],
 	                 width: 180,
 	                 curveType: 'function',
 	                 height: 80};
