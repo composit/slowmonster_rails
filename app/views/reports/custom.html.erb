@@ -1,25 +1,13 @@
 <script src="https://www.google.com/jsapi"></script>
 
 <table id='temporary'>
-  <tr>
-    <th>Taks</th>
-    <th>Dayz</th>
-    <th>Wek</th>
-    <th>Fwek</th>
-    <th>Lowz</th>
-    <th>Upper</th>
-  </tr>
   <% @tasks.each do |task, expected_weekly_hours| %>
     <% high_amount_expected = expected_weekly_hours/7.0 %>
     <% low_amount_expected = high_amount_expected * 0.9 %>
     <tr>
       <td style="color: <%= report_color(task, low_amount_expected, high_amount_expected) %>"><%= task.content %></td>
-      <td><%= number_with_precision amount_done_since(task, 1.day.ago) %></td>
-      <td><%= number_with_precision amount_done_since(task, 1.week.ago) %></td>
-      <td><%= number_with_precision amount_done_since(task, 4.weeks.ago) %></td>
-      <td><%= number_with_precision(low_amount_expected, precision: 2) %></td>
-      <td><%= number_with_precision(high_amount_expected, precision: 2) %></td>
       <td><div id='chart-<%= task.id %>'></div></td>
+      <td><%= number_to_percentage(amount_done_since(task, 4.weeks.ago) * 100 / high_amount_expected, precision: 0) %></td>
       <script type='text/javascript'>
         google.load('visualization', '1.0', {'packages':['corechart']});
 	$(document).ready(function() {
