@@ -7,7 +7,7 @@
     <tr>
       <td style="color: <%= report_color(task, low_amount_expected, high_amount_expected) %>"><%= task.content %></td>
       <td><div id='chart-<%= task.id %>'></div></td>
-      <td><%= number_to_percentage(amount_done_since(task, 4.weeks.ago) * 100 / high_amount_expected, precision: 0) %> of <%= high_amount_expected %></td>
+      <td><%= number_to_percentage(amount_done_since(task, 4.weeks.ago) * 100 / high_amount_expected, precision: 0) %> of <%= expected_weekly_hours %></td>
       <script type='text/javascript'>
         google.load('visualization', '1.0', {'packages':['corechart']});
 	$(document).ready(function() {
