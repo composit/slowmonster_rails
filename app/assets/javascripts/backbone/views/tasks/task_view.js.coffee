@@ -8,6 +8,7 @@ class Slowmonster.Views.Tasks.TaskView extends Backbone.View
     'click .editor': 'edit'
     'click .starter': 'start'
     'click .closer': 'close'
+    'click .adder': 'addAmount'
 
   destroy: () ->
     if confirm 'are you sure you want to delete this task?'
@@ -41,3 +42,11 @@ class Slowmonster.Views.Tasks.TaskView extends Backbone.View
         type: 'PUT'
       .done =>
         @model.collection.remove @model
+
+  addAmount: ->
+    $.ajax
+      url: "/tasks/#{@model.id}/add_amount"
+      type: 'PUT'
+      data: { amount: $(@el).find('.amount').val() }
+    .done =>
+      $(@el).find('.amount').val('')

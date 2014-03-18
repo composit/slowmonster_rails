@@ -44,4 +44,9 @@ class TasksController < ApplicationController
     @task.close
     respond_with :success
   end
+
+  def add_amount
+    @task.add_amount(params[:amount])
+    respond_with :success
+  end
 end

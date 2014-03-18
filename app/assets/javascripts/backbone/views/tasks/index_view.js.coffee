@@ -11,7 +11,6 @@ class Slowmonster.Views.Tasks.IndexView extends Backbone.View
   addAll: =>
     @options.tasks.each @addOne
     @$( '#tasks' ).sortable
-      axis: 'y'
       update: =>
         @reprioritize()
 

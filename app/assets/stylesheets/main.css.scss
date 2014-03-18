@@ -22,12 +22,9 @@ body {
 .task {
   padding: 20px;
   margin: 10px;
-  @include clearfix;
-  width: 900px;
-  @include border-radius( 5px );
-  @include box-shadow( 2px 2px 2px hsla( 0, 0%, 0%, 0.45 ) );
-  @include radial-gradient( #fff, shade( #fff, 15% ) );
-  border: 1px solid #fff;
+  float: left;
+  width: 200px;
+  display: block;
 
   div {
   }
@@ -41,7 +38,7 @@ body {
   }
 
   .actions {
-    float: right;
+    float: left;
     height: 100%;
 
     img {

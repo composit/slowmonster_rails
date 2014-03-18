@@ -132,5 +132,22 @@ describe TasksController do
         }.to raise_error CanCan::AccessDenied
       end
     end
+
+    context 'PUT add amount' do
+      it 'adds an amount to the task' do
+        task_stub = mock_model Task
+        Task.stub(:find).with(task_stub.id.to_s) { task_stub }
+        task_stub.should_receive(:add_amount).with('123')
+        put :add_amount, id: task_stub.id, amount: '123'
+      end
+
+      it 'does not allow a user to add an amount to a task they do not have access to' do
+        task = create :task
+        current_ability.cannot :manage, task
+        expect {
+          put :add_amount, id: task.id, amount: 123
+        }.to raise_error CanCan::AccessDenied
+      end
+    end
   end
 end

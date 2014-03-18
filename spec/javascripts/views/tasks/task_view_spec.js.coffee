@@ -75,3 +75,7 @@ describe 'task view', ->
       @server.respond()
       expect( removeSpy ).toHaveBeenCalled()#With @task
       removeSpy.restore()
+
+  describe 'addAmount', ->
+    xit 'is triggered by a user clicking the add amount link'
+    xit 'calls the server with the specified amount'

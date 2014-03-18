@@ -9,6 +9,7 @@ describe 'Routes' do
   specify { expect( put: 'tasks/reprioritize' ).to route_to controller: 'tasks', action: 'reprioritize' }
   specify { expect( put: 'tasks/1/start' ).to route_to controller: 'tasks', action: 'start', id: '1' }
   specify { expect( put: 'tasks/1/close' ).to route_to controller: 'tasks', action: 'close', id: '1' }
+  specify { expect(put: 'tasks/1/add_amount').to route_to controller: 'tasks', action: 'add_amount', id: '1' }
 
   specify { expect( get: 'user_sessions' ).to_not be_routable }
   specify { expect( get: 'user_sessions/1' ).to_not be_routable }

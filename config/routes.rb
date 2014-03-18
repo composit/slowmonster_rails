@@ -7,6 +7,7 @@ Slowmonster::Application.routes.draw do
     member do
       put 'start'
       put 'close'
+      put 'add_amount'
     end
   end
   resources :user_sessions, only: [:new, :create, :destroy]
