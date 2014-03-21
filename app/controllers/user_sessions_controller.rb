@@ -9,7 +9,11 @@ class UserSessionsController < ApplicationController
     #TODO location should not be needed in the response
     @user = User.where( username: params[:user_session][:username] ).first
     if @user && @user.authenticate( params[:user_session][:password] )
-      session[:user_id] = @user.id
+      if(params[:user_session][:remember_me])
+        cookies.permanent[:user_id] = @user.id
+      else
+        cookies[:user_id] = @user.id
+      end
       respond_with @user, location: root_url
     else
       respond_with ["invalid username or password"], status: :unprocessable_entity, location: root_url
@@ -17,7 +21,7 @@ class UserSessionsController < ApplicationController
   end
 
   def destroy
-    session.delete :user_id
+    cookies.delete :user_id
     respond_with true
   end
 end

@@ -6,15 +6,20 @@
 
 <form id='new-user-session' name='user-session'>
   <div class='field'>
-    </label for='username'> username:</label>
+    <label for='username'> username:</label>
     <input type='text' name='username' id='username' value='<%= username %>' required autofocus />
   </div>
 
   <div class='field'>
-    </label for='password'> password:</label>
+    <label for='password'> password:</label>
     <input type='password' name='password' id='password' value='<%= password %>' required />
   </div>
 
+  <div class='field'>
+    <input type='checkbox' name='remember_me' id='remember_me' <%= remember_me ? 'CHECKED' : '' %> />
+    <label for='remember_me'> remember me</label>
+  </div>
+  
   <div class='actions'>
     <input type='submit' value='Log in' />
   </div>

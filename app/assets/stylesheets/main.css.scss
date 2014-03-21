@@ -10,7 +10,7 @@ table#temporary {
 }
 
 body {
-  font-family: $helvetica;
+  font-family: $georgia;
   font-size: 20px;
   background-color: #ddd;
 }
@@ -25,22 +25,24 @@ body {
   float: left;
   width: 200px;
   display: block;
+  height: 2em;
+  position: relative;
 
   div {
   }
 
   .content {
-    float: left;
-    width: 810px;
     text-align: justify;
     text-shadow: 0px 1px 1px #fff;
+    max-height: 3em;
+    overflow: hidden;
     color: #444;
   }
 
   .actions {
-    float: left;
-    height: 100%;
-
+    position: absolute;
+    bottom: 0;
+    
     img {
       width: 20px;
     }

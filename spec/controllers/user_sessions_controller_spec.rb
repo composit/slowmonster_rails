@@ -16,7 +16,7 @@ describe UserSessionsController do
         end
 
         it 'sets the session user' do
-          expect( session[:user_id] ).to eq 123
+          expect( cookies[:user_id] ).to eq 123
         end
 
         it 'returns a status of "OK"' do
@@ -31,7 +31,7 @@ describe UserSessionsController do
         end
 
         it 'does not set the session user' do
-          expect( session[:user_id] ).to be_nil
+          expect( cookies[:user_id] ).to be_nil
         end
 
         it 'returns an unprocessable entity status' do
@@ -47,7 +47,7 @@ describe UserSessionsController do
       end
 
       it 'does not set the session user' do
-        expect( session[:user_id] ).to be_nil
+        expect( cookies[:user_id] ).to be_nil
       end
 
       it 'returns an unprocessable entity status' do
@@ -58,12 +58,12 @@ describe UserSessionsController do
 
   context 'DELETE' do
     before :each do
-      session[:user_id] = 123
+      cookies[:user_id] = 123
       delete :destroy, { id: "123", format: :json }
     end
     
     it 'clears the user id from the session' do
-      expect( session[:user_id] ).to be_nil
+      expect( cookies[:user_id] ).to be_nil
     end
 
     it 'responds with a status of "OK"' do
