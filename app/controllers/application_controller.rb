@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
     end
 
     def current_user
+      return if cookies[:user_token].nil?
       @current_user ||= User.find_by_auth_token cookies[:user_token]
     end
 end
