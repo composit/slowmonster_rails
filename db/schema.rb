@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130211175618) do
+ActiveRecord::Schema.define(:version => 20140325052134) do
 
   create_table "report_tasks", :force => true do |t|
     t.integer  "task_id"
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(:version => 20130211175618) do
     t.string   "email"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.string   "auth_token"
   end
 
 end

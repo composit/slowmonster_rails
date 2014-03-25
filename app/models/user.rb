@@ -10,4 +10,10 @@ class User < ActiveRecord::Base
   def current_task_time
     task_times.current.first
   end
+
+  def update_auth_token!
+    new_token = SecureRandom.urlsafe_base64
+    update_attribute(:auth_token, new_token)
+    new_token
+  end
 end

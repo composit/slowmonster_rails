@@ -65,4 +65,20 @@ describe User do
     time_3 = create :task_time, task: task, started_at: 2.days.ago, ended_at: 1.day.ago
     expect( user.reload.current_task_time ).to eq time_2
   end
+
+  describe 'generating an auth token' do
+    let(:user) { create :user }
+
+    before { SecureRandom.stub(:urlsafe_base64) { 'auth_token_stub' } }
+    
+    it 'generates an auth token' do
+      expect {
+        user.update_auth_token!
+      }.to change { user.reload.auth_token }.from(nil).to('auth_token_stub')
+    end
+
+    it 'returns the auth token' do
+      expect(user.update_auth_token!).to eq 'auth_token_stub' 
+    end
+  end
 end
