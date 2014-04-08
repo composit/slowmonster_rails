@@ -9,7 +9,7 @@ class UserSessionsController < ApplicationController
     #TODO location should not be needed in the response
     @user = User.where( username: params[:user_session][:username] ).first
     if @user && @user.authenticate( params[:user_session][:password] )
-      token = @user.update_auth_token!
+      token = @user.auth_token || @user.update_auth_token!
       if(params[:user_session][:remember_me])
         cookies[:user_token] = { value: token, secure: Rails.env.production?, expires: 1.week.since }
       else
