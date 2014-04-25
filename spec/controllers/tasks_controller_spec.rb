@@ -134,11 +134,23 @@ describe TasksController do
     end
 
     context 'PUT add amount' do
-      it 'adds an amount to the task' do
-        task_stub = mock_model Task
-        Task.stub(:find).with(task_stub.id.to_s) { task_stub }
-        task_stub.should_receive(:add_amount).with('123')
-        put :add_amount, id: task_stub.id, amount: '123'
+      context 'on success' do
+        let(:task_stub) { mock_model Task, add_amount: true, total_value: 123 }
+
+        before do
+          Task.stub(:find).with(task_stub.id.to_s) { task_stub }
+        end
+
+        it 'adds an amount to the task' do
+          task_stub.should_receive(:add_amount).with('123')
+          put :add_amount, id: task_stub.id, amount: '123', format: :json
+        end
+
+        it 'returns the total amount for that task for that day' do
+          task_stub.should_receive(:total_value).with(Time.now.beginning_of_day, nil) { :total_today_stub }
+          put :add_amount, id: task_stub.id, amount: '123', format: :json
+          expect(response.body).to eq({ total_today: :total_today_stub }.to_json)
+        end
       end
 
       it 'does not allow a user to add an amount to a task they do not have access to' do

@@ -47,6 +47,7 @@ class TasksController < ApplicationController
 
   def add_amount
     @task.add_amount(params[:amount])
-    respond_with :success
+    total_today = @task.total_value(Time.now.beginning_of_day, nil)
+    render text: {total_today: total_today}.to_json, status: :ok
   end
 end
