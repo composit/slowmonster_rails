@@ -1,8 +1,5 @@
-<div id='container'></div>
+<div ng-view></div>
 
 <script type='text/javascript'>
-  $( function() {
-    window.router = new Slowmonster.Routers.TasksRouter( { tasks: <%= @tasks.to_json.html_safe -%> } );
-    Backbone.history.start();
-  } );
+  var tasks = <%= @tasks.to_json.html_safe %>;
 </script>
