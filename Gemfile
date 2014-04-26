@@ -33,7 +33,6 @@ gem 'rvm-capistrano', '~> 1.5.0'
 group :test do
   gem 'capybara-webkit', '~> 1.0.0'
   gem 'factory_girl_rails', '~> 4.2.1'
-  gem 'jasmine-headless-webkit', '~> 0.8.4'
   gem 'launchy', '~> 2.3.0'
   gem 'rb-inotify', '~> 0.9.2'
   gem 'rspec-rails', '~> 2.14.0'

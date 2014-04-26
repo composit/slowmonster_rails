@@ -7,8 +7,8 @@ module.exports = function(config){
       'vendor/assets/components/angular/angular.js',
       'vendor/assets/components/angular-route/angular-route.js',
       'vendor/assets/components/angular-mocks/angular-mocks.js',
-      'app/assets/javascripts/angular/**/*.js',
-      'spec/javascripts/**/*.js'
+      'app/assets/javascripts/angular/**/*.js.coffee',
+      'spec/javascripts/**/*.js.coffee'
     ],
 
     autoWatch : true,
@@ -21,13 +21,17 @@ module.exports = function(config){
             'karma-chrome-launcher',
             'karma-firefox-launcher',
             'karma-phantomjs-launcher',
-            'karma-jasmine'
+            'karma-jasmine',
+            'karma-coffee-preprocessor'
             ],
 
     junitReporter : {
       outputFile: 'test_out/unit.xml',
       suite: 'unit'
-    }
+    },
 
+    preprocessors : {
+      '**/*.js.coffee': ['coffee']
+    }
   });
 };

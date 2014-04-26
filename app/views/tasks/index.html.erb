@@ -1,5 +1,1 @@
-<div ng-view></div>
-
-<script type='text/javascript'>
-  var tasks = <%= @tasks.to_json.html_safe %>;
-</script>
+<div ng-view ng-init='tasks = <%= @tasks.to_json.html_safe %>; currentTaskTime = <%= @current_task_time.to_json.html_safe %>'></div>

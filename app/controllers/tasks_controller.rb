@@ -6,6 +6,7 @@ class TasksController < ApplicationController
 
   def index
     @tasks = @tasks.open.prioritized
+    @current_task_time = current_user.current_task_time
     respond_with @tasks
   end
 

@@ -1,3 +1,7 @@
+<div ng-init="setCurrentTaskTime(currentTaskTime)">
+  {{currentTaskTime.content}}
+</div>
+
 <div ng-repeat="task in tasks">
-  {{task.content}}
+  <a href="#/{{task.id}}">{{task.content}}</a>
 </div>
