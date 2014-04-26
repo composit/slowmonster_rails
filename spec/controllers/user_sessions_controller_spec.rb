@@ -13,7 +13,7 @@ describe UserSessionsController do
         before :each do
           user.stub( :authenticate ).with( "testpass" ) { user }
           user.stub(:update_auth_token!) { :auth_token_stub }
-          post :create, { user_session: { username: "testuser", password: "testpass" }, format: :json }
+          post :create, { user_session: { username: "testuser", password: "testpass" } }
         end
 
         it 'sets the session user' do
@@ -28,7 +28,7 @@ describe UserSessionsController do
       describe 'if the params do not authenticate' do
         before :each do
           user.stub( :authenticate ).with( "testpass" ) { false }
-          post :create, { user_session: { username: "testuser", password: "testpass" }, format: :json }
+          post :create, { user_session: { username: "testuser", password: "testpass" } }
         end
 
         it 'does not set the session user' do
@@ -44,7 +44,7 @@ describe UserSessionsController do
     describe 'when no user is found with the given username' do
       before :each do
         User.stub( :where ).with( username: "testuser" ) { [] }
-        post :create, { user_session: { username: "testuser", password: "testpass" }, format: :json }
+        post :create, { user_session: { username: "testuser", password: "testpass" } }
       end
 
       it 'does not set the session user' do
