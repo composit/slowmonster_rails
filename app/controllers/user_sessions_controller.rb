@@ -18,10 +18,10 @@ class UserSessionsController < ApplicationController
       else
         cookies[:user_token] = token
       end
-      respond_with @user, location: root_url
+      redirect_to root_url
     else
       flash.now[:error] = 'invalid username or password'
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 

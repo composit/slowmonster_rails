@@ -14,7 +14,7 @@ describe TasksController do
   end
 
   context 'logged in' do
-    let( :current_user ) { mock_model User }
+    let( :current_user ) { mock_model User, current_task_time: :current_task_time_stub }
     let( :current_ability ) { double }
 
     before :each do

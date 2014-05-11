@@ -7,6 +7,7 @@ module.exports = function(config){
       'vendor/assets/components/angular/angular.js',
       'vendor/assets/components/angular-route/angular-route.js',
       'vendor/assets/components/angular-mocks/angular-mocks.js',
+      'vendor/assets/components/angular-resource/angular-resource.js',
       'app/assets/javascripts/angular/**/*.js.coffee',
       'spec/javascripts/**/*.js.coffee'
     ],

@@ -20,8 +20,8 @@ describe UserSessionsController do
           expect( cookies[:user_token] ).to eq :auth_token_stub
         end
 
-        it 'returns a status of "OK"' do
-          expect( response.status ).to eq 201
+        it 'redirects to the root url' do
+          expect( response ).to redirect_to root_url
         end
       end
 

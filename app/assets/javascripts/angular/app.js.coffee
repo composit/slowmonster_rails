@@ -2,11 +2,12 @@
 
 angular.module('slowMonster', [
   'ngRoute',
+  'ngResource',
   'slowMonster.controllers',
   'slowMonster.services'
 ]).
-config(['$routeProvider', ($routeProvider) ->
-  $routeProvider.when('/', { templateUrl: 'assets/angular/partials/tasks.html', controller: 'tasksCtrl' })
+config(['$routeProvider', '$resourceProvider', ($routeProvider, $resourceProvider) ->
+  $routeProvider.when('/', { templateUrl: 'assets/angular/partials/tasksList.html', controller: 'tasksListCtrl' })
   $routeProvider.when('/:taskId', { templateUrl: 'assets/angular/partials/task.html', controller: 'taskCtrl' })
   $routeProvider.otherwise({ redirectTo: '/' })
 ])
