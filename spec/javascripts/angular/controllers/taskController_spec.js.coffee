@@ -33,4 +33,4 @@ describe 'taskCtrl', ->
       spyOn($rootScope, "$emit")
       @scope.startTask()
       $httpBackend.flush()
-      expect($rootScope.$emit).toHaveBeenCalledWith('start task', { task_id: 456 })
+      expect($rootScope.$emit).toHaveBeenCalledWith('start task', jasmine.any(Object))

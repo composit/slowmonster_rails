@@ -4,8 +4,8 @@ angular.module('slowMonster.controllers')
   .controller('tasksCtrl', ['$scope', '$rootScope', '$timeout', ($scope, $rootScope, $timeout) ->
     $scope.counter = 0
           
-    unbind = $rootScope.$on 'start task', (event, task) ->
-      $scope.currentTaskTime = task
+    unbind = $rootScope.$on 'start task', (event, taskTime) ->
+      $scope.currentTaskTimes.push(taskTime)
       $scope.status = 'worker'
       $scope.counter = 25*60
 

@@ -10,6 +10,6 @@ angular.module('slowMonster.controllers')
     $scope.setTask($routeParams.taskId)
 
     $scope.startTask = ->
-      TaskTime.save { task_id: $scope.task.id }, ->
-        $rootScope.$emit('start task', { task_id: $scope.task.id })
+      TaskTime.save { task_id: $scope.task.id }, (taskTime) ->
+        $rootScope.$emit('start task', taskTime)
   ])
