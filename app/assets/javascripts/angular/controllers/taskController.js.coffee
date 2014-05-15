@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('slowMonster.controllers')
-  .controller('taskCtrl', ['$scope', '$routeParams', 'Task', '$rootScope', ($scope, $routeParams, Task, $rootScope) ->
+  .controller('taskCtrl', ['$scope', '$routeParams', 'TaskTime', '$rootScope', ($scope, $routeParams, TaskTime, $rootScope) ->
     $scope.setTask = (taskId) ->
       for task in $scope.tasks
         if task.id == parseInt(taskId)
@@ -10,6 +10,6 @@ angular.module('slowMonster.controllers')
     $scope.setTask($routeParams.taskId)
 
     $scope.startTask = ->
-      $rootScope.$emit('start task')
-      Task.start({ taskId: $scope.task.id }, $scope.task)
+      TaskTime.save { task_id: $scope.task.id }, ->
+        $rootScope.$emit('start task', { task_id: $scope.task.id })
   ])

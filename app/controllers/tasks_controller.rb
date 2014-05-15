@@ -6,7 +6,7 @@ class TasksController < ApplicationController
 
   def index
     @tasks = @tasks.open.prioritized
-    @current_task_time = current_user.current_task_time
+    @current_task_times = current_user.current_task_times
     respond_with @tasks
   end
 
@@ -23,21 +23,6 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    respond_with :success
-  end
-
-  def reprioritize
-    params[:tasks].each_with_index do |task_id, index|
-      task = Task.find( task_id )
-      authorize! :update, task
-      task.priority = index
-      task.save!
-    end
-    respond_with :success
-  end
-
-  def start
-    @task.start
     respond_with :success
   end
 

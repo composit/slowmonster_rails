@@ -111,49 +111,6 @@ describe Task do
     expect( TaskJoiner.count ).to eq 0
   end
 
-  context 'starting' do
-    let( :user ) { create :user }
-    let( :task ) { create :task, user: user }
-
-    describe 'creates a new task time' do
-      before :each do
-        task.start
-      end
-
-      it 'associated with itself' do
-        expect( task.task_times.count ).to eq 1
-      end
-
-      it 'with a started at value of the current time' do
-        expect( task.task_times.last.started_at ).to be_within( 1 ).of Time.zone.now
-      end
-    end
-
-    context 'with an open task time' do
-      let( :other_task ) { create :task, user: user }
-      let!( :open_task_time ) { create :task_time, task: other_task }
-
-      it 'adds an ended at time to any ticket times for the current user without an ended at time' do
-        task.start
-        expect( open_task_time.reload.ended_at ).to_not be_nil
-        expect( open_task_time.reload.ended_at ).to be_within( 1 ).of Time.zone.now
-      end
-
-      it 'does not add an ended at time to ticket times that already have ended at times' do
-        open_task_time.update_attributes! ended_at: '2001-02-03 04:05:06'
-        task.start
-        expect( open_task_time.reload.ended_at.strftime '%Y-%m-%d %H:%M:%S' ).to eq '2001-02-03 04:05:06'
-      end
-
-      it 'does not add an ended at time to ticket times for other users' do
-        other_task.user = create :user
-        other_task.save!
-        task.start
-        expect( open_task_time.reload.ended_at ).to be_nil
-      end
-    end
-  end
-
   context 'closing' do
     let( :user ) { create :user }
     let( :task ) { create :task, user: user }

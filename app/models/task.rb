@@ -34,11 +34,6 @@ class Task < ActiveRecord::Base
     end
   end
 
-  def start
-    TaskTime.includes( :task ).where( ended_at: nil, 'tasks.user_id' => user_id ).each { |task_time| task_time.update_attributes! ended_at: Time.zone.now }
-    task_times.create! started_at: Time.zone.now
-  end
-
   def add_amount( amount = 1 )
     task_amounts.create! amount: amount, incurred_at: Time.zone.now
   end

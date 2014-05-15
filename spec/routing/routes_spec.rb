@@ -1,13 +1,14 @@
 require 'spec_helper'
 
 describe 'Routes' do
+  specify { expect( post: 'task_times' ).to route_to controller: 'task_times', action: 'create' }
+  specify { expect( put: 'task_times/1/stop' ).to route_to controller: 'task_times', action: 'stop', id: '1' }
   specify { expect( get: 'tasks' ).to route_to controller: 'tasks', action: 'index' }
   specify { expect( get: 'tasks/1' ).to route_to controller: 'tasks', action: 'show', id: '1' }
   specify { expect( post: 'tasks' ).to route_to controller: 'tasks', action: 'create' }
   specify { expect( put: 'tasks/1' ).to route_to controller: 'tasks', action: 'update', id: '1' }
   specify { expect( delete: 'tasks/1' ).to route_to controller: 'tasks', action: 'destroy', id: '1' }
   specify { expect( put: 'tasks/reprioritize' ).to route_to controller: 'tasks', action: 'reprioritize' }
-  specify { expect( put: 'tasks/1/start' ).to route_to controller: 'tasks', action: 'start', id: '1' }
   specify { expect( put: 'tasks/1/close' ).to route_to controller: 'tasks', action: 'close', id: '1' }
   specify { expect(put: 'tasks/1/add_amount').to route_to controller: 'tasks', action: 'add_amount', id: '1' }
 

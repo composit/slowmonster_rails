@@ -1,27 +1,36 @@
 describe 'taskCtrl', ->
   beforeEach(module('slowMonster'))
 
-  Task = null
+  TaskTime = null
   $rootScope = null
+  $httpBackend = null
 
-  beforeEach inject (_$rootScope_, $controller, _Task_) ->
-    Task = _Task_
+  beforeEach inject (_$rootScope_, $controller, _TaskTime_, _$httpBackend_) ->
+    TaskTime = _TaskTime_
     $rootScope = _$rootScope_
     @scope = $rootScope.$new()
     @goodTask = {"id": 456, "content": "good task"}
     @scope.tasks = [{"id": 123, "content": "bad task"}, @goodTask]
-    $controller('taskCtrl', { $scope: @scope, $routeParams: { taskId: "456" }, Task, $rootScope })
+    $controller('taskCtrl', { $scope: @scope, $routeParams: { taskId: "456" }, TaskTime, $rootScope })
+
+    $httpBackend = _$httpBackend_
+    $httpBackend.when('POST', '/task_times?format=json').respond({})
+
+  afterEach ->
+    $httpBackend.verifyNoOutstandingExpectation()
+    $httpBackend.verifyNoOutstandingRequest()
 
   it 'sets the task on instantiation', ->
     expect(@scope.task).toEqual(@goodTask)
 
   describe 'starting a task', ->
-    it 'starts the task service', ->
-      spyOn(Task, "start")
+    it 'creates the task time', ->
+      spyOn(TaskTime, "save")
       @scope.startTask()
-      expect(Task.start).toHaveBeenCalledWith({ taskId: 456 }, @goodTask)
+      expect(TaskTime.save).toHaveBeenCalledWith({ task_id: 456 }, jasmine.any(Function))
 
     it 'emits the starting event', ->
       spyOn($rootScope, "$emit")
       @scope.startTask()
-      expect($rootScope.$emit).toHaveBeenCalledWith('start task')
+      $httpBackend.flush()
+      expect($rootScope.$emit).toHaveBeenCalledWith('start task', { task_id: 456 })

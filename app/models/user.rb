@@ -7,8 +7,8 @@ class User < ActiveRecord::Base
   has_many :tasks
   has_many :task_times, through: :tasks
 
-  def current_task_time
-    task_times.current.first
+  def current_task_times
+    task_times.current
   end
 
   def update_auth_token!

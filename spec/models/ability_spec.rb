@@ -66,6 +66,27 @@ describe Ability do
     end
   end
 
+  context 'task_times' do
+    context 'belong to user' do
+      let( :task ) { build :task, user: user }
+      let( :task_time ) { build :task_time, task: task }
+
+      specify { expect( ability ).to be_able_to :create, task_time }
+      specify { expect( ability ).to be_able_to :read, task_time }
+      specify { expect( ability ).to be_able_to :update, task_time }
+      specify { expect( ability ).to be_able_to :destroy, task_time }
+    end
+
+    context 'do not belong to the user' do
+      let( :task_time ) { build :task_time }
+
+      specify { expect( ability ).to_not be_able_to :create, task_time }
+      specify { expect( ability ).to_not be_able_to :read, task_time }
+      specify { expect( ability ).to_not be_able_to :update, task_time }
+      specify { expect( ability ).to_not be_able_to :destroy, task_time }
+    end
+  end
+
   it 'cannot access reports with tasks of other users' do
     raise 'not implemented'
   end

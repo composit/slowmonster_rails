@@ -1,5 +1,8 @@
 Slowmonster::Application.routes.draw do
   resources :task_joiners, only: [:create, :destroy]
+  resources :task_times, only: [:create] do
+    put 'stop', on: :member
+  end
   resources :tasks, only: [:index, :create, :show, :update, :destroy] do
     collection do
       put 'reprioritize'

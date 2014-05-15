@@ -22,4 +22,10 @@ describe TaskTime do
     time_4 = create :task_time, ended_at: nil
     expect( TaskTime.current ).to eq [time_2, time_4]
   end
+
+  it 'stops' do
+    task_time = build :task_time, ended_at: nil
+    task_time.stop
+    expect(task_time.ended_at).to be_within(1.second).of(Time.zone.now)
+  end
 end

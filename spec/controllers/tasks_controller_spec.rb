@@ -14,7 +14,7 @@ describe TasksController do
   end
 
   context 'logged in' do
-    let( :current_user ) { mock_model User, current_task_time: :current_task_time_stub }
+    let( :current_user ) { mock_model User, current_task_times: :current_task_times_stub }
     let( :current_ability ) { double }
 
     before :each do
@@ -78,41 +78,6 @@ describe TasksController do
         task = create :task
         delete :destroy, id: task.id
         expect( Task.find_by_id task.id ).to be_nil
-      end
-    end
-
-    context 'PUT reprioritize' do
-      it 'updates the task priorities' do
-        task_1 = create :task, id: 1
-        task_2 = create :task, id: 2
-        task_3 = create :task, id: 3
-        put :reprioritize, 'tasks' => ['2','3','1']
-        expect( [task_1, task_2, task_3].collect { |task| task.reload.priority } ).to eq [2,0,1]
-      end
-
-      it 'does not prioritize tasks that the current user does not have access to' do
-        task = create :task, id: 1
-        current_ability.cannot :manage, task
-        expect {
-          put :reprioritize, 'tasks' => ['1']
-        }.to raise_error CanCan::AccessDenied
-      end
-    end
-
-    context 'start' do
-      it 'starts the task' do
-        task_stub = mock_model Task
-        Task.stub( :find ).with( task_stub.id.to_s ) { task_stub }
-        task_stub.should_receive( :start )
-        put :start, id: task_stub.id
-      end
-
-      it 'does not allow a user to start a task they do not have access to' do
-        task = create :task
-        current_ability.cannot :manage, task
-        expect {
-          put :start, id: task.id
-        }.to raise_error CanCan::AccessDenied
       end
     end
 

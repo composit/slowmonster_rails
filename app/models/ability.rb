@@ -5,6 +5,7 @@ class Ability
     user ||= User.new
     can :manage, Task, user_id: user.id
     can :manage, TaskJoiner, parent_task: { user_id: user.id }, child_task: { user_id: user.id }
+    can :manage, TaskTime, task: { user_id: user.id }
     can :manage, User, id: user.id
     can :manage, Report
     # Define abilities for the passed in user here. For example:
