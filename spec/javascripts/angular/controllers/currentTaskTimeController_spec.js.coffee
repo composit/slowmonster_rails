@@ -33,3 +33,10 @@ describe 'currentTaskTimeCtrl', ->
       scope.stopTaskTime()
       $httpBackend.flush()
       expect(scope.removeTaskTime).toHaveBeenCalledWith(789)
+
+  it 'starts a timer', ->
+    expect(scope.counter).toEqual(25*60)
+
+  xit 'starts a break timer when the "work timer" finishes'
+
+  xit 'stops the task when the break timer finishes'

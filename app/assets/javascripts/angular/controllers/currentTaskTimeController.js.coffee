@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('slowMonster.controllers')
-  .controller('currentTaskTimeCtrl', ['$scope', 'TaskTime', ($scope, TaskTime) ->
+  .controller('currentTaskTimeCtrl', ['$scope', 'TaskTime', '$timeout', ($scope, TaskTime, $timeout) ->
 
     $scope.taskContent = () ->
       for task in $scope.tasks
@@ -12,4 +12,24 @@ angular.module('slowMonster.controllers')
       taskTimeId = $scope.taskTime.id
       TaskTime.stop {taskTimeId: taskTimeId}, ->
         $scope.removeTaskTime(taskTimeId)
+
+    $scope.counter = 25#*60
+
+    $scope.breakTick = ->
+      $scope.counter--
+      if($scope.counter == 0)
+        $scope.stopTaskTime()
+      else
+        breakTimer = $timeout($scope.breakTick, 1000)
+
+    $scope.workerTick = ->
+      $scope.counter--
+      if($scope.counter == 0)
+        $scope.breaktime = true
+        $scope.counter = 5#*60
+        breakTimer = $timeout($scope.breakTick, 1000)
+      else
+        workTimer = $timeout($scope.workerTick, 1000)
+
+    workTimer = $timeout($scope.workerTick, 1000)
   ])

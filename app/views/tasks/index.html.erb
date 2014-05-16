@@ -3,6 +3,8 @@
     <div ng-repeat="taskTime in currentTaskTimes">
       <div ng-controller='currentTaskTimeCtrl'>
         {{taskContent(taskTime.task_id)}}
+        <span ng-show='breaktime'>BREAK</span>
+        {{counter}}
         <span ng-click="stopTaskTime(taskTime.id)">stop</a>
       </div>
     </div>

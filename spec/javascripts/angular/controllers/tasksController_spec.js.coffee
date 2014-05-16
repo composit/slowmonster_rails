@@ -15,10 +15,3 @@ describe 'tasksCtrl', ->
     it 'adds the taskTime to the current task times', ->
       $rootScope.$emit('start task', {task_id: 123})
       expect(scope.currentTaskTimes).toEqual([{task_id: 123}])
-
-    it 'starts a timer', ->
-      $rootScope.$emit('start task', {task_id: 123})
-      expect(scope.counter).toEqual(25*60)
-
-    xit 'starts a break timer when the "work timer" finishes'
-
