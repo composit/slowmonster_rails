@@ -37,6 +37,11 @@ describe 'currentTaskTimeCtrl', ->
   it 'starts a timer', ->
     expect(scope.counter).toEqual(25*60)
 
-  xit 'starts a break timer when the "work timer" finishes'
+  describe 'when the work timer finishes', ->
+    xit 'starts a break timer'
+    xit 'sets breaktime to true'
+    xit 'sends a notification'
 
-  xit 'stops the task when the break timer finishes'
+  describe 'when the break timer finishes', ->
+    xit 'stops the task time'
+    xit 'sends a notification'
