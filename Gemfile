@@ -29,6 +29,7 @@ gem 'jquery-ui-rails', '~> 4.0.5'
 gem 'rails-backbone', '~> 0.9.10'
 gem 'rabl', '~> 0.8.6'
 gem 'rvm-capistrano', '~> 1.5.0'
+gem 'capistrano-npm', '~> 0.0.2'
 
 group :test do
   gem 'capybara-webkit', '~> 1.0.0'
