@@ -14,6 +14,7 @@ set :rvm_ruby_string, '2.0.0-p247'
 set :rvm_type, :system
 
 require 'bundler/capistrano'
+require 'capistrano/npm'
 
 set :scm, :git
 
@@ -34,6 +35,7 @@ after 'deploy:update_code' do
 end
 
 before 'deploy:assets:precompile' do
+  'npm:install'
   run "ln -nfs #{deploy_to}/shared/config/application.yml #{release_path}/config/application.yml"
 end
 
