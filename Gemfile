@@ -23,13 +23,10 @@ end
 gem 'bcrypt-ruby', '~> 3.0.1'
 gem 'bourbon', '~> 2.1.1'
 gem 'cancan', '~> 1.6.10'
-gem 'capistrano', '~> 2.15.5'
 gem 'jquery-rails',  '~> 2.1.4'
 gem 'jquery-ui-rails', '~> 4.0.5'
 gem 'rails-backbone', '~> 0.9.10'
 gem 'rabl', '~> 0.8.6'
-gem 'rvm-capistrano', '~> 1.5.0'
-gem 'capistrano-npm', '~> 0.0.2'
 
 group :test do
   gem 'capybara-webkit', '~> 1.0.0'
@@ -47,6 +44,9 @@ group :development, :test do
   gem 'pry-rails', '~> 0.3.2'
   gem 'pry-doc', '~> 0.4.6'
   gem 'sqlite3', '~> 1.3.8'
+  gem 'capistrano-rails'
+  gem 'capistrano-bower'
+  gem 'capistrano-rvm'
 end
 
 # To use ActiveModel has_secure_password
