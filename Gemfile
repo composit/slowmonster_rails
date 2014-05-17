@@ -47,6 +47,7 @@ group :development, :test do
   gem 'capistrano-rails'
   gem 'capistrano-bower'
   gem 'capistrano-rvm'
+  gem 'capistrano-npm'
 end
 
 # To use ActiveModel has_secure_password
