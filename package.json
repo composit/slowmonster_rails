@@ -13,7 +13,7 @@
     "protractor": "~0.17.0"
   },
   "scripts": {
-    "postinstall": "bower install",
+    "postinstall": "bower install --config.interactive=false",
     "test": "karma start spec/karma.conf.js",
     "protractor": "protractor spec/protractor-conf.js",
     "test-single-run": "karma start spec/karma.conf.js --single-run"

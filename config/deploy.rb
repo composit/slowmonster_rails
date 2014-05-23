@@ -44,6 +44,8 @@ set :bower_roles, :app
 
 set :unicorn_pid, "#{current_path}/tmp/pids/unicorn.pid"
 
+set :npm_flags, '--production --config.interactive=false'
+
 namespace :deploy do
 
   desc 'Restart application'
