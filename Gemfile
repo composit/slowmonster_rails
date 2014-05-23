@@ -45,7 +45,7 @@ group :development, :test do
   gem 'pry-doc', '~> 0.4.6'
   gem 'sqlite3', '~> 1.3.8'
   gem 'capistrano-rails'
-  gem 'capistrano-bower'
+  # gem 'capistrano-bower'
   gem 'capistrano-rvm'
   gem 'capistrano-npm'
 end
