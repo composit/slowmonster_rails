@@ -28,7 +28,7 @@ set :linked_files, %w{config/database.yml config/application.yml}
 
 # Default value for linked_dirs is []
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system vendor/assets/components}
+set :linked_dirs, %w{bin log tmp/pids tmp/cache sockets vendor/bundle public/system vendor/assets/components}
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -44,7 +44,7 @@ set :bower_roles, :app
 
 set :unicorn_pid, "#{current_path}/tmp/pids/unicorn.pid"
 
-set :npm_flags, '--production --config.interactive=false'
+# set :npm_flags, '--production --config.interactive=false'
 
 namespace :deploy do
 

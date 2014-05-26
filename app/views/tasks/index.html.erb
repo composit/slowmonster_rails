@@ -1,4 +1,4 @@
-<div ng-controller='tasksCtrl' ng-init='tasks = <%= @tasks.to_json.html_safe %>; currentTaskTimes = <%= @current_task_times.to_json.html_safe %>'>
+<div ng-controller='tasksCtrl' ng-init='tasks = <%= @tasks.to_json %>; currentTaskTimes = <%= @current_task_times.to_json %>'>
   <div ng-controller='currentTaskTimesListCtrl'>
     <div ng-repeat="taskTime in currentTaskTimes">
       <div ng-controller='currentTaskTimeCtrl'>
