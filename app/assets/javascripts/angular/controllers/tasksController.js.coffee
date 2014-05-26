@@ -18,5 +18,6 @@ angular.module('slowMonster.controllers')
 
         if (permission == "granted")
           $scope.notificationPermissionGranted = true
+          console.log('test')
 
   ])
