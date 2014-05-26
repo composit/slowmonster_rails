@@ -8,15 +8,14 @@ class UserSessionsController < ApplicationController
   end
 
   def create
-    #TODO location should not be needed in the response
     @user_session = UserSession.new(params[:user_session])
     @user = User.where( username: @user_session.username ).first
     if @user && @user.authenticate( @user_session.password )
       token = @user.auth_token || @user.update_auth_token!
       if(@user_session.remember_me)
-        cookies[:user_token] = { value: token, secure: Rails.env.production?, expires: 1.week.since }
+        cookies.signed[:user_token] = { value: token, secure: Rails.env.production?, expires: 1.week.since }
       else
-        cookies[:user_token] = token
+        cookies.signed[:user_token] = token
       end
       redirect_to root_url
     else
