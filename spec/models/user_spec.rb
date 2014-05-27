@@ -74,12 +74,13 @@ describe User do
     
     it 'generates an auth token' do
       expect {
-        user.update_auth_token!
-      }.to change { user.reload.auth_token }.from(nil).to('auth_token_stub')
+        user.create_auth_token!
+      }.to change { user.reload.auth_tokens.count }.from(0).to(1)
+      expect(user.auth_tokens.last.token).to eq('auth_token_stub')
     end
 
     it 'returns the auth token' do
-      expect(user.update_auth_token!).to eq 'auth_token_stub' 
+      expect(user.create_auth_token!).to eq 'auth_token_stub' 
     end
   end
 end

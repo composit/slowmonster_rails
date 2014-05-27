@@ -12,11 +12,11 @@ describe 'Routes' do
   specify { expect( put: 'tasks/1/close' ).to route_to controller: 'tasks', action: 'close', id: '1' }
   specify { expect(put: 'tasks/1/add_amount').to route_to controller: 'tasks', action: 'add_amount', id: '1' }
 
-  specify { expect( get: 'user_sessions' ).to_not be_routable }
-  specify { expect( get: 'user_sessions/1' ).to_not be_routable }
-  specify { expect( post: 'user_sessions' ).to route_to controller: 'user_sessions', action: 'create' }
-  specify { expect( put: 'user_sessions/1' ).to_not be_routable }
-  specify { expect( delete: 'user_sessions/1' ).to route_to controller: 'user_sessions', action: 'destroy', id: '1' }
+  specify { expect( get: 'user_session' ).to_not be_routable }
+  specify { expect( get: 'user_session/1' ).to_not be_routable }
+  specify { expect( post: 'user_session' ).to route_to controller: 'user_sessions', action: 'create' }
+  specify { expect( put: 'user_session/1' ).to_not be_routable }
+  specify { expect( delete: 'user_session' ).to route_to controller: 'user_sessions', action: 'destroy' }
 
   specify { expect( get: 'users' ).to_not be_routable }
   specify { expect( get: 'users/1' ).to route_to controller: 'users', action: 'show', id: '1' }

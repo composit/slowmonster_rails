@@ -11,7 +11,10 @@ class ApplicationController < ActionController::Base
 
     def current_user
       return if cookies.signed[:user_token].nil?
-      @current_user ||= User.find_by_auth_token cookies.signed[:user_token]
+      return @current_user if @current_user
+      if auth_token = AuthToken.find_by_token(cookies.signed[:user_token])
+        @current_user = auth_token.user
+      end
     end
 
     def set_csrf_cookie_for_ng

@@ -1,5 +1,12 @@
 FactoryGirl.define do
   sequence( :username ) { |n| "user#{n}" }
+  sequence(:token) {|n| "token${n}"}
+
+
+  factory :auth_token do
+    token
+    user
+  end
 
   factory :report do
     started_at Time.zone.now

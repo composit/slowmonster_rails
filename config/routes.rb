@@ -13,7 +13,7 @@ Slowmonster::Application.routes.draw do
       put 'add_amount'
     end
   end
-  resources :user_sessions, only: [:new, :create, :destroy]
+  resource :user_session, only: [:new, :create, :destroy]
   resources :users, only: [:show] do
     collection do
       get 'current_task_time'

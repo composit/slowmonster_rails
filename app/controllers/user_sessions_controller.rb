@@ -1,7 +1,6 @@
 class UserSessionsController < ApplicationController
   skip_authorization_check
-  respond_to :json, only: :destroy
-  respond_to :html, only: [:new, :create]
+  respond_to :html
 
   def new
     @user_session = UserSession.new
@@ -11,9 +10,9 @@ class UserSessionsController < ApplicationController
     @user_session = UserSession.new(params[:user_session])
     @user = User.where( username: @user_session.username ).first
     if @user && @user.authenticate( @user_session.password )
-      token = @user.auth_token || @user.update_auth_token!
+      token = @user.create_auth_token!
       if(@user_session.remember_me)
-        cookies.signed[:user_token] = { value: token, secure: Rails.env.production?, expires: 1.week.since }
+        cookies.permanent.signed[:user_token] = { value: token, secure: Rails.env.production? }
       else
         cookies.signed[:user_token] = token
       end
@@ -25,7 +24,9 @@ class UserSessionsController < ApplicationController
   end
 
   def destroy
+    auth_token = AuthToken.find_by_token(cookies.signed[:user_token])
+    auth_token.destroy
     cookies.delete :user_token
-    respond_with true
+    redirect_to root_url
   end
 end

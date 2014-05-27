@@ -12,12 +12,12 @@ describe UserSessionsController do
       describe 'if the params authenticate' do
         before :each do
           user.stub( :authenticate ).with( "testpass" ) { user }
-          user.stub(:update_auth_token!) { :auth_token_stub }
+          user.stub(:create_auth_token!) { :auth_token_stub }
           post :create, { user_session: { username: "testuser", password: "testpass" } }
         end
 
         it 'sets the session user' do
-          expect( cookies[:user_token] ).to eq :auth_token_stub
+          expect( cookies.signed[:user_token] ).to eq :auth_token_stub
         end
 
         it 'redirects to the root url' do
@@ -32,7 +32,7 @@ describe UserSessionsController do
         end
 
         it 'does not set the session user' do
-          expect( cookies[:user_token] ).to be_nil
+          expect( cookies.signed[:user_token] ).to be_nil
         end
 
         it 'returns an unprocessable entity status' do
@@ -48,7 +48,7 @@ describe UserSessionsController do
       end
 
       it 'does not set the session user' do
-        expect( cookies[:user_token] ).to be_nil
+        expect( cookies.signed[:user_token] ).to be_nil
       end
 
       it 'returns an unprocessable entity status' do
@@ -59,16 +59,21 @@ describe UserSessionsController do
 
   context 'DELETE' do
     before :each do
-      cookies[:user_token] = 123
-      delete :destroy, { id: "123", format: :json }
+      create(:auth_token, token: 123)
+      cookies.signed[:user_token] = 123
+      delete :destroy
     end
     
     it 'clears the user id from the session' do
-      expect( cookies[:user_token] ).to be_nil
+      expect( cookies.signed[:user_token] ).to be_nil
+    end
+
+    it 'deletes the auth_token' do
+      expect(AuthToken.count).to eq 0
     end
 
     it 'responds with a status of "OK"' do
-      expect( response.status ).to eq 204
+      expect(response).to redirect_to root_url
     end
   end
 end
