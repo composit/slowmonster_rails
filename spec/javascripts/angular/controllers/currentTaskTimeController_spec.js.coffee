@@ -34,6 +34,8 @@ describe 'currentTaskTimeCtrl', ->
       $httpBackend.flush()
       expect(scope.removeTaskTime).toHaveBeenCalledWith(789)
 
+    xit 'stops the timers'
+
   it 'starts a timer', ->
     expect(scope.counter).toEqual(25*60)
 

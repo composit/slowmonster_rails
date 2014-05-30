@@ -12,6 +12,8 @@ angular.module('slowMonster.controllers')
       taskTimeId = $scope.taskTime.id
       TaskTime.stop {taskTimeId: taskTimeId}, ->
         $scope.removeTaskTime(taskTimeId)
+        $timeout.cancel($scope.workTimer)
+        $timeout.cancel($scope.breakTimer)
 
     $scope.counter = 25*60
 
@@ -21,7 +23,7 @@ angular.module('slowMonster.controllers')
         Notifier("break's over. do some stuff!")
         $scope.stopTaskTime()
       else
-        breakTimer = $timeout($scope.breakTick, 1000)
+        $scope.breakTimer = $timeout($scope.breakTick, 1000)
 
     $scope.workerTick = ->
       $scope.counter--
@@ -29,9 +31,10 @@ angular.module('slowMonster.controllers')
         Notifier("take a break!")
         $scope.breaktime = true
         $scope.counter = 5*60
-        breakTimer = $timeout($scope.breakTick, 1000)
+        $scope.breakTimer = $timeout($scope.breakTick, 1000)
       else
-        workTimer = $timeout($scope.workerTick, 1000)
+        $scope.workTimer = $timeout($scope.workerTick, 1000)
 
-    workTimer = $timeout($scope.workerTick, 1000)
+    $scope.workTimer = $timeout($scope.workerTick, 1000)
+    $scope.breakTimer = null
   ])
