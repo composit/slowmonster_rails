@@ -4,6 +4,7 @@ angular.module('slowMonster', [
   'ngRoute',
   'ngResource',
   'slowMonster.controllers',
+  'slowMonster.directives',
   'slowMonster.services'
 ]).
 config(['$routeProvider', '$resourceProvider', ($routeProvider, $resourceProvider) ->
@@ -13,4 +14,5 @@ config(['$routeProvider', '$resourceProvider', ($routeProvider, $resourceProvide
 ])
 
 angular.module('slowMonster.controllers', [])
+angular.module('slowMonster.directives', [])
 angular.module('slowMonster.services', [])
