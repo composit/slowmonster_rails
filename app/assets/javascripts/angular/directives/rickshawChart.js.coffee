@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('slowMonster.directives')
-  .directive 'rickshawChart', ($compile) ->
+  .directive 'rickshawChart', ['$compile', ($compile) ->
     return {
       restrict: 'EA',
       scope: {
@@ -93,3 +93,4 @@ angular.module('slowMonster.directives')
 
       controller: ($scope, $element, $attrs) ->
     }
+  ]
