@@ -19,4 +19,11 @@ angular.module('slowMonster.controllers')
         if (permission == "granted")
           $scope.notificationPermissionGranted = true
 
+    $scope.visibleTaskId = null
+
+    $scope.setVisibleTask = (taskId) ->
+      $scope.visibleTaskId = taskId
+
+    $scope.isVisibleTask = (taskId) ->
+      $scope.visibleTaskId == taskId
   ])

@@ -1,118 +1,38 @@
-$orange: #eb7f26;
-$green: #dfd;
-
-table#temporary {
-  width: 100%;
-
-  td {
-    padding: 5px;
-  }
-}
+$pallate_one: #FEF0A7;
+$pallate_two: #C6D3A6;
+$pallate_three: #8EB5A4;
+$pallate_four: #5697A2;
+$pallate_five: #1D79A0;
 
 body {
   font-family: "ff-tisa-web-pro", serif;
   font-size: 20px;
-  background-color: #ddd;
+  background-color: $pallate_five; 
+  color: $pallate_five;
 }
 
-#container {
-  margin-top: 83px;
-}
+#main {
+  width: 800px;
+  margin: auto;
+  margin-top: 0;
+  background-color: $pallate_three;
 
-.task {
-  padding: 20px;
-  margin: 10px;
-  float: left;
-  width: 200px;
-  display: block;
-  height: 2em;
-  position: relative;
-
-  div {
+  .even-list-task .content{
+    background-color: $pallate_one;
   }
 
-  .content {
-    text-align: justify;
-    text-shadow: 0px 1px 1px #fff;
-    max-height: 3em;
-    overflow: hidden;
-    color: #444;
+  .odd-list-task .content{
+    background-color: $pallate_two;
   }
 
-  .actions {
-    position: absolute;
-    bottom: 0;
-    
-    img {
-      width: 20px;
-    }
+  a, a:hover {
+    color: $pallate_five;
+    text-decoration: none;
+    font-weight: bold;
   }
 
-  span.parent-tasks {
-    span {
-      font-size: .7em;
-      margin: 0 10px;
-      color: tint( $orange, 30% );
-    }
-  }
-}
-
-#new-task-block {
-  a {
-    @include button( $orange );
-  }
-}
-
-#new-task, #edit-task {
-  input[type=submit] {
-    @include button( $orange );
-  }
-
-  input[type=text] {
-    width: 98%;
-    line-height: 2em;
-    height: 2em;
-    font-size: 20px;
-    margin: 10px 0;
-    padding: 0 5px;
-    color: $orange;
-    @include border-radius( 5px );
-    @include linear-gradient( #eee, #fff );
-  }
-}
-
-#new-parent-link {
-  @include button( $orange );
-}
-
-#task-parents {
-  .task-parent {
-    @include clearfix;
-
-    div {
-      float: left;
-    }
-
-    div.content {
-      width: auto;
-    }
-
-    img {
-      height: .6em; 
-      margin: 0 10px;
-    }
-  }
-}
-
-#current-task-time {
-  @include radial-gradient( $green, shade( $green, 15% ) );
-  border: 1px solid $green;
-  position: fixed;
-  top: 0;
-  left: 0;
-
-  .content {
-    color: shade( $green, 60% );
+  .clickable {
+    cursor: pointer;
     font-weight: bold;
   }
 }

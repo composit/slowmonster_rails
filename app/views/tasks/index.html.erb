@@ -1,18 +1,29 @@
-<div ng-controller='tasksCtrl' ng-init='tasks = <%= @tasks.to_json %>; currentTaskTimes = <%= @current_task_times.to_json %>'>
+<div id='main' ng-controller='tasksCtrl' ng-init='tasks = <%= @tasks.to_json %>; currentTaskTimes = <%= @current_task_times.to_json %>'>
   <div ng-controller='currentTaskTimesListCtrl'>
     <div ng-repeat="taskTime in currentTaskTimes">
       <div ng-controller='currentTaskTimeCtrl'>
         {{taskContent(taskTime.task_id)}}
         <span ng-show='breaktime'>BREAK</span>
         {{counter}}
-        <span ng-click="stopTaskTime(taskTime.id)">stop</a>
+        <span ng-click="stopTaskTime(taskTime.id)" class='clickable'>stop</a>
       </div>
     </div>
     <hr />
   </div>
 
-  <div ng-view></div>
+  <div ng-repeat="task in tasks" class='list-task' ng-class-even="'even-list-task'" ng-class-odd="'odd-list-task'">
+      <div ng-click="setVisibleTask(task.id)" ng-hide="isVisibleTask(task.id)" class='content clickable'>{{task.content}}</div>
+      <div ng-controller="taskCtrl" ng-show="isVisibleTask(task.id)">
+        <div ng-click="startTask()" class='clickable'>start</div>
+        <div class='content'>{{task.content}}</div>
+        <rickshaw-chart rickshaw-options="options" rickshaw-features="features" rickshaw-series="series">
+        </rickshaw-chart>
+      </div>
+  </div>
   <div ng-hide="notificationPermissionGranted">
     <a ng-click="grantNotificationPermission()">Grant notification permissions</a>
   </div>
+  <% if @current_user %>
+    <%= link_to 'sign out', user_session_path, method: :delete %>
+  <% end %>
 </div>

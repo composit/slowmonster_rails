@@ -19,3 +19,12 @@ describe 'tasksCtrl', ->
       expect(scope.currentTaskTimes).toEqual([{task_id: 123}])
 
   xit 'requests permission to display desktop notifications'
+
+  it 'sets the visible task', ->
+    scope.setVisibleTask(123)
+    expect(scope.visibleTaskId).toEqual(123)
+    
+  it 'checks the visible task', ->
+    scope.visibleTaskId = 123
+    expect(scope.isVisibleTask(123)).toEqual(true)
+    expect(scope.isVisibleTask(456)).toEqual(false)
