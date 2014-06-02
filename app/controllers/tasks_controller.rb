@@ -5,7 +5,7 @@ class TasksController < ApplicationController
   respond_to :html, only: :index
 
   def index
-    @tasks = @tasks.open.prioritized
+    @tasks = @tasks.includes(:task_times).open.prioritized
     @current_task_times = current_user.current_task_times
     respond_with @tasks
   end

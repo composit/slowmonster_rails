@@ -66,6 +66,11 @@ describe Task do
     expect( task.to_json ).to match /"child_task_joiners":/ 
   end
 
+  it 'includes chart numbers in the json' do
+    task = create :task
+    expect(task.to_json).to match /"chart_numbers":/
+  end
+
   it 'sorts by priority' do
     task_2 = create :task, priority: 2
     task_1 = create :task, priority: 1
@@ -194,6 +199,16 @@ describe Task do
           expect( task.total_value( 2.hours.ago, 1.hour.ago ) ).to eq 1
         end
 
+        it 'returns the daily average since a time' do
+          task = create :task
+          task.task_times << create(:task_time, started_at: 2.hours.ago, ended_at: 1.hour.ago)
+          task.task_times << create(:task_time, started_at: 27.hours.ago, ended_at: 24.hours.ago)
+          task.task_times << create(:task_time, started_at: 53.hours.ago, ended_at: 48.hours.ago)
+          expect(task.daily_average_since(1.day.ago)).to eq 1
+          expect(task.daily_average_since(2.days.ago)).to eq 2 
+          expect(task.daily_average_since(3.days.ago)).to eq 3 
+        end
+
         context 'incomplete task times' do
           let( :task ) { create :task }
 
@@ -222,4 +237,6 @@ describe Task do
       end
     end
   end
+
+  it 'returns chart numbers'
 end

@@ -19,7 +19,7 @@ class Task < ActiveRecord::Base
   scope :prioritized, order: :priority
 
   def as_json( options )
-    super( options.merge( include: [:parent_task_joiners, :child_task_joiners] ) )
+    super(options.merge(include: [:parent_task_joiners, :child_task_joiners], methods: [:chart_numbers]))
   end
 
   def ancestor_task_ids
@@ -46,6 +46,14 @@ class Task < ActiveRecord::Base
   def total_value( start_threshold = nil, end_threshold = nil )
     #TODO move this into the report or report_task
     self_seconds( start_threshold, end_threshold ) + self_amount( start_threshold, end_threshold ) + childs_total( start_threshold, end_threshold )
+  end
+
+  def daily_average_since(time)
+    total_value(time) / (Time.zone.now.to_date - time.to_date)
+  end
+
+  def chart_numbers
+    [daily_average_since(4.weeks.ago), daily_average_since(2.weeks.ago), daily_average_since(1.week.ago), daily_average_since(1.day.ago)]
   end
 
   private

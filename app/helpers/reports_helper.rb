@@ -6,8 +6,4 @@ module ReportsHelper
     color = 'red' if amount_done_since(task, since_time) > high_amount_expected
     color
   end
-
-  def amount_done_since(task, time)
-    task.total_value(time) / (Time.zone.now.to_date - time.to_date)
-  end
 end
