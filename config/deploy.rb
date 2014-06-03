@@ -36,7 +36,7 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache sockets vendor/bundle public/sys
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-set :rvm_ruby_version, '2.0.0-p247'
+set :rvm_ruby_version, '2.1.2'
 set :rvm_type, :system
 
 set :bower_roles, :app
