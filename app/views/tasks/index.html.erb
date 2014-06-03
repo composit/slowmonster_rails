@@ -16,6 +16,7 @@
       <div ng-controller="taskCtrl" ng-show="isVisibleTask(task.id)">
         <div ng-click="startTask()" class='clickable'>start</div>
         <div class='content'>{{task.content}}</div>
+        <div>Four week ave: {{task.chart_numbers[0]}}</div>
         <rickshaw-chart rickshaw-options="options" rickshaw-features="features" rickshaw-series="series">
         </rickshaw-chart>
       </div>
