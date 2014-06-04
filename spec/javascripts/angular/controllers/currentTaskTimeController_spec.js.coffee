@@ -8,7 +8,8 @@ describe 'currentTaskTimeCtrl', ->
   beforeEach inject ($rootScope, $controller, _TaskTime_, _$httpBackend_) ->
     TaskTime = _TaskTime_
     scope = $rootScope.$new()
-    scope.taskTime = {id: 789, task_id: 345}
+    scope.tasks = [{id: 456, content: 'other task'}, {id: 345, content: 'good task'}]
+    scope.taskTime = {id: 789, task_id: 345, go_seconds: 123}
     scope.removeTaskTime = ->
     $controller('currentTaskTimeCtrl', {$scope: scope})
     $httpBackend = _$httpBackend_
@@ -18,9 +19,8 @@ describe 'currentTaskTimeCtrl', ->
     #$httpBackend.verifyNoOutstandingExpectation()
     #$httpBackend.verifyNoOutstandingRequest()
 
-  it 'finds the task content', ->
-    scope.tasks = [{id: 456, content: 'other task'}, {id: 345, content: 'good task'}]
-    expect(scope.taskContent()).toEqual('good task')
+  it 'assigns the task', ->
+    expect(scope.task.content).toEqual('good task')
 
   describe 'when stopping a task time', ->
     it 'stops a task time', ->
@@ -36,8 +36,9 @@ describe 'currentTaskTimeCtrl', ->
 
     xit 'stops the timers'
 
-  it 'starts a timer', ->
-    expect(scope.counter).toEqual(25*60)
+  describe 'when instantiated', ->
+    it 'starts a timer', ->
+      expect(scope.counter).toEqual(123)
 
   describe 'when the work timer finishes', ->
     xit 'starts a break timer'

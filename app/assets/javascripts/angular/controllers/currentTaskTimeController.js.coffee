@@ -3,10 +3,11 @@
 angular.module('slowMonster.controllers')
   .controller('currentTaskTimeCtrl', ['$scope', 'TaskTime', '$timeout', 'Notifier', ($scope, TaskTime, $timeout, Notifier) ->
 
-    $scope.taskContent = () ->
+    $scope.assignTask = () ->
       for task in $scope.tasks
         if task.id == $scope.taskTime.task_id
-          return task.content
+          $scope.task = task
+          $scope.counter = task.go_seconds
 
     $scope.stopTaskTime = () ->
       taskTimeId = $scope.taskTime.id
@@ -15,26 +16,26 @@ angular.module('slowMonster.controllers')
         $timeout.cancel($scope.workTimer)
         $timeout.cancel($scope.breakTimer)
 
-    $scope.counter = 25*60
-
     $scope.breakTick = ->
       $scope.counter--
-      if($scope.counter == 0)
-        Notifier("break's over. do some stuff!")
+      Notifier("break's over. do some stuff!") if($scope.counter == 0)
+      if($scope.counter <= 0)
         $scope.stopTaskTime()
       else
         $scope.breakTimer = $timeout($scope.breakTick, 1000)
 
     $scope.workerTick = ->
       $scope.counter--
-      if($scope.counter == 0)
-        Notifier("take a break!")
+      Notifier("take a break!") if($scope.counter == 0)
+      if($scope.counter <= 0)
         $scope.breaktime = true
-        $scope.counter = 5*60
+        $scope.counter = $scope.taskTime.break_seconds
         $scope.breakTimer = $timeout($scope.breakTick, 1000)
       else
         $scope.workTimer = $timeout($scope.workerTick, 1000)
 
+    $scope.assignTask()
+    $scope.counter = $scope.taskTime.go_seconds
     $scope.workTimer = $timeout($scope.workerTick, 1000)
     $scope.breakTimer = null
   ])
