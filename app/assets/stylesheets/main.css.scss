@@ -25,8 +25,11 @@ body {
     background-color: $pallate_two;
   }
 
-  a, a:hover {
+  a {
     color: $pallate_five;
+  }
+
+  a, a:hover {
     text-decoration: none;
     font-weight: bold;
   }
@@ -34,5 +37,9 @@ body {
   .clickable {
     cursor: pointer;
     font-weight: bold;
+  }
+
+  .clickable:hover, a:hover {
+    color: orange;
   }
 }
