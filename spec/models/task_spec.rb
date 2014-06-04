@@ -66,11 +66,6 @@ describe Task do
     expect( task.to_json ).to match /"child_task_joiners":/ 
   end
 
-  it 'includes chart numbers in the json' do
-    task = create :task
-    expect(task.to_json).to match /"chart_numbers":/
-  end
-
   it 'sorts by priority' do
     task_2 = create :task, priority: 2
     task_1 = create :task, priority: 1

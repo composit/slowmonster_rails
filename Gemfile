@@ -25,6 +25,7 @@ gem 'bourbon', '~> 2.1.1'
 gem 'cancan', '~> 1.6.10'
 gem 'jquery-rails',  '~> 2.1.4'
 gem 'jquery-ui-rails', '~> 4.0.5'
+gem 'oj', '~> 2.9.4'
 gem 'rails-backbone', '~> 0.9.10'
 gem 'rabl', '~> 0.8.6'
 

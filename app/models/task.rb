@@ -19,7 +19,7 @@ class Task < ActiveRecord::Base
   scope :prioritized, order: :priority
 
   def as_json( options )
-    super(options.merge(include: [:parent_task_joiners, :child_task_joiners], methods: [:chart_numbers]))
+    super(options.merge(include: [:parent_task_joiners, :child_task_joiners]))
   end
 
   def ancestor_task_ids
