@@ -245,4 +245,4 @@ DEPENDENCIES
   timecop (~> 0.6.3)
   uglifier (>= 2.2.1)
   unicorn (~> 4.6.3)
-  unicorn-worker-killer
+  unicorn-worker-killer (~> 0.4.2)
