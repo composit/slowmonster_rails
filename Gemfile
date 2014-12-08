@@ -7,6 +7,7 @@ gem 'rails', '~>3.2.15'
 
 gem 'pg', '~> 0.17.0'
 gem 'unicorn', '~> 4.6.3'
+gem 'unicorn-worker-killer', '~> 0.4.2'
 
 # Gems used only for assets and not required
 # in production environments by default.
