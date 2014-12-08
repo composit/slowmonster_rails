@@ -56,6 +56,12 @@ describe Task do
     expect(task.reload.priority).to eq 123
   end
 
+  it 'requires days_in_week' do
+    task = build :task, days_in_week: nil
+    expect(task).to_not be_valid
+    expect(task.errors.full_messages).to eq ['Days in week can\'t be blank']
+  end
+
   describe 'as json' do
     before do
       @task = build(:task)

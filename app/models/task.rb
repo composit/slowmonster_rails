@@ -4,6 +4,7 @@ class Task < ActiveRecord::Base
   attr_accessible :content
   validates :content, presence: true
   validates :user, presence: true
+  validates :days_in_week, presence: true
   validates_with TaskAssociationValidator
 
   scope :open, where(closed_at: nil)

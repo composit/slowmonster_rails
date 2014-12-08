@@ -9,7 +9,11 @@ angular.module('slowMonster.controllers')
 
     $scope.setTask($routeParams.taskId)
 
-    $scope.fourWeekAve = '-'
+    $scope.weekFourAve = '-'
+    $scope.weekThreeAve = '-'
+    $scope.weekTwoAve = '-'
+    $scope.weekOneAve = '-'
+    $scope.totalToday = '-'
 
     $scope.startTask = ->
       TaskTime.save { task_id: $scope.task.id }, (taskTime) ->
@@ -35,7 +39,11 @@ angular.module('slowMonster.controllers')
     $scope.getChartNumbers = ->
       Task.get {taskId: $scope.task.id}, (response) ->
         numbers = response.task.chart_numbers
-        $scope.fourWeekAve = numbers[0]
+        $scope.weekFourAve = numbers[0]
+        $scope.weekThreeAve = numbers[1]
+        $scope.weekTwoAve = numbers[2]
+        $scope.weekOneAve = numbers[3]
+        $scope.totalToday = numbers[4]
         $scope.series = [{
           color: '#1D79A0',
           data: [{x: 0, y: numbers[0]}, {x: 14, y: numbers[1]}, {x: 21, y: numbers[2]}, {x: 27, y: numbers[3]}]

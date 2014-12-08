@@ -2,7 +2,6 @@ FactoryGirl.define do
   sequence( :username ) { |n| "user#{n}" }
   sequence(:token) {|n| "token${n}"}
 
-
   factory :auth_token do
     token
     user
@@ -23,6 +22,7 @@ FactoryGirl.define do
   factory :task do
     user
     content 'something'
+    days_in_week 7
   end
 
   factory :task_amount do
