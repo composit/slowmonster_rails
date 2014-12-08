@@ -48,12 +48,12 @@ class Task < ActiveRecord::Base
     self_seconds(start_threshold, end_threshold) + self_amount(start_threshold, end_threshold) + childs_total(start_threshold, end_threshold)
   end
 
-  def daily_average_since(time)
-    total_value(time) / (Time.zone.now.to_date - time.to_date)
+  def weekly_average(time)
+    total_value(time - 1.week, time) / days_in_week
   end
 
   def chart_numbers
-    [daily_average_since(4.weeks.ago), daily_average_since(2.weeks.ago), daily_average_since(1.week.ago), daily_average_since(1.day.ago)]
+    [weekly_average(3.weeks.ago), weekly_average(2.weeks.ago), weekly_average(1.week.ago), weekly_average(Time.zone.now), total_value(Time.zone.now.beginning_of_day)]
   end
 
   def go_seconds

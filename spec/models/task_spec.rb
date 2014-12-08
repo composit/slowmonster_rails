@@ -207,13 +207,13 @@ describe Task do
         end
 
         it 'returns the daily average since a time' do
-          task = create :task
+          task = create :task, days_in_week: 5
           task.task_times << create(:task_time, started_at: 2.hours.ago, ended_at: 1.hour.ago)
-          task.task_times << create(:task_time, started_at: 27.hours.ago, ended_at: 24.hours.ago)
-          task.task_times << create(:task_time, started_at: 53.hours.ago, ended_at: 48.hours.ago)
-          expect(task.daily_average_since(1.day.ago)).to eq 1
-          expect(task.daily_average_since(2.days.ago)).to eq 2 
-          expect(task.daily_average_since(3.days.ago)).to eq 3 
+          task.task_times << create(:task_time, started_at: 1.week.ago - 2.hours, ended_at: 1.week.ago)
+          task.task_times << create(:task_time, started_at: 2.weeks.ago - 5.hours, ended_at: 2.weeks.ago)
+          expect(task.weekly_average(Time.zone.now)).to eq 0.2
+          expect(task.weekly_average(1.week.ago)).to eq 0.4
+          expect(task.weekly_average(2.weeks.ago)).to eq 1
         end
 
         context 'incomplete task times' do
