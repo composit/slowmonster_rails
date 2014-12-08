@@ -1,3 +1,4 @@
+=begin
 # --- Start of unicorn worker killer code ---
 
 if ENV['RAILS_ENV'] == 'production' 
@@ -17,6 +18,7 @@ if ENV['RAILS_ENV'] == 'production'
 end
 
 # --- End of unicorn worker killer code ---
+=end
 
 # This file is used by Rack-based servers to start the application.
 
