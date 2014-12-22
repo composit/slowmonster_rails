@@ -1,7 +1,7 @@
 require 'task_association_validator'
 
 class Task < ActiveRecord::Base
-  attr_accessible :content
+  attr_accessible :content, :days_in_week
   validates :content, presence: true
   validates :user, presence: true
   validates :days_in_week, presence: true

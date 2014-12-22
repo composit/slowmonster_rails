@@ -49,18 +49,18 @@ describe TasksController do
 
     context 'POST create' do
       it 'sets the user' do
-        post :create, 'task' => { 'content' => 'test content' }
+        post :create, 'task' => { 'content' => 'test content', 'days_in_week' => 7 }
         expect( assigns[:task].reload.user_id ).to eq current_user.id
       end
       
       it 'creates a new task' do
         expect {
-          post :create, 'task' => { 'content' => 'test content' }
+          post :create, 'task' => { 'content' => 'test content', 'days_in_week' => 7 }
         }.to change( Task, 'count' ).from( 0 ).to 1
       end
 
       it 'sets the attributes of the new task' do
-        post :create, 'task' => { 'content' => 'test content' }
+        post :create, 'task' => { 'content' => 'test content', 'days_in_week' => 7 }
         expect( assigns[:task].reload.content ).to eq 'test content'
       end
     end
