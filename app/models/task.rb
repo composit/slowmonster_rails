@@ -58,13 +58,19 @@ class Task < ActiveRecord::Base
   end
 
   def go_seconds
-    1500
-    #1500/60
+    if(Rails.env.development?)
+      5
+    else
+      1500
+    end
   end
 
   def break_seconds
-    300
-    #300/60
+    if(Rails.env.development?)
+      5
+    else
+      300
+    end
   end
 
   private

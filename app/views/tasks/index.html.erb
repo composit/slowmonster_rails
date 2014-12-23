@@ -5,7 +5,10 @@
         {{task.content}}
         <span ng-show='breaktime'>BREAK</span>
         {{counter}}
-        <span ng-click="stopTaskTime(taskTime.id)" class='clickable'>stop</a>
+        <span ng-show='breaktime' ng-click="break()" class='clickable'>break now</span>
+        <span ng-click="stopTaskTime()" class='clickable'>stop now</span>
+        <span ng-show='stopped' ng-click="removeTaskTime(taskTime.id)" class='clickable'>dismiss</span>
+        <span ng-show='stopped' ng-click="restartTask()" class='clickable'>restart</span>
       </div>
     </div>
     <hr />

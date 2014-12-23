@@ -29,6 +29,20 @@ describe TaskTime do
     expect(task_time.ended_at).to be_within(1.second).of(Time.zone.now)
   end
 
+  describe 'breaks' do
+    it 'sets the broke_at time' do
+      task_time = build :task_time, broke_at: nil
+      task_time.break
+      expect(task_time.broke_at).to be_within(1.second).of(Time.zone.now)
+    end
+
+    it 'unsets the ended_at time' do
+      task_time = build :task_time, ended_at: Time.zone.now
+      task_time.break
+      expect(task_time.ended_at).to be_nil
+    end
+  end
+
   describe 'determining seconds left' do
     it 'determines how many go seconds are left' do
       task = build(:task)

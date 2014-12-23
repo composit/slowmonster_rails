@@ -15,4 +15,9 @@ class TaskTimesController < ApplicationController
     @task_time.stop
     respond_with :success
   end
+
+  def break
+    @task_time.break
+    respond_with :success
+  end
 end

@@ -67,5 +67,22 @@ describe TaskTimesController do
         }.to raise_error CanCan::AccessDenied
       end
     end
+
+    context 'break' do
+      it 'breaks the task_time' do
+        task_time_stub = mock_model TaskTime
+        TaskTime.stub(:find).with(task_time_stub.id.to_s) {task_time_stub}
+        task_time_stub.should_receive(:break)
+        put :break, id: task_time_stub.id
+      end
+
+      it 'does not allow a user to break a task time they do not have access to' do
+        task_time = create :task_time
+        current_ability.cannot :manage, task_time
+        expect {
+          put :break, id: task_time.id
+        }.to raise_error CanCan::AccessDenied
+      end
+    end
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141208061421) do
+ActiveRecord::Schema.define(:version => 20141223181950) do
 
   create_table "auth_tokens", :force => true do |t|
     t.integer  "user_id"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(:version => 20141208061421) do
     t.integer  "task_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.datetime "broke_at"
   end
 
   add_index "task_times", ["task_id"], :name => "index_task_times_on_task_id"

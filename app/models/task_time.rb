@@ -15,6 +15,12 @@ class TaskTime < ActiveRecord::Base
     update_attribute(:ended_at, Time.zone.now)
   end
 
+  def break
+    self.broke_at = Time.zone.now
+    self.ended_at = nil
+    save!
+  end
+
   def go_seconds
     seconds = task.go_seconds - seconds_since_started
     seconds = seconds.round.to_i

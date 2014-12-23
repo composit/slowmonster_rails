@@ -14,6 +14,7 @@ describe 'currentTaskTimeCtrl', ->
     $controller('currentTaskTimeCtrl', {$scope: scope})
     $httpBackend = _$httpBackend_
     $httpBackend.when('PUT', '/task_times/789/stop?format=json').respond({})
+    $httpBackend.when('POST', '/task_times?format=json').respond({id: 234, task_id: 345, go_seconds: 456})
 
   afterEach ->
     #$httpBackend.verifyNoOutstandingExpectation()
@@ -28,11 +29,10 @@ describe 'currentTaskTimeCtrl', ->
       scope.stopTaskTime()
       expect(TaskTime.stop).toHaveBeenCalledWith({taskTimeId: 789}, jasmine.any(Function))
 
-    it 'removes the task time from the list', ->
-      spyOn(scope, 'removeTaskTime')
+    it 'sets stopped on the scope', ->
       scope.stopTaskTime()
       $httpBackend.flush()
-      expect(scope.removeTaskTime).toHaveBeenCalledWith(789)
+      expect(scope.stopped).toBe(true)
 
     xit 'stops the timers'
 
@@ -40,9 +40,21 @@ describe 'currentTaskTimeCtrl', ->
     it 'starts a timer', ->
       expect(scope.counter).toEqual(123)
 
+  describe 'when restarting a task', ->
+    it 'creates a new taskTime', ->
+      scope.restartTask()
+      $httpBackend.flush()
+      expect(scope.taskTime.id).toEqual(234)
+
+    it 'starts the taskTime', ->
+      scope.restartTask()
+      $httpBackend.flush()
+      expect(scope.counter).toEqual(456)
+
   describe 'when the work timer finishes', ->
     xit 'starts a break timer'
     xit 'sets breaktime to true'
+    xit 'updates the task broke_at time'
     xit 'sends a notification'
 
   describe 'when the break timer finishes', ->

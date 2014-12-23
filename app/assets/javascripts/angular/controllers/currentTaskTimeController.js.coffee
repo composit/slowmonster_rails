@@ -3,18 +3,30 @@
 angular.module('slowMonster.controllers')
   .controller('currentTaskTimeCtrl', ['$scope', 'TaskTime', '$timeout', 'Notifier', ($scope, TaskTime, $timeout, Notifier) ->
 
-    $scope.assignTask = () ->
+    $scope.assignTask = ->
       for task in $scope.tasks
         if task.id == $scope.taskTime.task_id
           $scope.task = task
           $scope.counter = task.go_seconds
 
-    $scope.stopTaskTime = () ->
+    $scope.stopTaskTime = ->
       taskTimeId = $scope.taskTime.id
       TaskTime.stop {taskTimeId: taskTimeId}, ->
-        $scope.removeTaskTime(taskTimeId)
+        $scope.stopped = true
         $timeout.cancel($scope.workTimer)
         $timeout.cancel($scope.breakTimer)
+
+    $scope.startTaskTime = ->
+      $scope.counter = $scope.taskTime.go_seconds
+      $scope.workTimer = $timeout($scope.workerTick, 1000)
+      $scope.breakTimer = null
+      $scope.breaktime = false
+      $scope.stopped = false
+
+    $scope.restartTask = ->
+      TaskTime.save { task_id: $scope.task.id }, (taskTime) ->
+        $scope.taskTime = taskTime
+        $scope.startTaskTime()
 
     $scope.breakTick = ->
       $scope.counter--
@@ -28,14 +40,17 @@ angular.module('slowMonster.controllers')
       $scope.counter--
       Notifier("take a break!") if($scope.counter == 0)
       if($scope.counter <= 0)
-        $scope.breaktime = true
-        $scope.counter = $scope.taskTime.break_seconds
-        $scope.breakTimer = $timeout($scope.breakTick, 1000)
+        $scope.break()
       else
         $scope.workTimer = $timeout($scope.workerTick, 1000)
 
+    $scope.break = ->
+      TaskTime.break {taskTimeId: $scope.taskTime.id}, ->
+        $scope.breaktime = true
+        $scope.counter = $scope.taskTime.break_seconds
+        $timeout.cancel($scope.breakTimer)
+        $scope.breakTimer = $timeout($scope.breakTick, 1000)
+
     $scope.assignTask()
-    $scope.counter = $scope.taskTime.go_seconds
-    $scope.workTimer = $timeout($scope.workerTick, 1000)
-    $scope.breakTimer = null
+    $scope.startTaskTime()
   ])
