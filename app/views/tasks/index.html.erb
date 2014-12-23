@@ -17,7 +17,11 @@
         <div ng-click="startTask()" class='clickable'>start</div>
         <div class='content'>{{task.content}}</div>
         <div>Weekly averages: {{weekFourAve}}, {{weekThreeAve}}, {{weekTwoAve}}, {{weekOneAve}}</div>
-        <div>Total today: {{totalToday}}</div>
+        <div>
+          Total today: {{totalToday}}
+          <span class='clickable' ng-click="addAmount()">add</span>
+          <input type='text' ng-model='amountToAdd' size='4'/>
+        </div>
         <rickshaw-chart rickshaw-options="options" rickshaw-features="features" rickshaw-series="series">
         </rickshaw-chart>
       </div>

@@ -17,11 +17,11 @@ body {
   margin-top: 0;
   background-color: $pallate_three;
 
-  .even-list-task .content{
+  .even-list-task .content {
     background-color: $pallate_one;
   }
 
-  .odd-list-task .content{
+  .odd-list-task .content {
     background-color: $pallate_two;
   }
 
@@ -41,5 +41,12 @@ body {
 
   .clickable:hover, a:hover {
     color: orange;
+  }
+
+  input {
+    background-color: $pallate_three;
+    border: none;
+    color: $pallate_five;
+    font-size: 20px;
   }
 }

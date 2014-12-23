@@ -18,6 +18,7 @@ describe 'taskCtrl', ->
     $httpBackend = _$httpBackend_
     $httpBackend.when('POST', '/task_times?format=json').respond({})
     $httpBackend.when('GET', '/tasks/456?format=json').respond({task: {chart_numbers: [1,2,3,4]}})
+    $httpBackend.when('PUT', '/tasks/456/add_amount?amount=1&format=json').respond({total_today: 789})
 
   afterEach ->
     $httpBackend.verifyNoOutstandingExpectation()
@@ -38,6 +39,18 @@ describe 'taskCtrl', ->
       $httpBackend.flush()
       expect($rootScope.$emit).toHaveBeenCalledWith('start task', jasmine.any(Object))
 
+  describe 'adding an amount', ->
+    it 'adds an amount to the task', ->
+      spyOn(Task, 'addAmount')
+      @scope.amountToAdd = '789'
+      @scope.addAmount()
+      expect(Task.addAmount).toHaveBeenCalledWith({taskId: 456, amount: '789'}, jasmine.any(Function))
+
+    it 'updates the totalToday value', ->
+      @scope.addAmount()
+      $httpBackend.flush()
+      expect(@scope.totalToday).toEqual(789)
+
   describe 'when becoming visible', ->
     it 'gets the chart numbers', ->
       spyOn(Task, "get")
@@ -50,7 +63,7 @@ describe 'taskCtrl', ->
       $httpBackend.flush()
       expect(@scope.series[0].data).toEqual([{x: 0, y: 1}, {x: 14, y: 2}, {x: 21, y: 3}, {x: 27, y: 4}])
 
-    it 'sets the four week ave', ->
+    it 'sets the week four ave', ->
       @scope.getChartNumbers()
       $httpBackend.flush()
-      expect(@scope.fourWeekAve).toEqual(1)
+      expect(@scope.weekFourAve).toEqual(1)

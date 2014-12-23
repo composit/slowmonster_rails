@@ -14,10 +14,15 @@ angular.module('slowMonster.controllers')
     $scope.weekTwoAve = '-'
     $scope.weekOneAve = '-'
     $scope.totalToday = '-'
+    $scope.amountToAdd = 1
 
     $scope.startTask = ->
       TaskTime.save { task_id: $scope.task.id }, (taskTime) ->
         $rootScope.$emit('start task', taskTime)
+
+    $scope.addAmount = ->
+      Task.addAmount {taskId: $scope.task.id, amount: $scope.amountToAdd}, (task) ->
+        $scope.totalToday = task.total_today
 
     $scope.options = {
       renderer: 'area',

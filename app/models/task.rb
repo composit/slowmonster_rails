@@ -50,7 +50,7 @@ class Task < ActiveRecord::Base
   end
 
   def weekly_average(time)
-    total_value(time - 1.week, time) / days_in_week
+    (total_value(time - 1.week, time) / days_in_week).to_f
   end
 
   def chart_numbers
