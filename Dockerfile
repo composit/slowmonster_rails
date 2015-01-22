@@ -22,7 +22,7 @@ RUN adduser --disabled-password --home=/rails --gecos "" rails
 RUN apt-get install -y libpq-dev # pg
 
 # development dependencies
-RUN apt-get install -y libqtwebkit-dev # capybara-webkit
+# RUN apt-get install -y libqtwebkit-dev # capybara-webkit
 RUN apt-get install -y sqlite3 libsqlite3-dev # sqlite
 
 # add nodejs
@@ -45,7 +45,7 @@ ADD drunkship_files/unicorn.rb /rails/config/unicorn.rb
 # install bower?
 
 # git is used by npm/bower
-#run apt-get install -y git
+run apt-get install -y git
 
 USER rails
 WORKDIR /rails
