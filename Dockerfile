@@ -9,8 +9,8 @@ RUN apt-get install -y wget build-essential
 RUN wget -O ruby-install-0.4.3.tar.gz https://github.com/postmodern/ruby-install/archive/v0.4.3.tar.gz
 RUN tar -xzvf ruby-install-0.4.3.tar.gz
 RUN cd ruby-install-0.4.3/ && make install
-RUN ruby-install ruby 2.1.2
-ENV PATH $PATH:/opt/rubies/ruby-2.1.2/bin/
+RUN ruby-install ruby 2.1.5
+ENV PATH $PATH:/opt/rubies/ruby-2.1.5/bin/
 
 RUN gem install bundler
 
