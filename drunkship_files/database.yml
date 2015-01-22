@@ -1,0 +1,7 @@
+production:
+  host: <%= ENV['POSTGRES_PORT_5432_TCP_ADDR'] %>
+  database: slowmonster_production
+  username: postgres
+  adapter: postgresql
+  encoding: utf8
+  pool: 5
