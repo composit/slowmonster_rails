@@ -33,13 +33,13 @@ RUN apt-get install -y nodejs
 RUN chown -R rails:rails /tmp
 
 USER root
-ADD code /rails
-RUN mkdir -p /rails/tmp/sockets/slowmonster
-RUN chown -R rails:rails /rails
+ADD code /rails/slowmonster
+RUN mkdir -p /rails/slowmonster/tmp/sockets/slowmonster
+RUN chown -R rails:rails /rails/slowmonster
 
-ADD drunkship_files/application.yml /rails/config/application.yml
-ADD drunkship_files/interim_database.yml /rails/config/database.yml
-ADD drunkship_files/unicorn.rb /rails/config/unicorn.rb
+ADD drunkship_files/application.yml /rails/slowmonster/config/application.yml
+ADD drunkship_files/interim_database.yml /rails/slowmonster/config/database.yml
+ADD drunkship_files/unicorn.rb /rails/slowmonster/config/unicorn.rb
 
 # install npm?
 # install bower?
@@ -48,10 +48,10 @@ ADD drunkship_files/unicorn.rb /rails/config/unicorn.rb
 run apt-get install -y git
 
 USER rails
-WORKDIR /rails
+WORKDIR /rails/slowmonster
 RUN npm install
 RUN bundle install --binstubs --deployment --without test development
 RUN bundle exec rake assets:precompile
-ADD drunkship_files/database.yml /rails/config/database.yml
+ADD drunkship_files/database.yml /rails/slowmonster/config/database.yml
 
-CMD bundle exec unicorn_rails -E production -c /rails/config/unicorn.rb
+CMD bundle exec unicorn_rails -E production -c /rails/slowmonster/config/unicorn.rb
