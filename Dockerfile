@@ -32,17 +32,25 @@ RUN apt-get install -y nodejs
 
 RUN chown -R rails:rails /tmp
 
+# bundle gems
+ADD code/Gemfile /tmp/Gemfile
+ADD code/Gemfile.lock /tmp/Gemfile.lock
+USER rails
+WORKDIR /tmp
+RUN bundle install --binstubs --deployment --without test development
+
 USER root
 ADD code /rails/slowmonster
+# move the gems into the app 
+RUN mv /tmp/.bundle /rails/slowmonster
+RUN mv /tmp/vendor/bundle /rails/slowmonster/vendor
+RUN mv /tmp/bin /rails/slowmonster/bin
 RUN mkdir -p /rails/slowmonster/tmp/sockets/slowmonster
 RUN chown -R rails:rails /rails/slowmonster
 
 ADD drunkship_files/application.yml /rails/slowmonster/config/application.yml
 ADD drunkship_files/interim_database.yml /rails/slowmonster/config/database.yml
 ADD drunkship_files/unicorn.rb /rails/slowmonster/config/unicorn.rb
-
-# install npm?
-# install bower?
 
 # git is used by npm/bower
 run apt-get install -y git
