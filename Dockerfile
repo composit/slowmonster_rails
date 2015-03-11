@@ -45,7 +45,7 @@ ADD code /rails/slowmonster
 RUN mv /tmp/.bundle /rails/slowmonster
 RUN mv /tmp/vendor/bundle /rails/slowmonster/vendor
 RUN mv /tmp/bin /rails/slowmonster/bin
-RUN mkdir -p /rails/slowmonster/tmp/sockets/slowmonster
+RUN mkdir -p /rails/slowmonster/tmp/sockets
 RUN chown -R rails:rails /rails/slowmonster
 
 ADD drunkship_files/application.yml /rails/slowmonster/config/application.yml
