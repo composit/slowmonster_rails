@@ -20,3 +20,5 @@ config/application.yml
 spec/tmp/*
 vendor/assets/components
 node_modules
+config/database.yml
+config/unicorn.rb
