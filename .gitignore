@@ -11,14 +11,12 @@
 /db/*.sqlite3
 
 # Ignore all logfiles and tempfiles.
-/log/*.log
-/tmp
+log/*.log
+tmp
 .jhw-cache/
 runner.html
 runner.filter.html
-config/application.yml
 spec/tmp/*
 vendor/assets/components
 node_modules
 config/database.yml
-config/unicorn.rb
