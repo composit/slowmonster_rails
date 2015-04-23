@@ -1,0 +1,18 @@
+development: &default
+  host: <%= ENV['DB_HOST'] %>
+  database: slowmonster_development
+  username: <%= ENV['POSTGRES_USERNAME'] %>
+  <% if ENV['POSTGRES_PASSWORD'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  <% end %>
+  adapter: postgresql
+  encoding: utf8
+  pool: 5
+
+test:
+  <<: *default
+  database: slowmonster_test
+
+production:
+  <<: *default
+  database: slowmonster_production
