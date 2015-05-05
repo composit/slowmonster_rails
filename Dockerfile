@@ -17,7 +17,6 @@ ADD Gemfile.lock Gemfile.lock
 RUN bundle install
 
 ADD . /slowmonster
-# move the gems into the app 
 
 # git is used by npm/bower
 run apt-get install -y git
