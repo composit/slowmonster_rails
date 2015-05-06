@@ -16,12 +16,12 @@ ADD Gemfile Gemfile
 ADD Gemfile.lock Gemfile.lock
 RUN bundle install
 
-ADD . /slowmonster
+ADD . /rails/slowmonster
 
 # git is used by npm/bower
 run apt-get install -y git
 
-WORKDIR /slowmonster
+WORKDIR /rails/slowmonster
 RUN mv .git .git.bak
 RUN npm install --unsafe-perm
 RUN mv .git.bak .git
@@ -30,4 +30,4 @@ RUN cp config/interim_database.yml config/database.yml
 RUN RAILS_ENV=production bundle exec rake assets:precompile --trace
 RUN cp config/actual_database.yml config/database.yml
 
-CMD bundle exec unicorn_rails -E production -c /slowmonster/config/unicorn.rb
+CMD bundle exec unicorn_rails -E production -c /rails/slowmonster/config/unicorn.rb
