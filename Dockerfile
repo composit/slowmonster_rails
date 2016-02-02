@@ -45,9 +45,10 @@ ADD . /rails/slowmonster
 run apt-get install -y git
 
 WORKDIR /rails/slowmonster
-#RUN mv .git .git.bak
+# need to temporarily move the .git file (which is a pointer to a dir that doesn't exist in the container)
+RUN mv .git .git.bak
 RUN npm install --unsafe-perm
-#RUN mv .git.bak .git
+RUN mv .git.bak .git
 
 RUN cp config/interim_database.yml config/database.yml
 RUN RAILS_ENV=production bundle exec rake assets:precompile --trace
