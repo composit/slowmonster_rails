@@ -19,6 +19,5 @@ runner.filter.html
 spec/tmp/*
 vendor/assets/components
 node_modules
-config/database.yml
 npm-debug.log
 public/assets
