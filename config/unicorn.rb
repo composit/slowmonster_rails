@@ -1,4 +1,4 @@
-app_root = "/rails/slowmonster"
+app_root = "/root/code"
 
 worker_processes 2
 working_directory "#{app_root}"
