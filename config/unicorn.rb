@@ -4,8 +4,8 @@ worker_processes 2
 working_directory "#{app_root}"
 preload_app true
 timeout 30
-listen "#{app_root}/tmp/sockets/unicorn.sock", :backlog => 2048
-#listen 8080
+#listen "#{app_root}/tmp/sockets/unicorn.sock", :backlog => 2048
+listen 8080
 
 pid "#{app_root}/tmp/pids/unicorn.pid"
 stderr_path "#{app_root}/log/unicorn.log"
