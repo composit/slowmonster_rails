@@ -6,8 +6,9 @@ gem 'rails', '~>3.2.15'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg', '~> 0.17.0'
-gem 'unicorn', '~> 4.6.3'
+#gem 'unicorn', '~> 4.6.3'
 #gem 'unicorn-worker-killer', '~> 0.4.2'
+gem 'thin'
 
 # Gems used only for assets and not required
 # in production environments by default.
